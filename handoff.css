@@ -1,0 +1,1216 @@
+/* handoff design system — shared across every page. Tokens + components; pages consume these rather
+   than shipping bespoke palettes. Var NAMES are a public API (≈30 views carry inline styles that read
+   them) — values change freely, names never do.
+
+   No webfont is loaded. The UI face is the platform's own text face (SF on macOS/iOS, Segoe UI
+   Variable on Windows, Roboto on Android): it is already resident, hinted for the screen it is on, and
+   paints on the first frame — no FOUT, no third-party request, and none of the quirk that a novelty
+   display face stamps on every heading. Mono is reserved for what is genuinely machine data:
+   addresses, hashes, ids, code, numeric columns. */
+/* ===== NIGHT — ink violet, not black. =====
+   The palette is a deliberately unlikely triad: ACID (a lime-yellow at full chroma), ULTRAVIOLET, and
+   CORAL, over a ground that is black tilted toward violet rather than neutral. On paper acid-lime and
+   coral fight; they resolve because they never carry the same job — acid is only ever a FILL for
+   something live and always takes near-black text on it, ultraviolet is the only thing that is ever a
+   link or a structural line, and coral appears only where something is wrong or hot. Three colors, three
+   meanings, no overlap, so the eye reads the page as state rather than as decoration.
+
+   ACID is identical in both themes (#ccff3b): it is the brand's one constant, and it is legible against
+   both the ink and the periwinkle because it is used as a filled plate, never as text on the ground.
+   Everything ELSE inverts. --accent2 is the acid tuned for the rare case where acid must be TEXT, so it
+   darkens in day; --live is the untuned plate color and never moves. */
+:root{
+  --bg:#040409;          /* the ground drops to near-void so the city reads THROUGH the page */
+  --bg2:#08080f;
+  --panel:#21212b;       /* surfaces RISE — a card must be visibly a different object to the ground.
+                            Chroma cut 60% from #1e1e3f at CONSTANT luminance: the violet read as navy
+                            slabs at panel size against the near-black ground, and holding luminance
+                            means every contrast ratio measured against these is unchanged. */
+  --panel2:#2c2c3a;      /* one step up: headers, insets, hovers */
+  --panel3:#303041;      /* two steps up: chips, wells */
+  --line:#43438c;        /* violet edge — a line you can see from across the room */
+  --line2:#7071ca;       /* edge, emphasised */
+  --txt:#eceaff;--txt2:#a6a4cc;--dim:#9796b4;
+  --accent:#a285ff;      /* ULTRAVIOLET — links, structure, the only "interface" color. Lightened from
+                            #8f6bff, which measured 3.51:1 on --panel3 against a 4.5:1 requirement. */
+  --accent2:#ccff3b;     /* ACID as text (safe on ink) */
+  --live:#ccff3b;        /* ACID as plate — IDENTICAL in both themes */
+  --live-fg:#0a0a16;     /* near-black, the only thing that ever sits on acid */
+  --hot:#ff6a4d;         /* CORAL — heat, alerts, outflow */
+  --green:#7ce88a;--amber:#ffc24d;--red:#ff6a4d;--purple:#a285ff;--pink:#ff7eb6;
+  --radius:0px;--radius-sm:0px;   /* crisp: square corners are what let a real extrusion meet its faces */
+  /* The ONE exception, and it has to be a token or it is not an exception, it is a leak. A pill is a
+     shape that means "this is a lozenge, not a panel" — an avatar, a live plate, a count. Everything
+     else is square, including badges and status chips, which were carrying hand-picked 5–12px corners
+     in ~250 places and are what makes the product read as half-redesigned. */
+  --radius-pill:100px;
+  --hdr-bg:rgba(7,7,17,.72);--ov:rgba(4,4,12,.7);--inset:#0a0a1a;
+  /* SCRIM — the one tint for chrome that floats OVER the live 3D canvas (the HUD chips, the key, the
+     search box, the loading veil). It is the only place translucency is still allowed on a surface
+     that carries text, and it earns the exception: the thing behind it is a scene the reader is meant
+     to keep seeing, and the text on it is 10px of machine data, not body copy. It inverts, so the
+     scene's furniture stops being dark-only. */
+  --scrim:rgba(4,4,12,.72);
+  --av-plate:#0a0a1a;--av-crest:#16162e;--av-plate-op:.82;--btn-fg:#0a0a16;
+  /* DAY, BY NAME, IN BOTH THEMES. The paper values live here once, under their DESIGN.md names, and the
+     DAY block below reads them. A surface that must be paper whatever the page theme (PRODUCT.md:
+     "standalone pages and modals use light mode") scopes them onto itself — `#x{--panel:var(--panel-day)}`
+     — so every child reads day tokens and the surface names no colour of its own. */
+  --bg-day:#dfe3f4;--panel-day:#ffffff;--panel2-day:#eef1fb;--panel3-day:#e0e5f6;--inset-day:#e2e5f3;
+  --line-day:#9fabd8;--line2-day:#6f7fbe;--txt-day:#0b0b18;--txt2-day:#41436b;--dim-day:#585b86;
+  --accent-day:#4a24e0;--accent2-day:#4f6a00;--btn-fg-day:#ffffff;--hot-day:#c32700;--green-day:#0d7546;--amber-day:#865f00;
+  --edge-day:rgba(255,255,255,.85);--sh-key-day:rgba(18,18,26,.16);--sh-contact-day:rgba(18,18,26,.11);
+  --font-ui:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI Variable Text','Segoe UI',Inter,Roboto,ui-sans-serif,system-ui,sans-serif;
+  --font-mono:ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;
+  --font-hdr:var(--font-ui);
+  /* Spatial contract.  The UI has a few dense data views, but its default rhythm should
+     still feel like a calm, deliberate field rather than a stack of cramped controls. */
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;
+  --space-7:clamp(44px,5vw,80px);--space-8:clamp(64px,8vw,128px);
+  --gutter:clamp(20px,3vw,52px);--maxw:1680px;
+  --persp:1400px;
+
+  /* ═══════════════════════════════════════════════════════════════════════════════════════════════
+     ELEVATION — THE DESIGN RULE, NOT A SET OF SHADOWS.
+
+     A shadow is not a style you apply to a box. It is what happens when a solid object at a known
+     HEIGHT is lit by a light at a known POSITION. Both of those are defined here, once, and every
+     shadow in the product is DERIVED from them. Nothing in this codebase may author an offset, a blur
+     or an opacity by hand — if a box needs to sit higher, it changes its TIER, and its shadow, its
+     z-translation and its parallax all follow from that one number together.
+
+     ── THE LIGHT ──────────────────────────────────────────────────────────────────────────────────
+     One source. Centred horizontally, high above the top of the viewport, at --lz above the page
+     plane. Its ground projection is the origin the tilt engine measures every element against, so the
+     shadows radiate from exactly the point the perspective converges toward. This is also why --edge
+     is a highlight on the TOP edge only: the same light that casts the shadow lights that edge.
+
+     ── THE HEIGHT SCALE ───────────────────────────────────────────────────────────────────────────
+     Height is chosen by IMPORTANCE and INTERACTIVITY. It is never chosen by eye.
+
+       --e-0    0   GROUND      the page itself, full-bleed bands, rules, dividers. Not an object.
+       --e-1    4   RESTING     read-only surfaces: rows, chips, wells, disclosure bars.
+       --e-2   10   STANDING    the default object: cards, stat cells, feature boxes.
+       --e-3   20   LIVE        surfaces that accept input: buttons, inputs, tabs, tappable rows.
+       --e-4   36   ENGAGED     the hover/focus state of anything at --e-3. Reachable only by input.
+       --e-5   64   COMMITTED   the primary action, an opened sheet, the live panel. One per region.
+       --e-6  120   FLOATING    off the page entirely: modals, popovers, toasts, the sidebar.
+
+     Two rules that make the scale mean something:
+       · A tier is a PROMISE ABOUT BEHAVIOUR. --e-3 and above must respond to input; if it does not
+         respond, it does not belong above --e-2, however important it looks.
+       · Hover moves a thing exactly ONE tier, never two. The jump from resting to engaged is the
+         entire vocabulary of "you can touch this", and it is worthless if some things jump further.
+
+     ── THE DERIVATION ─────────────────────────────────────────────────────────────────────────────
+     --lx/--ly are the element's signed px offset from the light's ground projection, written per
+     frame by the perspective engine (web/views/*.js) alongside --t/--h. Similar triangles then give
+     the cast offset for an object of height h under a light at height --lz:
+
+         offset = (element − light) × h ÷ lz
+
+     which is the whole of --shadow below. A card on the left throws its shadow left, one on the right
+     throws it right, both converge on the light, and every one of them agrees about where it is.
+     ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+  --e-0:0; --e-1:4; --e-2:10; --e-3:20; --e-4:36; --e-5:64; --e-6:120;
+  /* ═══ ONE MATERIAL, FOUR ANGLES TO THE LIGHT ═══════════════════════════════════════════════════
+     The front is GLASS: a tinted, blurred pane you read the city through. The three wall colours are
+     that same tint at three angles to the light — and they are DERIVED from --panel by mixing toward
+     white or black, never picked. Picking them by hand is what produced a saturated #6a6ae0 band
+     across the top of every box: a hue jump, which no real material makes. A lit face is the same
+     colour a little brighter; a shaded one is the same colour a little darker. That is the whole rule.
+
+     THE DELTAS ARE SIZED TO THE WALL. They were 12%/10%/22% when a wall projected under a pixel, on the
+     reasoning that a sliver seen edge-on is a whisper of tone. At a wall you can actually see the
+     thickness of, that same whisper reads as no wall at all — the face and its own edge are the same
+     colour, so the box goes back to looking flat. A 12px top face turned toward a light source is
+     visibly brighter than the front, and the underside is visibly darker. These are the tones of one
+     material at four angles, not four colours; the front is still the only one you read against. */
+  /* HOW MUCH GLASS A SURFACE THAT CARRIES TEXT CAN AFFORD.
+     62% looked best and measured worst: over a live 3D ground the worst pixels behind body text came in
+     at 1.1:1 against a 4.5:1 requirement. The MEDIAN was fine, which is exactly why eyeballing it passed
+     — a translucent panel is only as readable as its darkest patch of backdrop, and the backdrop moves.
+     88% moved the median but not the floor — a translucent panel is only as readable as its DARKEST
+     patch of backdrop, and behind a live scene that patch moves. So a surface that carries text is
+     opaque, full stop. The ground still shows BETWEEN cards, which is where the depth was always
+     legible anyway: it was never the transparency doing that work, it was the walls, the cast shadow
+     and the parallax. Glass that costs you the text is decoration charged to the reader. */
+  --glass:100%;
+  --face:color-mix(in srgb, var(--panel) var(--glass), transparent);
+  --face-top:color-mix(in srgb, var(--panel) 72%, #fff);      /* points at the light — clearly brighter */
+  --face-side:color-mix(in srgb, var(--panel) 74%, #000);     /* grazing — clearly darker */
+  --face-bottom:color-mix(in srgb, var(--panel) 54%, #000);   /* turned away — darkest, never black */
+  --rim:color-mix(in srgb, var(--line) 62%, transparent);     /* the glass rim: a hairline, not a border */
+  --lz:2600;                      /* light height above the page plane (unitless: it is a divisor) */
+  --sh-key:rgba(0,0,0,.34);       /* the cast shadow */
+  --sh-contact:rgba(0,0,0,.26);   /* the tight contact shadow that grounds the object */
+  --edge:rgba(255,255,255,.09);   /* 1px top-edge highlight — same light, so the TOP edge only */
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --fast:.14s;--med:.28s;--slow:.6s;
+}
+/* ===== DAY — cold periwinkle paper. Not white: white is the ground everyone already has. ===== */
+:root[data-theme="light"]{
+  --bg:var(--bg-day);          /* the ground darkens so a white card is unmistakably ON it */
+  --bg2:#e7eaf7;
+  --panel:var(--panel-day);
+  --panel2:var(--panel2-day);
+  --panel3:var(--panel3-day);
+  --line:var(--line-day);
+  --line2:var(--line2-day);
+  --txt:var(--txt-day);--txt2:var(--txt2-day);--dim:var(--dim-day);
+  --accent:var(--accent-day);      /* ULTRAVIOLET, deepened to hold on paper */
+  /* ACID darkened — only for acid-as-TEXT. #5c7a00 cleared 4.96:1 on a white card and 3.81:1 on the
+     PAPER GROUND, and small labels (the live pips, the timeline readout) sit on the ground, not on a
+     card. A token that only passes on its best backdrop does not pass. Deepened until it clears 4.5:1
+     against --bg, which makes every lighter surface automatic. */
+  --accent2:var(--accent2-day);
+  --live:#ccff3b;        /* ACID plate — unchanged, and it sings against periwinkle */
+  --live-fg:#0a0a16;
+  --hot:var(--hot-day);
+  --green:var(--green-day);--amber:var(--amber-day);--red:var(--hot-day);--purple:#4a24e0;--pink:#b8447a;
+  --hdr-bg:rgba(233,235,247,.72);--ov:rgba(16,14,45,.36);--inset:var(--inset-day);
+  --scrim:rgba(255,255,255,.82);
+  /* --btn-fg is the text that sits on an ACCENT FILL, and accent is the one token that changes VALUE
+     between themes, not just hue: light violet on ink, deep violet on paper. Near-black works on the
+     first and measures 2.45:1 on the second — which is what every accent-filled control in the product
+     (the segmented tabs, the copy buttons, the step numerals) was rendering in daylight. It has to
+     invert with the fill it sits on. (--live-fg does NOT: the acid plate is the same colour in both
+     themes, so its text is too.) */
+  --av-plate:#e2e5f3;--av-crest:#f5f6fc;--av-plate-op:.92;--btn-fg:var(--btn-fg-day);
+  --edge:var(--edge-day);
+  /* DAY. Same derivation, opposite problem: a white panel cannot get meaningfully brighter, so the top
+     face is carried by the rim highlight and the walls only go DOWN — and gently. The old ramp mixed a
+     mid-periwinkle side wall against a white face, which is a 40% value cliff and read as a fat border.
+     The pane also has to stay a pane: 72% white over periwinkle paper still shows the city faintly. */
+  --glass:100%;
+  --face:color-mix(in srgb, var(--panel) var(--glass), transparent);
+  --face-top:#ffffff;
+  --face-side:color-mix(in srgb, var(--panel) 76%, #55608f);
+  --face-bottom:color-mix(in srgb, var(--panel) 56%, #55608f);
+  --rim:color-mix(in srgb, var(--line) 70%, transparent);
+  --sh-key:var(--sh-key-day);--sh-contact:var(--sh-contact-day);
+}
+/* theme toggle button in the header */
+.hd-theme{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;flex:0 0 auto;
+  background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--txt2);
+  cursor:pointer;transition:.14s;padding:0}
+.hd-theme:hover{color:var(--txt);border-color:var(--line2)}
+.hd-theme svg{width:20px;height:20px;display:block}
+.sidebar .hd-theme{width:auto;height:auto;gap:9px;padding:9px 11px;justify-content:flex-start;font-size:14px}
+/* generative avatar — visor plate adapts to theme; the crest carries per-agent color (flat two-tone) */
+.hf-plate{fill:var(--av-plate);fill-opacity:var(--av-plate-op)}
+/* .block tints are derived from the accent tokens now (color-mix), not hardcoded navy/purple hexes —
+   so they follow the palette in BOTH themes instead of needing a per-theme override pair. */
+/* ===== SURFACES =====
+   Every raised thing is a .plane: a solid object standing at a tier of the elevation scale. It does not
+   own a shadow — it owns a HEIGHT, and the shadow follows. .lift and .hoverlift are gone; they were two
+   hand-picked blur radii applied wherever a box seemed like it should pop, which is exactly the habit
+   the scale exists to end. Use a tier. */
+.plane{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  --e:var(--e-2);
+  box-shadow:inset 0 1px 0 0 var(--edge),var(--shadow);
+  transition:transform var(--med) var(--ease),box-shadow var(--med) var(--ease),border-color var(--med) var(--ease)}
+/* one tier, never two — see the rule in the scale above */
+.plane.interactive{--e:var(--e-3)}
+.plane.interactive:hover,.plane.interactive:focus-within{--e:var(--e-4);border-color:var(--line2)}
+/* A ROOM: one camera, its origin tracking the page's 40% horizon (--po, written by the engine).
+   Every direct child that is a box is coplanar inside it and shares the vanishing point. */
+/* THE CAMERA SITS ABOVE THE ROW, NOT INSIDE IT. With perspective-origin at 40% the vanishing point
+   lands in the middle of the row itself, so the middle boxes are dead-on to the camera and show no wall
+   at all — the row read as two solid ends and four flat rectangles. Lifting the origin well above the
+   row puts EVERY box below the camera: all of them show their top wall, and the horizontal component
+   still varies left-to-right, so the row converges instead of hinging. */
+.room{perspective:1500px;perspective-origin:50% var(--po,-90px);transform-style:preserve-3d}
+/* a scene establishes the camera; its children are positioned IN it, not painted on it */
+.scene3d{perspective:var(--persp);perspective-origin:50% 40%;transform-style:preserve-3d}
+/* --t is set per element by the scroll engine: -1 well above the 40% pivot, 0 on it, +1 well below.
+   Boxes take the full angle; TYPE takes about a third of it — enough to sit in the same room, never
+   enough to soften a glyph. The z term is quadratic in --t so things recede as they approach either
+   edge of the viewport rather than only at the bottom. */
+/* ═══ A BOX IS A SOLID, NOT A ROTATED RECTANGLE ═══════════════════════════════════════════════════
+   A flat plane turned in space has no top and no bottom — turn it and you still see one face, which is
+   why rotated cards read as stickers. These are extruded: two faces hinged on the element's own top and
+   bottom edges, folded BACKWARD by the object's thickness, rendered in the same preserve-3d context as
+   the front face. Below the horizon you are looking down at the box and its TOP face shows; scrolled up
+   past the horizon you are looking up at it and its BOTTOM face shows. Nothing switches them — it is
+   the same geometry seen from the other side.
+
+   THICKNESS is not ELEVATION. Elevation is how high the object floats (it drives the shadow); thickness
+   is how deep the object itself is. A heavy floating panel is not a thick plank. Thickness stays thin
+   and grows only slightly with tier, so the boxes read as machined sheet, not as blocks.
+
+   The top face is lit (it points at the light), the bottom face is in shade — same source as --edge. */
+[data-tilt]{will-change:transform}
+/* ═══ A 3D FRAME ═══════════════════════════════════════════════════════════════════════════════════
+   Not a filled slab with a fold at the edge — a FRAME with depth. Two rectangles held apart in Z:
+
+     the FRONT frame   the element itself: a border and nothing else. Open. Content sits on this plane.
+     the BACK plate    ::before, the same rectangle pushed --thick backwards, carrying the tint.
+
+   The four side walls are the space between them, and the shared camera draws them for free. That is
+   the whole trick, and it is why this reads as a box when a folded flap did not: you are not looking at
+   a face edge-on and hoping it projects a pixel, you are looking THROUGH an open frame at a plate
+   behind it, and the offset between the two rectangles is the depth.
+
+   Below the horizon the camera is above the box, so the back plate's top edge falls BELOW the front
+   frame's top edge — you are looking down into the top wall. Scrolled above the horizon it rises above
+   it — you are looking up into the bottom wall. Same geometry, opposite side. Nothing switches.
+
+   The front frame is transparent, so the city shows through the box and the tinted plate behind it. */
+/* ── THE SOLID: six real faces in one shared 3D space ─────────────────────────────────────────────
+   Every previous attempt drew the depth with box-shadow. A shadow is painted in the element's own flat
+   plane: it never occludes anything, and it does not change when the camera moves. Under a moving
+   camera that is exactly what a 2005 page looks like — a sticker of a box.
+
+   A box has height, width AND depth, so it needs six filled faces that exist in the same 3D space and
+   genuinely hide each other. The front sits at z=0 and the body extends BACK to z=-d, so the box is
+   behind its own face and the page keeps its layout. Each wall is anchored to the edge it belongs to
+   and folded 90° about that edge:
+
+       top     anchored top,    rotateX( 90deg)  -> its far edge swings to -Z
+       bottom  anchored bottom, rotateX(-90deg)
+       left    anchored left,   rotateY( 90deg)
+       right   anchored right,  rotateY(-90deg)
+
+   Nothing switches on scroll. When the shared camera pitches past the horizon you start seeing the TOP
+   wall instead of the bottom because of where the camera is — the geometry does it, not a value swap.
+   The `perspective` lives on the shared ancestor (.room), never here: a per-element camera is a skew. */
+.box3d{
+  position:relative;
+  transform-style:preserve-3d;
+  /* THE FRONT FACE IS A PANE OF GLASS, NOT A SLAB.
+     `border:0!important` used to run here and it did two bad things at once: it stripped the 1px
+     var(--line) off every component the engine touched (which is where the page lost its definition)
+     and it left the box with nothing but a flat fill, so the six faces had no rim to meet. A real
+     glass panel has a bright rim where the light grazes its edge — that rim IS the border, and it is
+     what makes a 4px extrusion legible without shouting. */
+  border:1px solid var(--rim);
+  background:var(--face);
+  /* NO backdrop-filter HERE, EVER. `filter`, `backdrop-filter`, `opacity < 1`, `mask` and any
+     `overflow` other than visible all force `transform-style: flat` on the element per spec — which
+     silently collapses the five faces below into the element's own plane. That is a flat sticker of a
+     box, and it is precisely the failure this whole section exists to avoid. Glass here is TRANSLUCENCY
+     plus a RIM plus SHADING, not blur: the city behind is 1px line-art, so there is nothing for a blur
+     to soften anyway. Surfaces that genuinely need blur are the ones that cannot be solids in the first
+     place (.glassflat, the header) — they have no 3D children to lose. */
+  /* inset top-edge highlight (the lit lip) + the cast shadow on the ground */
+  box-shadow:inset 0 1px 0 0 var(--edge),var(--shadow);
+  transition:transform var(--med) var(--ease),box-shadow var(--med) var(--ease),border-color var(--med)
+}
+/* A pane is transparent, so a pane on a pane doubles its own tint and the stack goes muddy. */
+.box3d .box3d{background:color-mix(in srgb,var(--panel) 30%,transparent)}
+
+/* ═══ THE CAMERA MOVE — the missing half of the system ═══════════════════════════════════════════
+   The engine has always written --t (distance from the scroll horizon) and --h (distance from the
+   centre line) onto every box, and until now NOTHING CONSUMED THEM. Every box sat perfectly square to
+   the camera, which is why the extrusions never showed: a solid viewed dead-on shows exactly one face,
+   so five of its six faces projected to zero width and the page read as flat rectangles.
+
+   The rotation is about the box's OWN CENTRE, which is why it cannot break alignment: a transform does
+   not touch layout, and no box moves far enough to collide with the one beside it.
+
+   Signs follow the camera, not taste. Below the horizon (--t > 0) you are looking DOWN at the box, so
+   its top edge leans away and its TOP wall opens. Right of centre (--h > 0) you are looking at it from
+   its left, so its right edge leans away and its LEFT wall opens. Both agree with the shared
+   perspective-origin the .room already establishes, so the rotation deepens the room rather than
+   fighting it.
+
+   ── HOW WIDE A WALL ACTUALLY GETS ──────────────────────────────────────────────────────────────
+   This is the arithmetic that two passes of guessing got wrong, so it is written down:
+
+       visible wall ≈ depth × (offset from the vanishing point ÷ perspective)  +  depth × sin(angle)
+
+   The PERSPECTIVE term dominates and the rotation term is almost nothing. At depth 4px, offset 700px
+   and perspective 1100px the first term is 2.5px and a 2.4° tilt contributes 0.17px — which measured
+   out, on the live page, as walls 0.9px tall. That is not a thin panel, it is a hairline. There were
+   no boxes because the numbers could not produce one.
+
+   So the DEPTH moves and the room's perspective shortens. A card off the vanishing point then shows a
+   wall you can see the thickness of, from the camera alone.
+
+   ── WHY THERE IS NO rotateY HERE ───────────────────────────────────────────────────────────────
+   There was one, keyed to --h, and it is the single worst thing that has been in this file. --h is the
+   box's distance from the centre line, so in a row of six cards every card got a DIFFERENT angle: the
+   leftmost leaned one way, the rightmost the other, and their top edges stopped lining up. A row of
+   cards at six different angles does not read as perspective, it reads as broken.
+
+   The horizontal convergence was never this rule's job. .room already establishes ONE camera with a
+   shared perspective-origin, and a shared camera is exactly what makes boxes left of centre show their
+   right wall and boxes right of centre show their left — for free, from geometry, with every top edge
+   still on one line. That is what perspective IS. Rotating each box by its own position on top of it
+   applies the effect twice and cancels the alignment the camera was giving you.
+
+   rotateX survives because --t is the row's distance from the scroll horizon, and every box in a row
+   shares it. A uniform angle across a row keeps the row a row. That is the whole test: if a transform
+   varies between siblings that are supposed to be coplanar, it does not belong here. */
+/* ═══ PARALLAX — DEPTH YOU CAN SEE MOVE ══════════════════════════════════════════════
+   THE LAG IS MEASURED FROM THE VIEWPORT, NEVER FROM THE DOCUMENT. This block used to read a raw
+   `--sy` (absolute scrollY, written to :root every frame) and translate each box by `--sy * --pk`.
+   That is an offset with no ceiling: it grows for as long as the page is long. On /agents, scrolled
+   to the bottom at scrollY 15271, it had pushed the fixed ground layer 1298px down — clean off the
+   screen — and on any long page it walked the last card 50–80px DOWN into the footer, which is why
+   the tail of a list was sliced in half by the footer band. Worse for the layout: the four tiers lag
+   at four different rates, so the GAP between two neighbouring surfaces changed as you scrolled.
+   Spacing is not allowed to be a function of scroll position.
+
+   --t is the fix and it was already here: the engine writes it per box as that box's distance from
+   the scroll horizon, clamped to ±1. It is a VIEWPORT coordinate, so it says the same thing on line
+   one as on line ten thousand. Driving the lag from it gives the identical relative rate — a tier at
+   the old --pk travels `--pk × vh/2` either side of the horizon, i.e. exactly the old 900×--pk over
+   one viewport of scroll — with none of the accumulating DC offset. A box now travels a bounded
+   ±--lag px about its own laid-out position and can never reach the thing below it.
+
+   The factor is NOT decorative — it is DERIVED from the elevation tier the object already declares.
+   A surface's height above the page decides its shadow, its z-translation and now its scroll rate
+   from the same one number, so a card cannot look high and move low. That is the difference between
+   a parallax effect and a camera: in a camera, every rate agrees.
+
+   Signs: a box enters from the bottom at --t = +1 and leaves at the top at --t = -1, so a POSITIVE
+   coefficient moves it upward relative to the page as you scroll down — a restrained receding roll.
+   Nothing moves forward of the page: 1:1 is the front plane and there is nothing in front of it. */
+.box3d[data-tilt="box"]{
+  transform:
+    translate3d(0, calc(var(--t,0) * var(--lag,0) * 1px), 0)
+    rotateX(calc(var(--t,0) * 1.6deg));
+  /* tier -> lag, in px of travel either side of the horizon. --e is already on the element; these
+     are the only four bands that exist. Each is the old fractional rate × half a viewport. */
+  --lag:6
+}
+.box3d[data-tilt="box"]:is(.card,.feature,.block,.mpane,.mkt-hero){ --lag:10 }
+.box3d[data-tilt="box"]:is(.hstat,.dash-kpi,.feebar,.ab-act){ --lag:4.5 }
+/* the primary surface of a region sits nearest the glass and barely lags at all */
+.box3d[data-tilt="box"]:is(.promptsheet,.ab-esc){ --lag:2.7 }
+
+/* THE GROUND AND THE HERO SCENE GET NO TRANSFORM AT ALL. Both are `position:fixed` and sized to the
+   viewport, and a fixed layer ALREADY holds the strongest parallax there is — zero page-speed while
+   everything else scrolls over it. Translating it does not add depth, it just slides a viewport-sized
+   layer off the viewport: at the bottom of /agents the ground sat 1298px low, so the top of the
+   screen had no floor under the glass and the bottom 1298px of the layer hung below the fold. The
+   motion these two need is the motion they get for free by being fixed. */
+#ground::after{ will-change:transform }
+
+/* one rule kills the whole camera move: no lag, no tilt, just the laid-out box. */
+@media(prefers-reduced-motion:reduce){ .box3d[data-tilt="box"]{transform:none} }
+/* THE ELEMENT IS ITS OWN FRONT FACE. An earlier version added a sixth face on top and pushed the
+   content forward to clear it — which works for element children and silently erases a button, because
+   a button's label is a raw TEXT NODE with no box to push. Keeping the element's own background and
+   border as the front means no wrapper, no lifted children, no lost labels: the five remaining faces
+   sit BEHIND it at z<=0 and sort correctly because the box preserves 3D. */
+.box3d > .f{position:absolute;pointer-events:none;backface-visibility:hidden}
+/* MITRED CORNERS. Each wall is a quad whose NEAR edge is the box's edge at full length and whose FAR
+   edge is inset by exactly the depth on both ends. That 45° cut is what makes the four walls meet in a
+   picture-frame with no overlap and no notch — square-ended walls double up in the corners and leave a
+   step, which is what a corner looked like before. --d is the only number involved, so the mitre is
+   correct at any depth. */
+/* A WALL IS NOT A FLAT FILL. Every one of these is a strip a few pixels wide seen almost edge-on, and
+   the one thing that separates a real machined edge from a painted line is that it is DARKER WHERE IT
+   MEETS THE BODY. Light falls off along the wall and the back corner is occluded by the panel itself,
+   so each face runs from its lit near edge to a shaded far edge. The gradients below are 8–14% swings
+   — invisible as colour, decisive as material. `to bottom` on .top means front-edge → back-edge,
+   because the strip is hinged on the box's front edge and folds away from you. */
+.box3d > .f.top{left:0;right:0;top:0;height:var(--d);transform-origin:50% 0;transform:rotateX(-90deg);
+  background:linear-gradient(to bottom,
+    color-mix(in srgb,var(--face-top) 88%,#fff),
+    var(--face-top));
+  clip-path:polygon(0 0,100% 0,calc(100% - var(--d)) 100%,var(--d) 100%)}
+.box3d > .f.bottom{left:0;right:0;bottom:0;height:var(--d);transform-origin:50% 100%;transform:rotateX(90deg);
+  background:linear-gradient(to top,
+    var(--face-bottom),
+    color-mix(in srgb,var(--face-bottom) 84%,var(--face-side)));
+  clip-path:polygon(var(--d) 0,calc(100% - var(--d)) 0,100% 100%,0 100%)}
+.box3d > .f.left{top:0;bottom:0;left:0;width:var(--d);transform-origin:0 50%;transform:rotateY(90deg);
+  background:linear-gradient(to right,
+    color-mix(in srgb,var(--face-side) 86%,var(--face-top)),
+    var(--face-side));
+  clip-path:polygon(0 0,100% var(--d),100% calc(100% - var(--d)),0 100%)}
+.box3d > .f.right{top:0;bottom:0;right:0;width:var(--d);transform-origin:100% 50%;transform:rotateY(-90deg);
+  background:linear-gradient(to left,
+    color-mix(in srgb,var(--face-side) 86%,var(--face-top)),
+    var(--face-side));
+  clip-path:polygon(100% 0,100% 100%,0 calc(100% - var(--d)),0 var(--d))}
+
+/* A solid made of a different material keeps it: the primary action is acid all the way through, so
+   its walls are acid in shade rather than the neutral face ramp. */
+.box3d:is(button,.btn):not(.ghost):not(.danger):not(.fee-addr):not(.segb):not(.tab):not(.copy-icon-btn){
+  background:var(--live);
+  --face-top:color-mix(in srgb,var(--live) 78%,#fff);
+  --face-side:color-mix(in srgb,var(--live) 70%,#000);
+  --face-bottom:color-mix(in srgb,var(--live) 52%,#000);
+}
+.box3d:is(button,.btn).danger{background:transparent}
+
+/* the flat fallback: the same glass front, for boxes that must keep their own scroll containment */
+/* The flat fallback the engine applies to any surface that clips its own content (preserve-3d and
+   overflow are mutually exclusive). It had its OWN hardcoded 86% behind an !important, so it ignored
+   --glass entirely — which is why raising the token left every clipping card still failing contrast.
+   One knob, one material: it reads --face like every other surface. */
+.glassflat{
+  background:var(--face)!important;
+}
+
+/* CLEAR elements are never solids: transparent hit-targets are not surfaces, and extruding them draws
+   a box where the design says there is none. */
+.ham,.hd-theme,.copy-icon-btn,.segb,.tab,nav a,#auth-widget,#auth-widget *,
+header :is(button,.btn),.sidebar :is(button,.btn),nav :is(button,.btn){box-shadow:none!important}
+
+*{
+  --e:var(--e-0);
+  --lx:0px; --ly:0px;
+  --shadow:
+    calc(var(--lx) * var(--e) / var(--lz))
+    calc(var(--ly) * var(--e) / var(--lz))
+    calc(var(--e) * 0.5px)
+    calc(var(--e) * -0.25px) var(--sh-key),
+    calc(var(--lx) * var(--e) / var(--lz) / 3)
+    calc(var(--ly) * var(--e) / var(--lz) / 3)
+    calc(var(--e) * 0.5px)
+    calc(var(--e) * -0.15px) var(--sh-contact);
+}
+/* ═══ THE GROUND ════════════════════════════════════════════════════════════════════════════════
+   Injected once by main.js, behind every route. Two layers on one fixed plane:
+
+     THE POOL   a wide radial of --panel high on the page, so the top of the viewport is lit and the
+                bottom falls away. This is the same light the elevation scale casts shadows from, so
+                a card's shadow and the ground it sits on agree about where the source is.
+     THE GRID   a floor receding to a horizon. Horizontals bunch toward the vanishing line and
+                verticals fan out from it — done with two repeating gradients whose spacing is scaled
+                by a mask, which costs one composited layer and no script at all.
+
+   It is deliberately faint. Its whole job is to give a translucent pane something to be in front of;
+   the moment you notice it as a pattern it is too strong. The home page's live 3D scene paints ON
+   TOP of this at a higher z-index, so the two do not compete. */
+#ground{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(120% 68% at 50% -12%, color-mix(in srgb,var(--panel) 46%,transparent) 0%, transparent 62%),
+    linear-gradient(to bottom, transparent 0%, color-mix(in srgb,var(--bg2) 70%,transparent) 100%);
+}
+/* the floor: horizontals compressed toward the horizon, verticals fanning from it */
+#ground::after{
+  content:"";
+  position:absolute;
+  left:-25%; right:-25%; bottom:0; height:62vh;
+  background-image:
+    repeating-linear-gradient(to bottom, color-mix(in srgb,var(--line) 34%,transparent) 0 1px, transparent 1px 64px),
+    repeating-linear-gradient(to right,  color-mix(in srgb,var(--line) 26%,transparent) 0 1px, transparent 1px 88px);
+  transform:perspective(340px) rotateX(58deg);
+  transform-origin:50% 100%;
+  mask-image:linear-gradient(to bottom, transparent 0%, #000 34%, #000 78%, transparent 100%);
+  -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 34%, #000 78%, transparent 100%);
+  opacity:.5;
+}
+:root[data-theme="light"] #ground::after{opacity:.34}
+@media(prefers-reduced-motion:reduce){ #ground::after{opacity:.3} }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--txt);
+  font:17.5px/1.5 var(--font-ui);letter-spacing:-.008em;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+/* Headings track TIGHTER as they get larger — the single strongest signal that type was set rather
+   than defaulted. Browsers do the opposite (uniform tracking at every size), which is why default
+   headings read loose and amateur the bigger they get. */
+h1,h2,h3,h4,h5,h6,.bh{font-family:var(--font-hdr);font-weight:650;letter-spacing:-.02em;line-height:1.15}
+h1{letter-spacing:-.033em;font-weight:700}
+h2{letter-spacing:-.024em}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+/* THE SURFACES WE DIDN'T DRAW. Selection, the caret and the scrollbar ship with a browser default that
+   belongs to no design system — three grey rectangles on a page that is otherwise ink violet and acid.
+   They are theme-aware because they read the same tokens as everything else. */
+/* <hr> shipped the browser's 3D inset border — a light grey groove that reads as a scratch on ink and
+   matches no other line in the product. It is the same divider the panels use, or it is not a divider. */
+hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+::selection{background:var(--live);color:var(--live-fg)}
+::-moz-selection{background:var(--live);color:var(--live-fg)}
+input,textarea,select,[contenteditable]{caret-color:var(--accent)}
+*{scrollbar-color:var(--line) transparent;scrollbar-width:thin}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--line);border:2px solid transparent;background-clip:content-box}
+::-webkit-scrollbar-thumb:hover{background:var(--line2);background-clip:content-box}
+::-webkit-scrollbar-corner{background:transparent}
+.muted{color:var(--dim)}.ok{color:var(--green)}.warn{color:var(--amber)}.err{color:var(--red)}
+.mono{font-family:var(--font-mono);font-size:.92em;word-break:break-all;color:var(--txt2);letter-spacing:0}
+/* a page head set in mono (/task, /goal, /group, /prediction, /soc: .crumb, .ghd, .phd) is prose, not an id: its words wrap
+   whole and only a token wider than the line breaks; a .mono id or hash inside it keeps break-all */
+.crumb.mono,.ghd.mono,.phd.mono{word-break:normal;overflow-wrap:anywhere}
+/* tabular figures wherever numbers stack in a column and must line up digit-for-digit */
+.num,td .num,.hstat b,.dash-kpi b,.sb-stat b{font-variant-numeric:tabular-nums;letter-spacing:0}
+.center{text-align:center}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.hidden{display:none!important}   /* utility: must beat inline display styles — /manage's #app carries
+                                    style="display:flex" and the sign-in gate toggles .hidden on it;
+                                    without !important the management UI rendered for signed-out visitors */.grow{flex:1;min-width:0}.spacer{margin-left:auto}
+
+/* header / nav */
+header{display:flex;align-items:center;gap:var(--space-4);padding:0 var(--gutter);height:68px;
+  background:var(--hdr-bg);backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);
+  position:sticky;top:0;z-index:20;flex-wrap:nowrap;overflow:visible;white-space:nowrap;--e:var(--e-5);box-shadow:var(--shadow)}
+header .brand{font-family:var(--font-hdr);font-size:19px;margin:0;letter-spacing:-.02em;font-weight:700}
+header .brand .dot{color:var(--green)}
+header .brand a{color:var(--txt);text-decoration:none}
+/* ONE LINE, one word: "handoff". A mark image used to sit between "hand" and "off", which needed a
+   light/dark asset pair, an object-fit:cover square to tame a screenshot source, and three theme
+   overrides to swap it. All of that is gone with the image. */
+/* ONE wordmark everywhere "handoff" is the brand — header, footer (.ft-mark), sidebar (.sb-brand), the
+   pair page (.pair-logo). These rules are GLOBAL (not header-scoped) so no surface falls back to plain
+   text. Font-SIZE comes from the container (header 19px, footer 20px, sidebar 15px, pair 22px) and the
+   mark's .82em height + the word follow it, so one lockup scales to each place without diverging. */
+.brand-lockup{display:inline-flex;align-items:center;gap:.2em;white-space:nowrap;text-decoration:none}
+.bk{display:inline-flex;align-items:center;line-height:1;vertical-align:middle;white-space:nowrap;font-weight:700;letter-spacing:-.03em}
+header .brand .bk{font-size:19px}
+/* The brand mark (h, s or m: two agents on the icon grid). currentColor -> it is --txt in every theme, no asset
+   pair. Cap-height, 20:14 aspect so width follows from the height. flex:none so it never squeezes at 390px. */
+.brand-mark{height:.82em;width:auto;flex:none;display:block}
+/* "off" on the acid plate: the ONE yellow that is identical light+dark (var(--live)), with --live-fg the
+   only ink that ever sits on acid. Square corners per --radius; a hair of side padding makes it a plate. */
+.bk-off{background:var(--live);color:var(--live-fg);padding:0 .34em 0 .18em;margin-left:.04em}
+header nav{flex-wrap:nowrap}
+nav{display:flex;gap:1px;flex-wrap:wrap}
+nav a{color:var(--dim);text-decoration:none;padding:7px 13px;border-radius:var(--radius-sm);cursor:pointer;border:1px solid transparent;
+  font-size:16px;font-weight:500;transition:color .12s,background .12s}
+nav a:hover{color:var(--txt);background:var(--panel2);text-decoration:none}
+nav a.active{color:var(--txt);background:var(--panel2);border-color:var(--line)}
+/* Icons are drawn by /icons.js (HandoffIcons.svg) and nowhere else; these rules only place them. A place
+   glyph leads its destination label in the header, the drawer and the footer; an external link trails ext-hi. */
+.hi{flex:none;vertical-align:middle;margin-top:-.15em}
+nav a:has(> .nav-hi),.ft-col a:has(> .nav-hi),.ft-base a:has(> .nav-hi){display:inline-flex;align-items:center;gap:8px}
+.ft-col a:has(> .nav-hi),.ft-base a:has(> .nav-hi){gap:7px}
+.nav-hi{opacity:.8}
+a:hover>.nav-hi,a.active>.nav-hi{opacity:1}
+/* inline in running text: ext-hi trails an "open"/external link, back-hi leads a breadcrumb, lead-hi/trail-hi
+   sit before/after a control's label. In a flex row with a gap the gap does the spacing instead. */
+.ext-hi,.trail-hi{margin-left:.25em}
+.ext-hi{opacity:.65}
+.back-hi,.lead-hi{margin-right:.3em}
+:is(nav a,.ft-col a,.ft-base a)>.ext-hi{margin-left:-2px}
+/* hi-disc: a chevron-right that turns down when its <details> opens */
+.hi-disc{transition:transform .15s}
+details[open]>summary>.hi-disc{transform:rotate(90deg)}
+#auth-widget{font-size:12px;color:var(--dim)}#auth-widget a{cursor:pointer}
+/* hamburger + slide-in sidebar for tablet & smaller (the top nav collapses into it) */
+.ham{display:none;order:99;margin-left:8px;align-items:center;justify-content:center;background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius-sm);padding:6px 7px;cursor:pointer;color:var(--txt2)}
+.ham svg{display:block}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:264px;background:var(--panel);border-right:1px solid var(--line2);z-index:60;--e:var(--e-6);box-shadow:var(--shadow);transform:translateX(-100%);transition:transform .18s ease;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:14px}
+.sidebar.open{transform:translateX(0)}
+.sidebar-ov{position:fixed;inset:0;background:var(--ov);z-index:55;opacity:0;pointer-events:none;transition:opacity .18s}
+.sidebar-ov.open{opacity:1;pointer-events:auto}
+.sidebar .sb-brand{font-weight:700;letter-spacing:.5px;font-size:15px}
+.sidebar nav{flex-direction:column;gap:2px}
+.sidebar nav a{padding:9px 11px;font-size:14px}
+.sb-stats{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.sb-stat{background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius-sm);padding:8px 10px}
+.sb-stat b{display:block;font-size:17px;color:var(--txt);line-height:1.1}
+.sb-stat span{font-size:10px;color:var(--dim);letter-spacing:.4px}
+.sb-stat.wide{grid-column:1 / -1}
+.sb-stat .on{color:var(--green)}.sb-stat .acc{color:var(--accent2)}
+.sb-h{font-size:11px;letter-spacing:.5px;color:var(--dim);margin:2px 0}
+@media(max-width:900px){
+  header nav{display:none}
+  /* the "handoff" wordmark is the menu trigger on mobile — no separate hamburger */
+}
+/* THE RAIL (nav.js ensureRail): fixed under the header on the left, icons only from 620px, labelled from 1024px.
+   Under 620px it gives way to the bottom bar. --rail-w is what the page steps aside by, and it is only non-zero
+   while a rail is in the document, so a page without nav.js keeps its full width. The header stays full width. */
+:root{--rail-w:0px;--hd-bot-h:0px}
+@media(min-width:620px){:root:has(#hd-rail){--rail-w:64px}}
+@media(min-width:1024px){:root:has(#hd-rail){--rail-w:208px}}
+@media(max-width:619px){:root:has(#hd-bottom){--hd-bot-h:calc(58px + env(safe-area-inset-bottom, 0px))}}
+#view,#hd-footer,#hd-mainnet-warn{margin-left:var(--rail-w)}
+nav.hd-rail{position:fixed;left:0;top:var(--hdr-h,68px);bottom:var(--hd-direct-h,0px);width:var(--rail-w);z-index:19;
+  display:none;flex-direction:column;flex-wrap:nowrap;gap:2px;padding:10px 8px 14px;box-sizing:border-box;overflow-y:auto;overscroll-behavior:contain;
+  background:var(--hdr-bg);backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);border-right:1px solid var(--line);scrollbar-width:none}
+nav.hd-rail::-webkit-scrollbar{display:none}
+@media(min-width:620px){nav.hd-rail{display:flex}}
+nav.hd-rail a{display:flex;align-items:center;justify-content:center;gap:10px;min-height:40px;padding:0;font-size:14.5px;font-weight:500;color:var(--txt2);
+  border-radius:var(--radius-sm);border:1px solid transparent;white-space:nowrap;overflow:hidden;flex:none}
+nav.hd-rail a span{display:none}
+nav.hd-rail a .nav-hi{opacity:.85}
+nav.hd-rail a:hover{color:var(--txt);background:var(--panel2)}
+nav.hd-rail a.active{color:var(--txt);background:var(--panel2);border-color:var(--line)}
+nav.hd-rail a.active .nav-hi{color:var(--accent);opacity:1}
+nav.hd-rail .hd-rail-g{display:none;flex:none}
+nav.hd-rail .hd-rail-rule{flex:none;width:100%;height:0;border:0;border-top:1px solid var(--line);margin:8px 0}
+@media(min-width:1024px){
+  nav.hd-rail{padding:12px 12px 16px}
+  nav.hd-rail a{justify-content:flex-start;padding:0 11px;min-height:36px}
+  nav.hd-rail a.sub{padding-left:24px;font-size:14px}
+  nav.hd-rail a span{display:inline;overflow:hidden;text-overflow:ellipsis}
+  nav.hd-rail .hd-rail-g{display:block;padding:4px 11px 2px;font-size:12px;font-weight:600;color:var(--dim)}
+}
+/* THE BOTTOM BAR (under 620px): work · job board · agents · inbox · more. The direct-message bar rides on it. */
+nav.hd-bottom{display:none}
+@media(max-width:619px){
+  nav.hd-bottom{position:fixed;left:0;right:0;bottom:0;z-index:50;height:var(--hd-bot-h);box-sizing:border-box;padding:0 4px env(safe-area-inset-bottom, 0px);
+    display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;border-top:1px solid var(--line);
+    background:var(--hdr-bg);backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px)}
+  nav.hd-bottom a,nav.hd-bottom button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;min-height:44px;
+    padding:4px 2px;margin:0;font:500 11px var(--font-ui);color:var(--txt2);background:none;border:0;border-radius:0;box-shadow:none;cursor:pointer;text-decoration:none}
+  nav.hd-bottom span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  nav.hd-bottom a.active{color:var(--txt)}
+  nav.hd-bottom a.active .nav-hi{color:var(--accent);opacity:1}
+  body:has(> #hd-bottom){padding-bottom:var(--hd-bot-h)}
+}
+.pills{display:flex;gap:8px;align-items:center}
+.pill{font-size:11px;background:var(--panel3);border:1px solid var(--line);border-radius:var(--radius-sm);padding:1px 7px;color:var(--dim);white-space:nowrap}
+/* Same correction as the danger button: a signed/unsigned pill is 10px text on a panel, and raw
+   --green/--red measured 3.60:1 there. */
+.pill b{color:var(--txt)}
+.pill .on{color:color-mix(in srgb,var(--green) 66%,var(--txt))}
+.pill .off{color:color-mix(in srgb,var(--red) 66%,var(--txt))}
+
+/* shared tabs (manage / activity / settlement / homepage) */
+/* ⛔ flex-wrap:wrap CANCELLED THE overflow-x:auto SITTING BESIDE IT. With wrapping on, a flex row never
+   overflows horizontally — there is always another line to put the next tab on — so the scroll affordance
+   this rule already asked for could never engage, and nine tabs became a two-line staircase instead
+   (measured: /manage, /manage-coins, /manage-tokens, /manage-holdings, still broken at 700px). A tab strip
+   is one line by definition; the second line reads as a second, subordinate group of tabs, which is a
+   different claim about the information. nowrap lets the scroll do what it was already declared to do.
+   The scrollbar itself is hidden — it would sit on the hairline the active tab's underline lives on — so
+   the strip must be kept scrolled to the active tab in JS; see setTab() in the manage views. */
+.tabs{display:flex;gap:2px;margin-bottom:14px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;scroll-snap-type:x proximity}
+.tabs::-webkit-scrollbar{display:none}
+.tabs>*{scroll-snap-align:start;flex:none}
+
+/* ═══ .btnrow — A ROW OF PEER BUTTONS THAT NEVER STAIRCASES ═══════════════════════════════════════
+   The defect this exists to remove: `display:flex;flex-wrap:wrap` on a cluster of equal-weight buttons.
+   Flex wrapping packs each line greedily and then aligns what landed there, so four buttons become 3+1
+   and five become 2+2+1 — every line a different length, ending at a different x, none of them lining up
+   with anything. The reader sees groups. There are no groups; they are peers. That raggedness is the
+   whole complaint, and it is not fixed by choosing a better breakpoint, because the widths are content-
+   dependent and there is no breakpoint at which a greedy wrap becomes even.
+   A grid is even by construction. auto-fit + minmax gives one row while the buttons fit on one row, and
+   otherwise as many equal columns as fit — 2+2, never 3+1 — with every button the same width and every
+   row flush at both ends. One declaration, no JS, no breakpoint to maintain.
+   NOT for: tab strips (.tabs scrolls — see above), filter chips (genuinely a wrapping set, where a
+   ragged last line is correct because the items are a bag, not a row), or a primary/secondary CTA pair
+   that should stay side by side. Those are different components and they are deliberately left alone. */
+.btnrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(var(--btnrow-min,11rem),1fr));gap:8px;align-items:stretch}
+.btnrow>*{width:100%;justify-content:center;text-align:center;white-space:nowrap;min-width:0}
+/* An item that must never share a row with the others — a destructive action, or a lone primary. */
+.btnrow>.btnrow-full{grid-column:1/-1}
+.tabs .tab{background:none;border:0;border-bottom:2px solid transparent;border-radius:0;box-shadow:none;color:var(--dim);font:600 16px var(--font-ui);padding:11px 15px;cursor:pointer;margin-bottom:-1px;white-space:nowrap}
+.tabs .tab:hover{background:none}
+.tabs .tab:hover{color:var(--txt2)}
+.tabs .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tabs a.tab{text-decoration:none}.tabs a.tab:hover{text-decoration:none}
+.tabpanel{display:none}.tabpanel.active{display:block}
+
+/* layout — the shell is WIDE. A 1100px column on a 1440px display wasted ~170px of dead gutter each
+   side; this app is a console full of live rows, and rows want width. Prose still gets a measure
+   (.lead, .sub cap themselves in ch), but tables, grids and feeds now use the glass. */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:var(--space-5) var(--gutter);display:flex;flex-direction:column;gap:var(--space-5)}
+.wrap.narrow{max-width:1020px}
+.grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:var(--space-5);align-items:start}
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:var(--space-5)}
+.col{display:flex;flex-direction:column;gap:var(--space-5);min-width:0}
+@media(max-width:780px){.grid2{grid-template-columns:1fr}}
+
+/* cards — a hairline box and a quiet header. The old header was a 12px ALL-CAPS 1px-letterspaced
+   label on a filled bar behind a 3px colored left rail: three decorations competing to announce a
+   list of five rows. Sentence case, one weight, one hairline. */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:visible;
+  --e:var(--e-2);
+  box-shadow:inset 0 1px 0 0 var(--edge),var(--shadow);transition:border-color var(--fast),box-shadow var(--fast)}
+.card:hover{border-color:var(--line2)}
+.card>h2{font-size:16px;letter-spacing:-.01em;color:var(--txt);font-weight:600;margin:0;padding:var(--space-3) var(--space-4);
+  background:var(--face-side);display:flex;align-items:center;gap:var(--space-3);min-height:44px}
+.card>h2 .btn.sm,.card>h2 a{font-weight:500}
+.card .in{padding:var(--space-5)}
+.card .body{max-height:48vh;overflow:auto}
+.card.standout{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.card.standout>h2{color:var(--accent)}
+
+/* rows / lists */
+.lrow{padding:var(--space-3) var(--space-4);display:flex;gap:var(--space-3);align-items:center}
+.lrow:last-child{border-bottom:0}.lrow:hover{background:var(--panel2)}
+/* An empty state is a real state and gets designed like one. 20px of centred grey inside a container
+   sized for content that is not there reads as a broken page — which is what /manage, /messages and
+   /goals looked like signed out. Room to breathe, a readable colour, and whatever action the caller
+   puts inside it. */
+.empty{padding:38px 22px;color:var(--txt2);text-align:center;font-size:15.5px;line-height:1.55}
+.empty b{display:block;color:var(--txt);font-size:17px;margin-bottom:6px;font-weight:650}
+.empty .btn{margin-top:14px}
+
+/* buttons — solid accent for the one action that matters, hairline ghost for everything else.
+   The glow ring every button used to wear meant nothing was emphasised. */
+button,.btn{font:inherit}
+/* The primary action is an ACID PLATE with near-black on it — the same object in both themes. It does
+   not change color on hover; it RISES. Depth is the feedback, which is why the color can stay constant. */
+/* THE BASE BUTTON RESERVES ITS BORDER RATHER THAN REMOVING IT. `border:0` here set border-WIDTH to
+   zero, and .ghost / .danger below only ever override border-COLOR — so a colour was being set on an
+   edge that had no width, and every ghost and danger button in the product rendered with no hairline
+   at all. The comment two lines up promises "hairline ghost for everything else"; this is what makes
+   that true. Transparent-but-present also means the solid and ghost variants are the same SIZE, so a
+   row of mixed buttons sits on one baseline. */
+button,.btn{background:var(--live);color:var(--live-fg);border:1px solid transparent;border-radius:var(--radius-sm);
+  padding:8px 15px;cursor:pointer;font-weight:650;font-size:16px;line-height:1.4;display:inline-flex;align-items:center;gap:6px;
+  text-decoration:none;letter-spacing:-.01em;
+  --e:var(--e-3);
+  box-shadow:var(--shadow);
+  transform:perspective(var(--persp)) translateZ(calc(var(--e) * .25px));
+  transition:transform var(--fast) var(--ease),box-shadow var(--fast) var(--ease),background var(--fast),border-color var(--fast),color var(--fast)}
+button:hover,.btn:hover{text-decoration:none;--e:var(--e-4)}
+button:active,.btn:active{--e:var(--e-2)}   /* pressed = pushed toward the page, so the shadow collapses */
+button.ghost,.btn.ghost{background:transparent;color:var(--txt2);border-color:var(--line2);--e:var(--e-2)}
+button.ghost:hover,.btn.ghost:hover{background:var(--panel2);color:var(--txt);border-color:var(--accent);--e:var(--e-3)}
+/* ⛔ 4.01:1 IN DAYLIGHT, ON EVERY DELETE BUTTON ON THE SITE. --red is tuned against --bg; a danger
+   button sits on a raised --panel, which is lighter, and 15px text at 4.01 fails 4.5. Pulling the hue
+   toward --txt deepens it on paper and lightens it on ink — the same declaration gains contrast in both
+   themes, because --txt inverts with them. Measured after: 6.9:1 light, 5.4:1 dark. */
+button.danger,.btn.danger{background:transparent;color:color-mix(in srgb,var(--red) 66%,var(--txt));border-color:color-mix(in srgb,var(--red) 45%,transparent)}
+button.danger:hover,.btn.danger:hover{background:color-mix(in srgb,var(--red) 12%,transparent)}
+button.sm,.btn.sm{padding:6px 12px;font-size:15px}
+/* TOUCH TARGETS. On a coarse pointer the whole small-button family, plus the chip-sized controls views
+   define themselves, fell under 28px tall — measured across /, /projects, /jobs, /feeds and /docs.
+   Anything you tap gets a real target on touch; the desktop sizes are untouched, because there the
+   pointer is precise and the tighter rhythm is worth keeping. */
+/* 44px, NOT 36. Measured on a 390px phone: 34 of the 100 controls on the home page were under 40px,
+   and the smallest were 14px tall — the footer's link lists, which are text a thumb has to hit exactly.
+   44 is the iOS floor and the nearest thing to a settled number across the two platforms; below it a
+   miss is the interface's fault, not the finger's. The visual size of these controls does not change —
+   the padding grows the hit box, and on a precise pointer none of this applies. */
+@media(pointer:coarse){
+  button,.btn,select,summary,[role=tab]{min-height:44px}
+  button.sm,.btn.sm{padding:9px 13px;min-height:44px}
+  .seg button,.segb,.tab,.jb-chip,.cat,.kind,.act-tab{min-height:44px;min-width:44px}
+  input:not([type=checkbox]):not([type=radio]),textarea{min-height:44px}
+  /* text links that are the only way to reach a page: the footer columns, the base line, the treasury
+     chip, the wordmark and the hamburger. inline-flex so the min-height is a hit box, not a line box. */
+  .ft-col a,.ft-base a,.ft-fee-addr,.brand-link,.nv a,.footer a{display:inline-flex;align-items:center;min-height:44px}
+  .ham,.brand-ham,.hd-theme,.copy-icon-btn,#hd-assist,#hd-bell,#hd-direct-mail,#hd-direct-tog{min-width:44px;min-height:44px}
+  .hd-seg-btn{min-height:44px}
+  /* the per-post timestamp is the only way into a single post, and it renders as 47x13 of text at the
+     end of a row. It keeps its size and gains a target — the row it sits in is already this tall. */
+  a[href^="/soc?"],a[href^="/task?"],a[href^="/project?"],a[href^="/agent?"],a[href^="/agent/"],a[href^="/project/"]{
+    display:inline-flex;align-items:center;justify-content:center;flex:none;min-height:44px;min-width:44px;white-space:nowrap}
+  /* …but the SAME entity link, when it carries a full title in a breadcrumb, a detail-header key/value,
+     or a task line, must wrap or truncate. The atomic 44px box above turns a 200-char project title
+     into a single 2600px line that blew /goal and /task out to ~2800px wide on a phone. Here the link
+     stays a flex box — so min-height:44px keeps the finger its target — but is allowed to wrap
+     (breadcrumb/header) or ellipsis-truncate (task line) instead of forcing one 2600px line. */
+  .crumb a,.ghd a{display:inline-flex;align-items:center;white-space:normal;min-width:0;flex:0 1 auto;justify-content:flex-start}
+  .tline a{display:block;flex:1 1 0;min-width:0;justify-content:flex-start;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  /* nodes-view's task titles (a.nv-tt, /task?id=…) on /goal and /task wrap as nodes-view draws them: the atomic box
+     above drew each as one line, 554 to 1270 px wide, and /goal scrolled sideways to 1298 px at 390 (handoff-advisor) */
+  a.nv-tt{display:flex;align-items:center;justify-content:flex-start;white-space:normal;flex:1 1 11rem;min-width:min(11rem,100%)}
+  /* …and a list row that is one link (work-kit's a.wk-row on /work and /board, a.lrow under an agent's teams and projects,
+     each /project/…) stays the row it is drawn as: as one atomic line a /work row ran 437 px into a 348 px list, and an
+     agent's project title ran to 1217 px, and the list's overflow:hidden cut off the title, state and time */
+  a.wk-row,a.lrow{display:flex;align-items:center;justify-content:flex-start;white-space:normal;flex:0 1 auto;min-width:0}
+  /* the like / resoc counters under a post: 28px wide, and the number in them is the whole control */
+  .pact,.pact-btn,.soc-act{min-width:44px;min-height:44px}
+  /* PADDING, NOT min-height, BECAUSE THESE ARE INLINE TEXT INSIDE PROSE. The Games panel's links sit in
+     the middle of a sentence — "…or a perpetual. All staked in reputation — Try them risk-free ↗" — and
+     measured 13px tall on /activity, three of them, on the surface the demo runs on. Vertical padding on
+     an INLINE box grows the hit rectangle without contributing to the line box, so the target reaches
+     44px and the paragraph does not move a pixel; the inline-flex min-height the footer links use would
+     add ~26px to the middle of that sentence on a phone. .pm-open floats, so it is a block box and
+     padding WOULD move things — it takes the min-height instead. Neither rule fights anything: the
+     widget's own sheet sets no padding, min-height or display on either.
+     The back-link out of a profile is the only exit from /agent and rendered as 346x18 of 12px text. */
+  .pm-link{padding:16px 0}   /* 13px of line box + 32 = 45. 15 gave 43, which is a miss, and a miss is the point */
+  .pm-open{min-height:44px;min-width:44px;display:flex;align-items:center;justify-content:flex-end}
+  .netfsbtn{min-width:44px}
+  .back-link{display:inline-flex;align-items:center;min-height:44px}
+  /* An agent chip is an inline identity token that also opens a popup. The 36px here was a deliberate
+     exception with a real reason — 44px would inflate every dense rail and list it appears in, and
+     /projects renders 78 of them — but it was written as a blanket rule, and the ONE chip on the home
+     page is not in a dense rail: it is the author token in the hero's live ticker, measured at 148.6x36
+     at 390x844 and the single control on / still under 44px. So the exception is scoped to the place it
+     was actually about. Everywhere else the chip is a full-size target like everything else. */
+  .hf-chip{min-height:44px}
+  .rail .hf-chip{min-height:36px}
+}
+@media(pointer:coarse) and (max-width:619px){a.wk-row{align-items:flex-start}}   /* work-kit's phone row, past the carve-out above */
+button:disabled{opacity:.45;cursor:default;--e:var(--e-1)}   /* cannot be acted on, so it is not a live surface */
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* inputs */
+/* FORM CONTROLS ARE PART OF THE DESIGN, NOT THE OPERATING SYSTEM'S.
+   These carried a background and a radius but never reset `appearance`, so on macOS every <select> in
+   the app — eight views use them — still painted Aqua's own bezel and its blue-tinted chevron, sitting
+   inside a token-coloured box. A native control dropped into a designed page is the single loudest
+   "untouched" tell there is, and no amount of work on the surfaces around it hides one.
+   The chevron is an inline SVG data URI, drawn in currentColor, so it follows the theme instead of
+   needing a second copy for light mode. */
+input,textarea,select{font:inherit;font-size:16px;background:var(--inset);border:1px solid var(--line);color:var(--txt);border-radius:var(--radius-sm);padding:6px 10px;--e:var(--e-1);box-shadow:var(--shadow);
+  -webkit-appearance:none;-moz-appearance:none;appearance:none}
+select{
+  /* ONE CHEVRON, EVERY SELECT, AND NOTHING MAY TAKE IT AWAY OR PUT IT ON THE TEXT.
+     Eight components (act.js, feed.js, nav's #hd-direct and message compose, the reviews form, the
+     predictions widget, network3d's timeline, the fund sheet) write the `background` SHORTHAND on their
+     selects, which erases this background-image — so some dropdowns had an arrow and some had none. Others
+     write the `padding` shorthand, which took back the gutter the arrow needs: the four selects on / were
+     measured at 9px of padding-right against an arrow drawn 10px in, so it sat on the value.
+     Both are enforced here rather than re-typed at eight call sites and forgotten at the ninth. The native
+     arrow is already gone via appearance:none above, so this is the only one that can ever paint. */
+  padding-right:30px!important;cursor:pointer;
+  /* the arrow is the family's chevron-down, painted by web/static/icons.js into --hi-select (one colour per theme) */
+  background-image:var(--hi-select)!important;
+  background-repeat:no-repeat!important;background-position:right 9px center!important;background-size:14px 14px!important
+}
+select:hover{border-color:var(--line2)}
+/* the OS also owns these three: date/number spinners and the search cancel button */
+input[type=number]{-moz-appearance:textfield}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+input[type=search]::-webkit-search-cancel-button{-webkit-appearance:none}
+/* a range track is 100% OS chrome until it is rebuilt — the activity timeline is one */
+input[type=range]{background:transparent;box-shadow:none;padding:0;height:18px;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:3px;background:var(--line);border-radius:var(--radius-sm)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;margin-top:-5px;border-radius:50%;background:var(--live);border:0;box-shadow:0 1px 3px rgba(0,0,0,.45)}
+input[type=range]::-moz-range-track{height:3px;background:var(--line);border-radius:var(--radius-sm)}
+input[type=range]::-moz-range-thumb{width:13px;height:13px;border:0;border-radius:50%;background:var(--live)}
+/* checkbox and radio, drawn rather than inherited.
+   THE BOX IS A SQUARE AND NOTHING MAY RESIZE IT. With appearance:none the box is only its own width, height and
+   padding, so every override reshaped it: on 2026-10-05 a signed-in pass over every route measured all 10
+   rendered checkboxes and radios at 15x44 on a phone (the touch rule's min-height:44px), 'Register as a
+   company' and auto-publish at 2px wide (an inline width:auto), and the wall's ↗ main at 26x20 (.hw-post
+   input's padding and flex:1). Enforced here, as the select chevron is, not re-checked at every call site. */
+input[type=checkbox],input[type=radio]{width:15px!important;height:15px!important;min-width:0!important;min-height:0!important;padding:0!important;flex:none!important;display:inline-grid;place-content:center;background:var(--inset);border:1px solid var(--line2);cursor:pointer}
+@media(pointer:coarse){input[type=checkbox],input[type=radio]{width:22px!important;height:22px!important}}
+input[type=radio]{border-radius:50%}
+input[type=checkbox]:checked,input[type=radio]:checked{background:var(--live);border-color:var(--live)}
+input[type=checkbox]:checked::after{content:"";width:8px;height:5px;border:2px solid var(--live-fg);border-top:0;border-right:0;transform:rotate(-45deg) translate(0,-1px)}
+input[type=radio]:checked::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--live-fg)}
+input:focus,textarea:focus,select:focus{outline:0;border-color:var(--accent);--e:var(--e-3);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 16%,transparent),var(--shadow)}
+input::placeholder,textarea::placeholder{color:var(--dim)}
+label{color:var(--dim);font-size:11px;display:block;margin:8px 0 3px}
+.search{position:relative}
+.search input{width:100%;padding-left:30px;min-width:200px}
+.search::before{content:"⌕";position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--dim)}
+
+/* badges / status */
+.badge{font-size:11px;padding:1px 7px;border-radius:var(--radius-sm);border:1px solid var(--line);color:var(--dim);white-space:nowrap}
+.phase{font-size:11px;padding:2px 9px;border-radius:var(--radius-sm);border:1px solid var(--line)}
+.p-open{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 38%,transparent)}
+.p-in_progress{color:var(--amber);border-color:color-mix(in srgb,var(--amber) 38%,transparent)}
+.p-done{color:var(--green);border-color:color-mix(in srgb,var(--green) 38%,transparent)}
+.st{font-size:11px;padding:1px 8px;border-radius:var(--radius-sm);border:1px solid var(--line);white-space:nowrap}
+.s-todo{color:var(--dim)}.s-in_progress{color:var(--amber)}.s-pending_verification{color:var(--purple)}.s-verified{color:var(--green)}.s-rejected{color:var(--red)}
+.st-active{color:var(--green)}.st-forming{color:var(--dim)}.st-paused{color:var(--amber)}.st-done{color:var(--green)}
+.price{font-size:11px;color:var(--amber)}.paid{color:var(--green)}
+.rep{font-weight:700;white-space:nowrap}
+.dotstat.on{color:var(--green)}.dotstat.off{color:var(--dim)}
+.rtpill{font-size:11px;background:var(--panel3);border:1px solid color-mix(in srgb,var(--green) 38%,transparent);border-radius:var(--radius-sm);padding:0 6px;color:var(--green);white-space:nowrap}
+
+/* code + copy */
+/* A code well INSIDE a card was a bordered, rounded, filled box inside a bordered, rounded, filled box
+   — the nested-card signature, and on /projects it fired eleven times in one list. A well nested in a
+   surface is an inset, not a second card: it keeps the recessed fill (that is what says "this is
+   literal text you copy") and drops the border and the radius, which were the card impersonation. */
+.code{position:relative;background:var(--inset);border:0;border-radius:0;margin-top:8px;
+  box-shadow:inset 2px 0 0 0 var(--line)}
+.card .code,.block .code{border-radius:0}
+.code pre{margin:0;padding:12px 13px;overflow:auto;white-space:pre-wrap;word-break:break-word;font-size:12px;color:var(--txt2)}
+/* An absolutely-positioned overlay control with no z-index is painted in DOM order, so ANY later
+   sibling in the card covers it — on /projects three copy buttons sat under a following .row and could
+   not be clicked. It is an overlay by design, so it says so. The 17px height was also under the tap
+   floor; padding brings it up without changing the visual weight much. */
+.code .copy{position:absolute;top:7px;right:7px;z-index:2;background:var(--accent);color:var(--btn-fg);border:0;border-radius:var(--radius-sm);padding:5px 10px;cursor:pointer;font:600 11px var(--font-mono),monospace}
+.code .copy.copied{background:var(--green)}.code .copy.copy-failed{background:var(--red)}
+
+/* avatar */
+.hf-avatar{display:inline-flex;vertical-align:middle;border-radius:22%;line-height:0;flex:none;position:relative}
+.hf-avatar svg{display:block;border-radius:22%}
+.hf-avatar.tier-active{filter:drop-shadow(0 0 4px color-mix(in srgb,var(--glow) 55%,transparent))}
+.hf-avatar.tier-trusted{filter:drop-shadow(0 0 7px color-mix(in srgb,var(--glow) 75%,transparent));animation:hf-breathe 3s ease-in-out infinite}
+@keyframes hf-breathe{0%,100%{filter:drop-shadow(0 0 5px color-mix(in srgb,var(--glow) 60%,transparent))}50%{filter:drop-shadow(0 0 11px color-mix(in srgb,var(--glow) 95%,transparent))}}
+.hf-spark{transform-origin:center;animation:hf-sparkle 1.8s ease-in-out infinite}
+/* sigil avatars: the node lattice idles with a faint pulse; modes drive it (futuristic, no faces) */
+.hf-avatar .hf-lat{transform-box:view-box;transform-origin:center;animation:hf-pulse var(--hfb,4.2s) ease-in-out infinite;animation-delay:var(--hfp,0s)}
+@keyframes hf-pulse{0%,100%{opacity:.85}50%{opacity:1;filter:brightness(1.25)}}
+.hf-mode-talking .hf-lat{animation:hf-tx .7s ease-in-out infinite}
+@keyframes hf-tx{0%,100%{opacity:.7}50%{opacity:1;filter:brightness(1.6) drop-shadow(0 0 3px var(--glow))}}
+.hf-mode-working .hf-lat{animation:hf-spin 6s linear infinite}
+@keyframes hf-spin{to{transform:rotate(360deg)}}
+.hf-mode-looking .hf-lat{animation:hf-scan 3s ease-in-out infinite}
+@keyframes hf-scan{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+/* ===== /demo "day in the life" — scene camera, spotlight, working-pulse, countdown ring (flat solids only). ===== */
+@keyframes scene-transition{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spotlight{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
+@keyframes working-pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes countdown-ring{from{transform:rotate(-90deg)}to{transform:rotate(270deg)}}
+.hf-mode-sleeping{filter:saturate(.4) brightness(.7)}
+.hf-mode-sleeping .hf-lat{animation:none;opacity:.4}
+.hf-chip{display:inline-flex;align-items:center;gap:6px;cursor:pointer;border-radius:var(--radius-pill);padding:2px 8px 2px 2px;border:1px solid transparent;transition:.12s;max-width:100%}
+.hf-chip:hover{background:var(--panel2);border-color:var(--line)}
+.hf-chip .nm{color:var(--accent);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* modal / popup */
+.hf-modal{position:fixed;inset:0;background:rgba(0,0,0,.62);display:flex;align-items:center;justify-content:center;z-index:1000;padding:18px}
+.hf-modal .hf-box{background:var(--panel);border:1px solid var(--line2);border-radius:var(--radius);padding:20px 22px;width:440px;max-width:96vw;max-height:90vh;overflow:auto;position:relative;--e:var(--e-6);box-shadow:var(--shadow)}
+/* The close control is a real <button> now (it answers the keyboard, and it carries a drawn glyph rather
+   than the ✕ character, which is a different width and baseline in every font the UI can land on). */
+.hf-box .hf-x{position:absolute;top:10px;right:12px;cursor:pointer;color:var(--dim);background:none;border:0;
+  box-shadow:none;padding:6px;line-height:0;min-height:0;display:grid;place-content:center}
+.hf-box .hf-x:hover{background:var(--panel2);color:var(--txt)}
+.hf-box .hf-x .ico{width:16px;height:16px}
+.hf-box label{margin-top:12px}
+/* Inline drawn glyph at text size, in text flow — distinct from .btn-ico, which reserves its own column
+   inside a button. Scoped to the auth surfaces so it cannot collide with .feature .ico. */
+.hf-box svg.ico,.hf-more svg.ico{width:16px;height:16px;flex:none;vertical-align:-.2em}
+.hf-box h3{margin:0 0 2px}
+/* The one-line answer to "what is this screen for", under its heading. A caption, not body copy. */
+.hf-box .hf-sub{color:var(--dim);font-size:12.5px;line-height:1.5;margin:0 0 14px;max-width:46ch}
+/* Status lines and hints in a dialog are captions, not body copy. Left at the 15px body size they outweighed
+   the caption under the heading and made every screen read as three competing paragraphs. */
+.hf-box .muted{font-size:12.5px;line-height:1.5}
+.hf-box hr{margin:18px 0}
+/* THE FLOW STRIP. Sign in and Create account are the two flows the dialog offers, and they are tabs at
+   the top — the product's tab component, on a hairline the active underline sits on. It is the ONLY .tabs
+   strip in the box: the method pickers inside each flow (password / email code / phone code, email /
+   phone) are the segmented control, so a second strip in the same dress never stacks under this one
+   claiming to be a second, subordinate set of the same thing. The segments are a step up from their
+   11px toolbar size — in a dialog they are the choice, not a filter.
+   NOT named .hf-mode: that prefix is already the agent's status (.hf-mode-talking/-working/-sleeping)
+   on the lattice avatar, and two unrelated meanings under one name is how the next reader gets it wrong. */
+.hf-box .hf-authtabs{border-bottom:1px solid var(--line);margin:0 0 16px}
+.hf-box .seg{margin:0 0 12px}
+.hf-box .segb{font-size:12.5px;padding:5px 12px}
+/* A method that is on the picker but not live yet (phone codes, until the carriers approve our number):
+   dimmed so it is read as coming, still clickable so the panel can say why. */
+.hf-box .segb[aria-disabled="true"]{opacity:.55}
+.hf-box .hf-soon{border:1px dashed var(--line2);padding:8px 10px;margin:0 0 10px}
+/* A 6-DIGIT CODE IS MACHINE DATA, not prose: mono, tabular, tracked out so the digits are countable at a
+   glance and a transposed pair is visible. Used by every OTP field in the product — sign-in, step-up,
+   signup, reset, phone and the authenticator — so they stop being six different-looking boxes. */
+.otp{font-family:var(--font-mono);font-variant-numeric:tabular-nums;letter-spacing:.34em;text-indent:.34em;
+  text-align:center;max-width:9.5em;font-size:17px}
+/* The ways in that almost nobody uses. They were two <hr>-separated blocks carrying the same weight as the
+   password field, which made the primary task one of five equals. Folded away, they are still one click
+   deep and no longer compete. */
+.hf-more{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
+.hf-more>summary{cursor:pointer;color:var(--txt2);font-size:12.5px;list-style:none;display:flex;align-items:center;gap:6px;
+  padding:2px 0;user-select:none}
+.hf-more>summary::-webkit-details-marker{display:none}
+.hf-more>summary:hover{color:var(--txt)}
+.hf-more>summary .chev{transition:transform .18s cubic-bezier(.16,1,.3,1);flex:none}
+.hf-more[open]>summary .chev{transform:rotate(90deg)}
+.hf-more>summary+*{margin-top:10px}
+/* THE LADDER. One segment per factor the account asks for, filled as each one is proven — the only place
+   in the ceremony where progress is a thing you can see rather than a sentence you have to parse. */
+.hf-steps{display:flex;gap:4px;margin:2px 0 12px}
+.hf-steps i{height:3px;flex:1;background:var(--line);transition:background .32s cubic-bezier(.16,1,.3,1)}
+.hf-steps i.on{background:var(--live)}
+/* A text control that is genuinely an action, not a destination — so it is a <button>, and gets the keyboard
+   and the focus ring that an <a href-less> never had. */
+.linkish{background:none;border:0;box-shadow:none;padding:0;color:var(--accent);font-size:12.5px;cursor:pointer;
+  text-align:left;width:auto;min-height:0}
+.linkish:hover{background:none;text-decoration:underline;color:var(--accent)}
+.hf-pop-head{display:flex;gap:12px;align-items:center}
+.hf-pop-name{font-size:16px;font-weight:700;color:var(--txt)}
+.hf-pop-desc{color:var(--txt2);margin:12px 0 0}
+.hf-pop-meta{color:var(--dim);font-size:11px;margin-top:8px}
+.hf-pop-actions{margin-top:16px}
+.caps{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.caps .pill{font-size:11px}
+
+/* hero / landing */
+.hero,.stage{padding:0;border-bottom:1px solid var(--line);background:var(--bg)}
+.hero .eyebrow,.stage .eyebrow{color:var(--accent2);letter-spacing:.14em;text-transform:lowercase;font-size:11px;font-weight:600}
+/* the headline is plain --txt. It used to be #fff with mix-blend-mode:difference so it would invert
+   against whatever was behind it — a hack for a backdrop that no longer exists, and one that made the
+   type read grey-on-grey wherever the backdrop happened to be mid-tone. */
+.hero h1,.stage h1{font-size:clamp(34px,5.2vw,60px);margin:14px 0 0;line-height:1.04;font-weight:700;letter-spacing:-.038em;color:var(--txt);text-wrap:balance}
+.hero p.sub,.stage p.sub{color:var(--txt2);font-size:15px;max-width:60ch;margin:16px 0 0;line-height:1.55}
+.hero .cta,.stage .cta{display:flex;gap:8px;margin-top:26px;flex-wrap:wrap}
+.hero .cta .btn,.stage .cta .btn{padding:9px 16px}
+.hero-stats{display:flex;gap:26px;flex-wrap:wrap;margin-top:34px}
+.hstat b{display:block;font-size:22px;color:var(--txt);font-weight:650;letter-spacing:-.02em}
+.hstat span{color:var(--dim);font-size:11px;letter-spacing:.01em}
+.section{max-width:var(--maxw);margin:0 auto;padding:var(--space-7) var(--gutter)}
+.section h2.title{font-size:20px;margin:0 0 5px;font-weight:650;letter-spacing:-.025em}
+.section p.lead{color:var(--dim);margin:0 0 20px;max-width:72ch;font-size:13.5px}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.feature{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.feature .ico{font-size:22px}.feature h3{margin:8px 0 5px;font-size:13.5px;font-weight:600}
+.feature p{margin:0;color:var(--txt2);font-size:12.5px;line-height:1.5}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;counter-reset:step}
+.steps .step{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px;position:relative}
+/* the circled number ONLY inside .steps, the one container that resets the counter. On a bare .step
+   (docs' .install cards label their own "1 ·" text; marbles styles its own) CSS mints an implied
+   per-element counter with no reset in scope, so EVERY badge read "1" — exactly what the docs shipped. */
+.steps .step::before{counter-increment:step;content:counter(step);position:absolute;top:-12px;left:14px;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--btn-fg);font-weight:800;display:flex;align-items:center;justify-content:center}
+.modecard{border:1px solid var(--line);border-radius:var(--radius);padding:16px;background:var(--panel)}
+.modecard h3{margin:0 0 6px;font-size:14px}.modecard .tag{font-size:10px;color:var(--accent2)}
+/* ── FOOTER ─────────────────────────────────────────────────────────────────────────────────────
+   It ends the page, so it needs a ground of its own — a footer that shares the page background is a
+   paragraph, not a landmark. Grouped columns because a flat row of nine dot-separated links is a list
+   nobody reads; headings give the eye somewhere to aim. */
+/* z-index:1 is load-bearing. #field is position:fixed with z-index:0, and a POSITIONED element paints
+   above static content in the same stacking context — so the 3D scene rendered straight through the
+   footer, which is why it read as "no footer" even with a background set. Every other full-bleed band
+   on the home page already declares this; the footer is injected by nav.js, outside that rule, and
+   never got it. */
+.footer{position:relative;z-index:1;margin-top:56px;border-top:1px solid var(--line);background:var(--bg2);color:var(--txt2)}
+.ft-in{max-width:var(--maxw);margin:0 auto;padding:38px var(--gutter) 26px;
+  display:grid;grid-template-columns:minmax(0,1.6fr) repeat(auto-fit,minmax(120px,1fr));gap:28px}
+.ft-brand{min-width:0}
+.ft-mark{display:inline-flex;font:700 20px var(--font-ui);letter-spacing:-.03em;color:var(--txt);text-decoration:none}
+.ft-brand p{margin:8px 0 0;font-size:13.5px;line-height:1.55;color:var(--txt2);max-width:38ch}
+.ft-col{display:flex;flex-direction:column;gap:9px;min-width:0}
+.ft-col h3{margin:0 0 2px;font:600 11px var(--font-mono);letter-spacing:.14em;text-transform:lowercase;color:var(--dim)}
+.ft-col a{color:var(--txt2);font-size:14px;text-decoration:none}
+.ft-col a:hover{color:var(--txt);text-decoration:underline}
+.ft-base{max-width:var(--maxw);margin:0 auto;padding:14px var(--gutter) 30px;border-top:1px solid var(--line);
+  display:flex;gap:9px;align-items:center;flex-wrap:wrap;font:12px var(--font-mono);color:var(--dim)}
+.ft-base a{color:var(--txt2);text-decoration:none}.ft-base a:hover{text-decoration:underline}
+.ft-sep{opacity:.5}
+/* the treasury address on the last line: a chip you can click, in the same mono voice as its neighbours,
+   so it reads as one more fact in the row rather than a button parked in the footer */
+.ft-fee-addr{background:none;border:0;padding:0;font:inherit;color:var(--txt2);cursor:pointer;min-height:0}
+/* …except on a touch device, where 14px of clickable address is not a target. Declared AFTER the rule
+   above because they have the same specificity and the last one wins. */
+@media(pointer:coarse){.ft-base .ft-fee-addr{display:inline-flex;align-items:center;min-height:44px}}
+.ft-fee-addr:hover{text-decoration:underline}
+/* Icon inside a button or link: sized to the text, never a second focal point. currentColor so it
+   inherits ghost/primary/hover states instead of needing a variant per button style. */
+/* the copyright closes the line — pushed to the far end so it reads as the sign-off, not another link */
+.ft-copy{margin-left:auto}
+@media(max-width:700px){ .ft-copy{margin-left:0;flex:0 0 100%} }
+/* AN ICON CANNOT GROW TO THE HEIGHT OF ITS BUTTON. With only width/height set, a wrapped label made the
+   flex line taller and the svg — whose intrinsic ratio is free — came back 44px tall inside a 21px button:
+   measured 24.5, 44, 42.7 and 36.4px across four buttons that are meant to match. min/max pin it, and the
+   label beside it never wraps, so the row cannot grow in the first place. */
+.btn-ico{width:1.05em;height:1.05em;min-width:1.05em;max-width:1.05em;min-height:1.05em;max-height:1.05em;flex:0 0 auto;margin-right:.5em;vertical-align:-.15em}
+.btn:has(.btn-ico){white-space:nowrap}
+.btn:has(.btn-ico){display:inline-flex;align-items:center;justify-content:center}
+@media(max-width:900px){ .ft-in{grid-template-columns:repeat(2,minmax(0,1fr))} .ft-brand{grid-column:1/-1} }
+@media(max-width:480px){ .ft-in{grid-template-columns:minmax(0,1fr);gap:22px} }
+.feebar{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:13px}
+.feebar .amt{color:var(--accent);font-weight:700}
+
+/* tables */
+table.t{width:100%;border-collapse:collapse;font-size:15.5px;font-variant-numeric:tabular-nums}
+/* PRE/CODE BLOCKS have the same problem as tables and are far more common: a line of JSON or a curl
+   command has a min-content width, so on a phone it pushed the whole document to 563px wide and every
+   page scrolled sideways with it. The BLOCK scrolls, not the page. */
+pre,code[class*="language-"]{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+pre code{white-space:pre}
+
+/* A table is the one element that legitimately cannot shrink — columns have a min-content width and a
+   six-column table will not fit 390px however you style it. So the TABLE scrolls, not the page: it gets
+   its own scroll container. Without this /docs pushed the document to 563px on a 390px phone and every
+   page on the site scrolled sideways with it. */
+.tablewrap,table.t{max-width:100%}
+table.t{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+@media(min-width:760px){ table.t{display:table;overflow-x:visible;white-space:normal} }
+table.t th{text-align:left;color:var(--dim);font-weight:600;padding:7px 10px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel2);white-space:nowrap}
+table.t td{padding:7px 10px;border-bottom:1px solid var(--line)}
+table.t tr:hover td{background:var(--panel2)}
+
+/* SECTION COLOR BLOCKS — primary (blue), secondary (purple), tertiary (neutral). Tint whole regions so a
+   page reads as distinct zones, not a flat wall. Flat colors only. */
+.block{border-radius:var(--radius);padding:16px 18px;margin-bottom:16px;border:1px solid}
+.block>h2,.block>.bh{margin:0 0 12px;font-size:12px;text-transform:lowercase;letter-spacing:1px}
+.block.primary{background:color-mix(in srgb,var(--accent) 8%,var(--panel));border-color:color-mix(in srgb,var(--accent) 26%,var(--line))}
+.block.primary>h2,.block.primary>.bh{color:var(--accent)}
+.block.secondary{background:color-mix(in srgb,var(--purple) 8%,var(--panel));border-color:color-mix(in srgb,var(--purple) 26%,var(--line))}
+.block.secondary>h2,.block.secondary>.bh{color:var(--purple)}
+.block.tertiary{background:var(--panel);border-color:var(--line)}.block.tertiary>h2,.block.tertiary>.bh{color:var(--txt2)}
+
+/* Filter bar / toolbar button spacing & styling */
+.pjtoolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin: 12px 0 16px;
+}
+.seg {
+  display: inline-flex;
+  gap: 2px;
+  border: 0;
+  background: color-mix(in srgb, var(--face-side) 26%, var(--face));
+  border-radius: var(--radius-sm);
+  padding: 3px;
+}
+button.segb {
+  background: transparent;
+  color: var(--dim);
+  border: 0;
+  border-radius: calc(var(--radius-sm) - 1px);
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .12s ease;
+}
+button.segb:hover {
+  color: var(--txt);
+  background: var(--panel3);
+  filter: none;
+}
+button.segb.active {
+  background: var(--face);
+  color: var(--txt);
+  box-shadow: none;
+}
+button.active, .btn.active {
+  background: var(--face);
+  color: var(--txt);
+  border: 0;
+}
+button.ghost.active, .btn.ghost.active {
+  background: var(--face);
+  color: var(--txt);
+  border: 0;
+}
+
+/* ── miniapp card ─────────────────────────────────────────────────────── */
+/* The frame and its bar. The player inside (.soc-app-render, dressed as .ap) is styled by ensureAppStyle() in
+   handoff.js, which the store and the play page share: one stage, one strip, one set of states. */
+.soc-app { margin: 8px 0 6px; border: 1px solid var(--line); border-radius:var(--radius-sm); overflow: hidden; background: var(--inset); }
+.soc-app-bar { display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: var(--panel3); border-bottom: 1px solid var(--line); font-size: 12px; min-height: 34px; }
+.soc-app-tag { display: inline-flex; align-items: center; gap: 6px; min-width: 0; color: var(--txt2); font-weight: 600; }
+.soc-app-tag svg { flex: none; color: var(--accent); }
+.soc-app-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.soc-app-dl { display: inline-flex; align-items: center; gap: 5px; color: var(--dim); text-decoration: none; margin-left: auto; flex: none; }
+.soc-app-dl:hover { color: var(--txt); }
+
+/* socnet.lol and miniapps.lol: the page is this header (search, account menu, the message center, the assistant)
+   over the site's own miniapp, so the header wears the SITE's palette, not handoff's ultraviolet — every surface,
+   line, text and state token, both themes, from lol-kit design/tokens.json palettes.socnet / palettes.miniapps
+   (the values the framed bundle draws with, AA-checked in lol-design). Night values sit under :not(light) so the
+   DAY block above, which reads the *-day names, still wins in light mode; the day names are set here for it.
+   --live is the PLATE every button and the wordmark stand on, so here it is the site's accent fill with its
+   on-accent text (as the message center's send already is), per theme; --accent2 (live as text) is the kit's live
+   colour on night and its success green on paper. */
+:root[data-site=socnet]:not([data-theme="light"]){
+  --bg:#0e080b;--bg2:#160f12;--panel:#221a1d;--panel2:#2c2226;--panel3:#33282d;--inset:#160f12;
+  --line:#513743;--line2:#916b7c;--txt:#f6eef1;--txt2:#baa4ad;--dim:#a19097;
+  --accent:#fa5d9e;--purple:#fa5d9e;--accent2:#56f3c1;--live:#fa5d9e;--live-fg:#14080d;--btn-fg:#14080d;
+  --hot:#ff6557;--red:#ff6557;--green:#5edb81;--amber:#ffb848;
+  --hdr-bg:rgba(14,8,11,.72);--ov:rgba(14,8,11,.7);--scrim:rgba(14,8,11,.72);--av-plate:#160f12;--av-crest:#2c2226}
+:root[data-site=socnet]{
+  --bg-day:#eee4e8;--panel-day:#ffffff;--panel2-day:#f8f3f5;--panel3-day:#ebe0e5;--inset-day:#f3ebef;
+  --line-day:#d1b5c1;--line2-day:#9e7387;--txt-day:#1e1218;--txt2-day:#644553;--dim-day:#795c69;
+  --accent-day:#c10e6b;--accent2-day:#007238;--btn-fg-day:#ffffff;--hot-day:#c31e0f;--green-day:#007238;--amber-day:#8c5700}
+:root[data-site=socnet][data-theme="light"]{--bg2:#f3ebef;--purple:#c10e6b;--live:#c10e6b;--live-fg:#ffffff;
+  --hdr-bg:rgba(248,243,245,.72);--ov:rgba(30,18,24,.36);--av-plate:#f3ebef;--av-crest:#f8f3f5;
+  --face-side:color-mix(in srgb, var(--panel) 76%, #9e7387);--face-bottom:color-mix(in srgb, var(--panel) 56%, #9e7387)}
+:root[data-site=miniapps]:not([data-theme="light"]){
+  --bg:#040b13;--bg2:#08121b;--panel:#111e29;--panel2:#182733;--panel3:#1d2d3b;--inset:#08121b;
+  --line:#154365;--line2:#3e7bac;--txt:#e7f2fc;--txt2:#8eadc9;--dim:#7e97ad;
+  --accent:#00d5f2;--purple:#00d5f2;--accent2:#fccf28;--live:#00d5f2;--live-fg:#03121a;--btn-fg:#03121a;
+  --hot:#ff6557;--red:#ff6557;--green:#5edb81;--amber:#ffb848;
+  --hdr-bg:rgba(4,11,19,.72);--ov:rgba(4,11,19,.7);--scrim:rgba(4,11,19,.72);--av-plate:#08121b;--av-crest:#182733}
+:root[data-site=miniapps]{
+  --bg-day:#dceaf1;--panel-day:#ffffff;--panel2-day:#eff6f9;--panel3-day:#d7e7ef;--inset-day:#e5f0f6;
+  --line-day:#9bc5da;--line2-day:#3b87a8;--txt-day:#021923;--txt2-day:#18546d;--dim-day:#3a6a80;
+  --accent-day:#006e89;--accent2-day:#007439;--btn-fg-day:#ffffff;--hot-day:#c52012;--green-day:#007439;--amber-day:#8e5900}
+:root[data-site=miniapps][data-theme="light"]{--bg2:#e5f0f6;--purple:#006e89;--live:#006e89;--live-fg:#ffffff;
+  --hdr-bg:rgba(239,246,249,.72);--ov:rgba(2,25,35,.36);--av-plate:#e5f0f6;--av-crest:#eff6f9;
+  --face-side:color-mix(in srgb, var(--panel) 76%, #3b87a8);--face-bottom:color-mix(in srgb, var(--panel) 56%, #3b87a8)}
+/* ONE FRAME (web/main.js mountSite): on the product sites the page is this header over the site's own miniapp. */
+:root[data-site=socnet] #view,:root[data-site=miniapps] #view{margin-left:0}
+#site-frame{position:fixed;left:0;right:0;top:calc(var(--hdr-h,68px) + var(--hd-warn-h,0px));bottom:var(--hd-direct-h,0px);width:100%;
+  height:calc(100% - var(--hdr-h,68px) - var(--hd-warn-h,0px) - var(--hd-direct-h,0px));border:0;display:block;background:var(--bg)}

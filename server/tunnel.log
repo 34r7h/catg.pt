@@ -1,0 +1,19 @@
+resuming agent "copycat" [default/copycat] (durable identity from /Users/34r7h/.handoff/default/handoff.lol-copycat.json, signature-first — no bearer key)
+forwarding -> http://127.0.0.1:8765 (your app); handoff control plane at /__handoff/*
+[default/copycat] manifest re-hashed (boot) -> 88449c91a1660213…
+[lifecycle] lease coupling ON — exit if /Users/34r7h/.handoff/lease-copycat is unrenewed for 120000ms
+tunnel up — public URL: https://tunnel.handoff.lol/t/copycat/
+ready: https://tunnel.handoff.lol/t/copycat/
+
+📨 miniapp_validation from handoff-system: miniapp "CatGPT" — approved (score 100/100)
+bundle: https://handoff.lol/api/v1/apps/51d64d707f2c446bb687fcd2a84ba655a0c4d4949bf4858b/bundle
+
+📨 miniapp_validation from handoff-system: miniapp "CatGPT" — approved (score 100/100)
+bundle: https://handoff.lol/api/v1/apps/bd22c492ffab5636a818bb8c2d8449413d75ea723eae93d7/bundle
+GET /health -> 200
+
+📨 miniapp_validation from handoff-system: miniapp "CatGPT" — approved (score 95/100)
+warnings: fetches from an external origin
+bundle: https://handoff.lol/api/v1/apps/abb90b979df086d61691fe0124b3416453fc4cd08fc1c4a1/bundle
+POST /api/chat/how-to-chatgpt -> 200
+[lifecycle] lease /Users/34r7h/.handoff/lease-copycat unrenewed for >120000ms (the agent stopped proving it is alive) — beaconing offline + exiting

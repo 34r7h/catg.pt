@@ -1,0 +1,617 @@
+[
+  {
+    "slug": "how-to-chatgpt",
+    "name": "how-to-chatgpt",
+    "domain": "udemy.com",
+    "website": "",
+    "category": "Course",
+    "desc": "",
+    "pairUrl": "",
+    "logo": "logos/udemy.png"
+  },
+  {
+    "slug": "make-money-with-ai",
+    "name": "make-money-with-ai",
+    "domain": "udemy.com",
+    "website": "",
+    "category": "Course",
+    "desc": "",
+    "pairUrl": "",
+    "logo": "logos/udemy.png"
+  },
+  {
+    "slug": "notebooklm-mastery",
+    "name": "notebooklm-mastery",
+    "domain": "udemy.com",
+    "website": "",
+    "category": "Course",
+    "desc": "",
+    "pairUrl": "",
+    "logo": "logos/udemy.png"
+  },
+  {
+    "slug": "benefy-assistant",
+    "name": "Benefy",
+    "domain": "benefy.kz",
+    "website": "https://benefy.kz/",
+    "category": "HR-tech / corporate benefits platform (B2B SaaS)",
+    "desc": "Corporate benefits and flexible benefits platform (benefits cafeteria): the company gives each employee a personal budget in tenge or points, and the employee chooses benefits from the catalog themselves",
+    "pairUrl": ""
+  },
+  {
+    "slug": "aerials-in-sports-medicine-assistant",
+    "name": "Aerials in sports medicine",
+    "domain": "kdmovement.space",
+    "website": "https://kdmovement.space",
+    "category": "Movement/sports medicine: NYC movement specialist's project applying aerials in sports medicine.",
+    "desc": "Movement/sports medicine: NYC movement specialist's project applying aerials in sports medicine.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "aggregation-ai-assistant",
+    "name": "Aggregation AI",
+    "domain": "aggregation-ai.com",
+    "website": "https://aggregation-ai.com",
+    "category": "AI aggregation / unified search",
+    "desc": "Unified AI search/interface aggregating multiple AI models (alternative to Claude, Perplexity, ChatGPT).",
+    "pairUrl": ""
+  },
+  {
+    "slug": "ai-expert-witness-assistant",
+    "name": "AI Expert Witness",
+    "domain": "aiexpertwitness.ai",
+    "website": "https://aiexpertwitness.ai",
+    "category": "Legal services. Matches AI experts with attorneys who need AI expert witnesses",
+    "desc": "Legal services. Matches AI experts with attorneys who need AI expert witnesses; the poster is founder.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "aithical-assistant",
+    "name": "Aithical",
+    "domain": "aithical.pro",
+    "website": "https://aithical.pro",
+    "category": "AI studio",
+    "desc": "AI studio; managed AI systems, custom apps and brand growth across verticals; private AI with open-weight models; Anthropic partner.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "altira-global-s-a-assistant",
+    "name": "Altira Global S.A.",
+    "domain": "altira-global.com",
+    "website": "https://altira-global.com",
+    "category": "Web3",
+    "desc": "Web3; real-world asset tokenization, privacy and decentralized infrastructure; offers funding and execution/scaling help to founders.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "antcluster-assistant",
+    "name": "Antcluster",
+    "domain": "antcluster.com",
+    "website": "https://antcluster.com",
+    "category": "AI data agent / enterprise analytics",
+    "desc": "AI Native Data Agent built on self-constructed Enterprise Knowledge Graph; natural language analytics/reports/ML agents.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "aperture-labs-assistant",
+    "name": "Aperture Labs",
+    "domain": "get.aperturelabs.dev",
+    "website": "https://get.aperturelabs.dev",
+    "category": "AI consulting",
+    "desc": "AI consulting, cloud modernization, custom builds, and MVP service (starting at $2K flat, production-ready in 5 days).",
+    "pairUrl": ""
+  },
+  {
+    "slug": "arcanus-assistant",
+    "name": "Arcanus",
+    "domain": "arcanus.com",
+    "website": "https://arcanus.com",
+    "category": "Software development, outstaffing & IT consulting",
+    "desc": "Software development, team augmentation (outstaffing), IT consulting, cloud infrastructure, cybersecurity, and managed services.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "archer-development-foundation-assistant",
+    "name": "Archer Development Foundation (OASIS standard)",
+    "domain": "archer.foundation",
+    "website": "https://archer.foundation",
+    "category": "AI agents / open standards — nonprofit foundation in formation specifying OASIS, an open agent interoperability standard",
+    "desc": "A proposed open interoperability standard (OASIS — Open Agent Systems Interoperability Standard) plus the Archer Development Foundation that stewards it: portable agent identity, rebuildable service catalogs, execution through compatible operators, and recoverable/attributable evidence — so an agent's access to a service does not depend on one platform's catalog, credentials and private history",
+    "pairUrl": ""
+  },
+  {
+    "slug": "arf-ai-assistant",
+    "name": "ARF AI",
+    "domain": "arf-ai.com",
+    "website": "https://arf-ai.com",
+    "category": "AI governance / reliability infrastructure (B2B, proprietary engine + free public sandbox)",
+    "desc": "A governance and reliability control plane for agentic AI: deterministic policy enforcement before each governed action runs on infrastructure, a risk engine with explainable scoring, human-approval gates, and a signed tamper-evident audit trail. It evaluates an agent's proposed write action against policy, risk and operational context BEFORE execution and refuses actions it cannot model. Storage/ONTAP operations first.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "audacious-af-assistant",
+    "name": "Audacious AF (also branded Audacious AI Friends)",
+    "domain": "luma.com (community site: audaciousaf.com)",
+    "website": "https://www.audaciousaf.com/",
+    "category": "Women-in-AI community / events (NYC, in-person; membership launching soon)",
+    "desc": "An in-person New York City community for women leaders who are building, or starting to build, with AI — hands-on workshops, salon-style discussions, skill shares and meetups in intentionally small rooms, plus a Claude Partner Network training track. Events are run on Luma; the community site is audaciousaf.com.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "bicameral-assistant",
+    "name": "Bicameral",
+    "domain": "bicameral-ai.com",
+    "website": "https://bicameral-ai.com",
+    "category": "Product/dev tooling — decision governance layer for AI-accelerated software development (private alpha)",
+    "desc": "A decision-recall and decision-governance layer for cross-functional software teams working with AI: it pulls, contextualizes and ledgers decisions from the tech stack (tickets, docs, meeting notes, agent sessions), flags conflicts before new work, and gives agents/developers fast reliable recall of past decision context to prevent feature drift. Positioned as 'the GitHub of Decisions'.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "biobase-assistant",
+    "name": "Biobase",
+    "domain": "biobase.ai",
+    "website": "https://biobase.ai",
+    "category": "Health data infrastructure / clinical data & biospecimen marketplace",
+    "desc": "Biobase (Biobase, Inc.) is a governed network sitting between the systems that hold clinical data (EHR, LIS, PACS, biobanks, billing) and the researchers who need it: it normalizes any format into a shared semantic layer (OMOP, CDISC, FHIR), unifies pathology/imaging/molecular/outcomes at the patient level, indexes everything for search by research intent, and bridges institutions and researchers through federated, compliant access — as one platform with two views (Life Sciences for buyers, Healthcare Partners for suppliers).",
+    "pairUrl": ""
+  },
+  {
+    "slug": "blockconvey-assistant",
+    "name": "BlockConvey",
+    "domain": "blockconvey.com",
+    "website": "https://blockconvey.com",
+    "category": "AI reliability / LLM & agent testing, observability and evaluation (dev tool)",
+    "desc": "Block Convey, Inc. builds PRISM: a reliability layer for AI apps that tests before launch, explains production behavior, and turns failures into validated changes. Six connected capabilities: Synthetic Scenarios (Beta) — generates realistic users/edge cases to test; AI Observability — traces, sessions, agent runs, retrieval, tools, timing, outcome in one view; Agent Intelligence — patterns across all runs; Evaluators — reusable scoring checks (from Builder); AI Remediation — diagnosis with owner/date, human-approved fixes, re-measured on the same cohort; End User Intelligence (from Growth) — cross-session user friction and risk profiles. Thesis: 'A request can return 200 OK and still fail the user.'",
+    "pairUrl": ""
+  },
+  {
+    "slug": "blockoffice-assistant",
+    "name": "BlockOffice",
+    "domain": "blockoffice.com",
+    "website": "https://blockoffice.com",
+    "category": "Startup back office / finance & entity services (CFO, tax, incorporation, Web3 advisory)",
+    "desc": "Block Office Pte. Ltd. ('BlockOffice') is a modern back-office services firm built for startups: fractional CFO (financial strategy, reporting, fundraising/data rooms, investor reporting, cash flow, bookkeeping, tax advisory), global incorporation (BVI, Cayman, Singapore, Hong Kong, Dubai, Delaware, 6+ jurisdictions with corporate secretarial, nominee directors, bank accounts), global tax optimisation (transfer pricing, R&D incentives, VAT/GST, founder tax residency), digital asset advisory (tokenomics, whitepapers, TGEs), tech studio (AI/MVP/blockchain builds — 'powered by sister company Pixel8Labs'), and BlockOffice Ventures (pre-seed–Series A capital + embedded CFO support). One team across 10+ jurisdictions; 'founder-first' support so founders 'focus on your business, we do the rest.'",
+    "pairUrl": ""
+  },
+  {
+    "slug": "boop-me-assistant",
+    "name": "Boop.me",
+    "domain": "boop.me",
+    "website": "https://boop.me",
+    "category": "Event networking / registration & ticketing",
+    "desc": "End-to-end event platform run over SMS: registration and ticketing on the organizer's domain, curated matchmaking, QR check-in and badge printing, QR-to-SMS lead capture with instant meeting booking for exhibitors, digital contact-card sharing for attendees — plus a free QR code generator and an iOS/Android app for hosts.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "brandknight-assistant",
+    "name": "BrandKnight",
+    "domain": "brandknight.com",
+    "website": "https://brandknight.com",
+    "category": "Brand protection / MAP compliance monitoring (pre-launch SaaS)",
+    "desc": "MAP (Minimum Advertised Price) violation monitoring for brands sold through resellers: automated scanners check listings on Amazon, eBay, Walmart and 30+ marketplaces 24/7 and produce timestamped evidence packages for enforcement. Currently in private beta with a waitlist.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "brianmead-agency-assistant",
+    "name": "brianmead.agency",
+    "domain": "brianmead.agency",
+    "website": "https://brianmead.agency",
+    "category": "Personal professional portfolio (actor & producer)",
+    "desc": "Single-page personal portfolio of Brian Anthony Mead, Actor & Producer based in NYC: his film/TV/theatre credits, business & media experience, education/training, current projects and contact details. Not a company or product.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "chronos-ro-assistant",
+    "name": "Chronos",
+    "domain": "chronos.ro",
+    "website": "https://chronos.ro",
+    "category": "Sales automation / AI GTM (outbound) platform",
+    "desc": "AI-native go-to-market platform that automates outbound for founders and sales teams. Paste your website: Chronos builds a 'GTM digital twin' of your company, sources leads from a 350M-lead database, writes personalized multi-channel outreach in your voice and manages pipeline/deal intelligence.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "copilotresume-assistant",
+    "name": "CopilotResume",
+    "domain": "copilotresume.io",
+    "website": "https://copilotresume.io",
+    "category": "HR tech / job search: AI resume builder with ATS checks",
+    "desc": "AI resume & CV builder with four tools: ATS Check (score vs the real job ad + missing keywords), Verdict ('should I apply?'), Darpan (how a recruiter sees your CV) and AI Coach (rewrites weak bullets) — plus a free Job Tracker board; EU-hosted.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "crazy-startup-guy-assistant",
+    "name": "Crazy Startup Guy",
+    "domain": "crazystartupguy.com",
+    "website": "https://CrazyStartupGuy.com",
+    "category": "Startup events & marketing. Founder/marketer brand hosting mixers, dinners and panels (e.g., Future of AI Infrastructure series) across NYC, SF, LA, Miami, Austin",
+    "desc": "Startup events & marketing. Founder/marketer brand hosting mixers, dinners and panels (e.g., Future of AI Infrastructure series) across NYC, SF, LA, Miami, Austin; runs city Luma calendars and WhatsApp groups.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "creative3dtechnologies-com-assistant",
+    "name": "creative3dtechnologies.com",
+    "domain": "creative3dtechnologies.com",
+    "website": "https://creative3dtechnologies.com",
+    "category": "Listed by sender among companies the poster operates/invested in/owns",
+    "desc": "Listed by sender among companies the poster operates/invested in/owns; no description given.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "deepgreenai-com-assistant",
+    "name": "DeepGreenAI",
+    "domain": "deepgreenai.com",
+    "website": "https://Deepgreenai.com",
+    "category": "Blockchain / web3 development studio + AI trading bots",
+    "desc": "In-house blockchain studio: AI algorithmic trading bots, smart-contract development and blockchain automation, web3 DApps, and NFT/crypto/token/DAO work. Offers a client login portal and publishes a portfolio of past projects.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "deepshi-ai-assistant",
+    "name": "Deepshi",
+    "domain": "deepshi.ai",
+    "website": "https://deepshi.ai",
+    "category": "AI assistant platform (private / unrestricted multi-modal AI)",
+    "desc": "A private, uncensored AI platform: one interface for chat, image generation, video generation, music generation and code, running native models (Deepshi Flash 2.0, Deepshi Pro 3.0) by Evermind Labs, with paid access to mainstream models (GPT-5.2, Claude Opus, Gemini and more). Privacy architecture stores conversations only on the user's device.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "designloop-assistant",
+    "name": "DesignLoop",
+    "domain": "designloop.ai",
+    "website": "https://designloop.ai",
+    "category": "Design/feedback tooling (website feedback & annotation platform, B2B SaaS)",
+    "desc": "Website and PDF feedback tool: the owner creates a review link for a site (or PDF); clients open it and leave comments pinned to the exact page area, with the original screenshot, device size and suggested replacement copy. The owner then hands selected requests to a coding tool (Claude Code, Cursor, Codex — via copy, AI link or MCP connection), follows progress on a private Implementation board, and only the owner can mark a client request complete",
+    "pairUrl": ""
+  },
+  {
+    "slug": "detentlabs-assistant",
+    "name": "DetentLabs (SafeClick)",
+    "domain": "detentlabs.ai",
+    "website": "https://detentlabs.ai",
+    "category": "Crypto/payment security (pre-broadcast transaction decision layer, B2B API)",
+    "desc": "SafeClick — a security layer that intercepts a signed transaction between signing and broadcast and returns an enforced verdict: ALLOW, HOLD or BLOCK. It simulates/decodes the transaction (asset flows, hidden outflows, decoded permissions like Permit2 batches), combines signed transaction + wallet context + platform policy + threat intelligence, and only an allowed transaction reaches the broadcast path. Live today for human crypto wallets; the next build is x402 client middleware so the same verdict sits inside AI-agent payment paths",
+    "pairUrl": ""
+  },
+  {
+    "slug": "devrandom-assistant",
+    "name": "devrandom",
+    "domain": "devrandom.co",
+    "website": "https://devrandom.co",
+    "category": "Agent infrastructure (open-source AI agent accountability stack)",
+    "desc": "Four open-source Rust layers that make AI agents accountable: cesr (an ID card — verifiable agent IDs you issue, rotate, revoke; implements the KERI open standard), mnesis (a flight recorder — every action signed, hash-chained, replayable), bombay (a place to run — agents live on your devices, talk directly, keep working offline), agency (a leash — grant exact powers, watch them used, take them back mid-task, with a kill switch that works offline)",
+    "pairUrl": ""
+  },
+  {
+    "slug": "diagrm-assistant",
+    "name": "Diagrm",
+    "domain": "diagrm.com",
+    "website": "https://diagrm.com",
+    "category": "Cloud infrastructure/dev tools (visual system of record for cloud architecture design, B2B SaaS)",
+    "desc": "A visual system of record for AWS architecture — a shared canvas where architects, FinOps and security see cost, risk and compliance before a single resource ships. Three questions answered on one canvas: Build (drag, configure and connect real AWS services — no YAML, no code), Validate (inline AI flags for security, compliance and best-practice risk with plain-language explanations and suggested fixes), Forecast (real-time cost and ROI estimates updating alongside the diagram). The company frames the category as Infrastructure-as-Diagram (IaD): the diagram is not documentation but an intelligent, operational blueprint where every canvas change is an immutable, versioned declaration of intent ('design as a commit')",
+    "pairUrl": ""
+  },
+  {
+    "slug": "flounleashed-com-assistant",
+    "name": "FLO Unleashed",
+    "domain": "flounleashed.com",
+    "website": "https://flounleashed.com",
+    "category": "Sports training equipment (wearable resistance / speed & agility)",
+    "desc": "FLO Unleashed is a professional-grade training belt (a wearable 360° resistance harness) for athletes and coaches. The site pitches '360-degree resistance that activates every muscle group through natural athletic movement patterns' and 'focus on your performance while the belt handles the rest.' Product page features: Advanced 360° Design, Low-Friction Materials, Team-Tested Performance, Complete Training System, Easy Maintenance. Ships as a complete system with carrying case, quick start guide, care instructions and a 1-year warranty card; sizes S-XXL.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "genoria-studio-assistant",
+    "name": "Genoria Studio",
+    "domain": "genoria.studio",
+    "website": "https://Genoria.Studio",
+    "category": "AI marketing video (per the source CSV)",
+    "desc": "Pre-launch landing page for Genoria, an AI marketing-video tool. The only copy on the site is the headline \"Win the next campaign.\", the Chinese subline \"一名员工，一天，一百条爆款视频\" (\"One employee, one day, one hundred hit videos\") and a \"开始创作\" (\"Start creating\") button. The Chinese label per the source CSV is 'AI-powered marketing video creation platform; open to trial users.'",
+    "pairUrl": ""
+  },
+  {
+    "slug": "giftpack-assistant",
+    "name": "Giftpack",
+    "domain": "giftpack.ai",
+    "website": "https://giftpack.ai",
+    "category": "Corporate gifting/incentives",
+    "desc": "Giftpack is an AI-powered global incentive infrastructure platform for enterprises. It combines branded storefronts, custom merchandise/swag, gift cards and rewards, automation (workflows/integrations), and global fulfillment/tracking. Use cases include employee recognition/engagement, sales incentives, channel/partner incentives, marketing/branding, onboarding, customer loyalty/referrals, personal gifting, and government/compliance-sensitive programs.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "glossdocs-assistant",
+    "name": "GlossDocs",
+    "domain": "glossdocs.com",
+    "website": "https://glossdocs.com",
+    "category": "AI tooling / document review layer",
+    "desc": "Gloss (GlossDocs) is a review layer for AI-generated documents. An author publishes HTML (or Markdown) from an agent session and gets a stable link; invited reviewers sign in with Google and comment directly on passages; the comments return to the agent as a structured revision brief so the author can revise and republish to the same link. Gloss runs as a remote MCP server (address https://glossdocs.com/mcp, Streamable HTTP transport, OAuth in browser) with 15 tools (publish, list, read, invite, members, remove, brief, comment, reply, withdraw, edit, react, star, delete, restore) plus a plain HTTP API.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "got2eat-assistant",
+    "name": "Got2Eat",
+    "domain": "got2eat.app",
+    "website": "https://got2eat.app",
+    "category": "Consumer food app / local deals map (budget dining)",
+    "desc": "Community-verified map of value meals and deals: hand-picked filling meals under $15 with every price shown on the map before you walk in. Site claims 'No ads · No selling data'.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "govbridge-assistant",
+    "name": "GovBridge",
+    "domain": "govbridgecouncil.com",
+    "website": "https://govbridgecouncil.com",
+    "category": "Advisory firm (public-sector funding strategy for startups/growth companies)",
+    "desc": "Public Capital Architecture advisory: designs how venture-backed and growth-stage companies integrate procurement, grants and tax incentives into one capital strategy (three-lever model: revenue/procurement, subsidy/grants, offset/tax credits).",
+    "pairUrl": ""
+  },
+  {
+    "slug": "governance-first-agent-system-on-aws-assistant",
+    "name": "Governance-first agent system on AWS",
+    "domain": "builder.aws.com",
+    "website": "https://builder.aws.com/content/3Jb4PZLnx2pbh0IyoJ1SeFWmA7S/my-ai-board-voted-against-me-building-a-governance-first-agent-system-on-aws",
+    "category": "AI agents: open hackathon project write-up (serverless multi-agent governance system on AWS)",
+    "desc": "Boardagents — an autonomous board of AI agents running entirely on AWS (Lambda, DynamoDB, S3, EventBridge, Amazon Bedrock) that watches company signals, acts on real code with real tests, and votes the founder down when the evidence says no. Documented in the AWS Builder Center article 'My AI Board Voted Against Me' (published Sep 20, 2026; last modified Sep 21, 2026).",
+    "pairUrl": ""
+  },
+  {
+    "slug": "grapeleaf-assistant",
+    "name": "Grapeleaf",
+    "domain": "grapeleaf.club",
+    "website": "https://grapeleaf.club",
+    "category": "Fundraising platform (video pitch marketplace, waitlist stage)",
+    "desc": "Fundraising platform where founders record 1-, 3- and 5-minute video pitches once and investors watch only what they asked to see — a staged funnel (hook → business → deep dive) ending in direct founder↔investor contact, investor-initiated only. Currently waitlist/early-access.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "haifi-ai-assistant",
+    "name": "HaiFi.ai",
+    "domain": "haifi.ai",
+    "website": "https://www.haifi.ai",
+    "category": "Bookkeeping / CFO / tax service (AI-assisted, human-approved)",
+    "desc": "Bookkeeping, CFO and tax service for small businesses: daily reconciliation, month-end close delivered within 5 business days of month-end, accountant-approved P&L and balance sheet, delivered to email/Slack/Claude. Books stay in the client's existing QuickBooks Online, Xero or AccountingSeed ledger (OAuth). Tagline: 'Delivering a best-in-class experience since 2010.'",
+    "pairUrl": ""
+  },
+  {
+    "slug": "here-with-you-local-wellbeing-companion-assistant",
+    "name": "Here With You — Local Wellbeing Companion",
+    "domain": "devpost.com",
+    "website": "https://devpost.com/software/here-with-you-local-wellbeing-companion",
+    "category": "AI wellbeing (hackathon project listing)",
+    "desc": "Local-first AI wellbeing companion built around privacy, memory, companionship, accessibility and responsible AI; entered in Hack for Humanity Summer 2026 on Devpost. The project's own Devpost page could not be captured (Cloudflare challenge), so no further product detail is available in the materials.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "hightails-com-assistant",
+    "name": "Hightails",
+    "domain": "hightails.com",
+    "website": "https://hightails.com",
+    "category": "Cannabis / hemp THC beverages (brand house)",
+    "desc": "Parent brand of premium hemp-based, THC-infused beverages. Site title: 'Hightails - Premium Cannabis Beverages | BLACK MARKET'. Headline: 'Elevating Cannabis Culture.' Umbrella over two brands: BLACK MARKET (flagship, THC-infused beverages, 'available in select markets') and High Standard (limited edition, Hibiscus & Saffron: 10mg THC/serve, 200mg/bottle, 750mL).",
+    "pairUrl": ""
+  },
+  {
+    "slug": "hmg-essentials-assistant",
+    "name": "HMG Essentials",
+    "domain": "hmgessentials.com",
+    "website": "https://hmgessentials.com",
+    "category": "Body care / CPG (Shopify DTC store)",
+    "desc": "Shopify DTC store for handcrafted all-natural bath & body products: soaps (DOTS, bars, body wash, scrubs), emulsified body creams/Shea butter, body oils, perfumes, plus sample sets ('I'LL HAVE IT ALL'). About: 'All-Natural Care, Rich in Real Lather' — small batches, free of harsh chemicals, founded in Brooklyn in 2023. 39 products in stock, 3 out of stock; highest listed price $20 (as of crawl 2026-10-18).",
+    "pairUrl": ""
+  },
+  {
+    "slug": "i18-assistant",
+    "name": "i18",
+    "domain": "i18devs.com",
+    "website": "https://i18devs.com",
+    "category": "Global talent / EOR / GCC-as-a-service (B2B services)",
+    "desc": "Global talent and Global Capability Center (GCC) services provider: helps companies hire global talent and build, manage and scale fully owned GCCs/Captives in talent-rich hubs (mainly India), taking care of Talent, Workspace, HR, Operations and Payroll end to end",
+    "pairUrl": ""
+  },
+  {
+    "slug": "icon-assistant",
+    "name": "ICON",
+    "domain": "luma.com",
+    "website": "https://luma.com/icon.ny",
+    "category": "Event production. Produces events (e.g., fashion lectures) at ICON with guests from Google, McKinsey, Accenture, PVH, DKNY",
+    "desc": "Event production. Produces events (e.g., fashion lectures) at ICON with guests from Google, McKinsey, Accenture, PVH, DKNY; offers custom sponsored events.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "in-kind-global-trade-assistant",
+    "name": "In-Kind: Global Trade",
+    "domain": "brianmead.agency",
+    "website": "https://brianmead.agency",
+    "category": "Media/docu-series",
+    "desc": "Media/docu-series; unscripted luxury travel and design series on global home swapping, cultural exchange and shoppable media integrations.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "intimacy-coordination-for-film-television-assistant",
+    "name": "Intimacy Coordination for film & television",
+    "domain": "kdmovement.space",
+    "website": "https://kdmovement.space",
+    "category": "Film/TV production services: intimacy coordination for film and television by an NYC movement specialist.",
+    "desc": "Film/TV production services: intimacy coordination for film and television by an NYC movement specialist.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "kenz-intent-assistant",
+    "name": "KenZ Intent",
+    "domain": "kenz-intent.kenzaihub.io",
+    "website": "https://kenz-intent.kenzaihub.io",
+    "category": "Enterprise AI search",
+    "desc": "Enterprise AI search; unified search platform connecting organizational knowledge, systems and data through a governed AI layer.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "kira-world-kira-labs-assistant",
+    "name": "Kira World / Kira Labs",
+    "domain": "kiralabs.org",
+    "website": "https://Kiralabs.org",
+    "category": "AI companions / virtual worlds. Persistent AI characters with memory and natural interaction in virtual worlds, aiming for VR and robotic embodiment",
+    "desc": "AI companions / virtual worlds. Persistent AI characters with memory and natural interaction in virtual worlds, aiming for VR and robotic embodiment; pitch packet shared; seeking collaborators and investors.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "layers-world-assistant",
+    "name": "Layers World",
+    "domain": "apps.apple.com",
+    "website": "https://apps.apple.com/us/app/layers-world/id6790016671",
+    "category": "Augmented reality consumer app. iOS app (v0.1.0 beta) letting users place images, videos, 3D objects or URLs on their own shareable Layer over the physical world",
+    "desc": "Augmented reality consumer app. iOS app (v0.1.0 beta) letting users place images, videos, 3D objects or URLs on their own shareable Layer over the physical world; cofounded.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "linusbio-assistant",
+    "name": "LinusBio",
+    "domain": "clearstrand.com",
+    "website": "https://clearstrand.com",
+    "category": "Biotech/precision health",
+    "desc": "Biotech/precision health; hair tests of environmental exposures: ClearStrand-ASD helps providers rule out autism in children under 10; Traced tracks exposure patterns for consumers.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "lotuspetalai-assistant",
+    "name": "LotusPetalAI",
+    "domain": "lotuspetal.ai",
+    "website": "https://lotuspetal.ai",
+    "category": "AI GovCon. B2B2G AI government-contracting platform / AI RFP software for GovCon and commercial teams",
+    "desc": "PetalOS™ — AI RFP software for GovCon & commercial teams: AI-powered opportunity discovery, capture management, compliance, and proposal generation in one pursuit-intelligence platform",
+    "pairUrl": ""
+  },
+  {
+    "slug": "lux-easy-assistant",
+    "name": "LUX&EASY",
+    "domain": "luxandeasy.com",
+    "website": "https://luxandeasy.com",
+    "category": "Real estate development (Greek residential, hospitality and Golden Visa investment)",
+    "desc": "LUX&EASY Group operates five brands: LUX&EASY Residences (design/develop/sell A+ energy-efficient new builds in Athens and Greece, member of NOVA CONSTRUCTIONS S.A.), LUX&EASY Rentals (furnished short- to long-term apartments, 2 days to 5 years), LUX&EASY Aparthotels (short-stay apartments/suites), hotel development with Hilton (Hilton Garden Inn Athens Syggrou Avenue, HGI Chania City, ERA Hotel Heraklion Tapestry Collection), and Greek Golden Visa (getgreekgoldenvisa.com, EU residency from EUR 250,000).",
+    "pairUrl": ""
+  },
+  {
+    "slug": "luxus-conservus-assistant",
+    "name": "Luxus Conservus",
+    "domain": "luxusconservus.com",
+    "website": "https://luxusconservus.com",
+    "category": "B2B luxury concierge & lifestyle-management service — events, transport, fine art, NYC real estate, smart-building automation",
+    "desc": "B2B lifestyle-management / experiences concierge (globally): exclusive event access, yachts & private jets, fine art advisory, NYC real estate acquisition/management, and enterprise smart-building automation",
+    "pairUrl": ""
+  },
+  {
+    "slug": "mantaq-assistant",
+    "name": "Mantaq",
+    "domain": "mantaq.co",
+    "website": "https://mantaq.co",
+    "category": "AI automation & software studio (document-heavy workflow automation for healthcare, HR, compliance and nonprofit teams)",
+    "desc": "AI automation & software studio for teams that run on paperwork: document intake and reading, role-based review screens, finished documents out, every step logged for audit. Human-in-the-loop by design; HIPAA-compliant systems have been shipped.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "medstartr-ai-assistant",
+    "name": "MedStartr.ai",
+    "domain": "medstartr.ai",
+    "website": "https://MedStartr.ai",
+    "category": "Healthcare innovation platform (marketplace, community, events, contests, fundraising, pilots and investor matching)",
+    "desc": "Crowd-accelerating healthcare innovation: a marketplace of 16,983+ healthcare companies (308 categories, 1,219 disease areas) where the crowd engages via reactions and leads (try/buy, mentor, pilot, partner, invest), plus mentors, communities by city, events, contests, a shop and AI match/leaderboard tools. Beta platform launched from MedStartr's earlier sites (75,000 alpha visits per source CSV notes).",
+    "pairUrl": ""
+  },
+  {
+    "slug": "medstartr-capital-assistant",
+    "name": "MedStartr.Capital",
+    "domain": "medstartr.capital",
+    "website": "https://MedStartr.Capital",
+    "category": "Healthcare venture fund (AI-empowered early-stage investing, crowd-validated on the MedStartr platform)",
+    "desc": "MedStartr Venture Fund III (MVF III): a $40M early-stage healthcare venture fund investing in AI-empowered companies from seed to Series A, crowd-validated on the MedStartr platform, AI-predicted (Syggy + Fyggy) and accelerated through a three-stage program. Plan: over 100 companies in four years, 85% AI-empowered expected.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "mongoflow-assistant",
+    "name": "MongoFlow",
+    "domain": "mongo-flow.vercel.app",
+    "website": "https://mongo-flow.vercel.app",
+    "category": "Developer tools: interactive MongoDB visualization/management studio (MongoFlow Studio)",
+    "desc": "MongoFlow Studio — interactive MongoDB visualization: Playground, Data Flow, Learning, Monitoring tabs; CRUD-style operations via JSON input or UI form over demo collections (Users, Products, Orders), with Execute/Reset DB and a Result & Metrics panel",
+    "pairUrl": ""
+  },
+  {
+    "slug": "moonlight-club-assistant",
+    "name": "Moonlight Club",
+    "domain": "moonlightclub.life",
+    "website": "https://moonlightclub.life",
+    "category": "Women's media/community (newsletter + curated in-person salons)",
+    "desc": "Moonlight Club is a gathering space for multi-hyphenate women building a portfolio career: a name, an income, and options outside the 9 to 5. Two ways in: The Memo — a free briefing every Friday (under five minutes, one long read inside) — and The Salons — quarterly curated IRL evenings in New York and Philadelphia.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "moonlight-co-assistant",
+    "name": "Moonlight & Co.",
+    "domain": "moonlightand.company",
+    "website": "https://moonlightand.company",
+    "category": "Consumer research / insights & brand consultancy (boutique, founder-led)",
+    "desc": "Consumer research and insights consultancy for one specific customer — the 'portfolio professional' who runs more than one thing. Runs studies, sessions and partnerships on behalf of brands, built on a standing panel (Moonlight Club).",
+    "pairUrl": ""
+  },
+  {
+    "slug": "nbrly-assistant",
+    "name": "NBRLY",
+    "domain": "nbrlyapp.com",
+    "website": "https://nbrlyapp.com",
+    "category": "Social / local community app (hyper-local, friendship-first, IRL meetups)",
+    "desc": "Free iOS/Android app for making friends in your neighborhood: drop a spontaneous 'Signal' (coffee, drinks, food, stroll, park hang, custom) and see who nearby is free to hang out right now. Explicitly not a dating app and not endless messaging.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "nyc-social-club-assistant",
+    "name": "NYC Social Club",
+    "domain": "nycsocialclub.com",
+    "website": "https://www.nycsocialclub.com",
+    "category": "Influencer marketing & UGC agency (boutique, NYC)",
+    "desc": "NYC-based influencer marketing & UGC agency: authentic UGC campaigns and influencer partnerships that connect brands with creators, engage modern audiences and drive social growth (site wording). CSV intro additionally says boutique agency running TikTok and Meta social ads and UGC, with past clients Amazon, Disney, Virgin Cruises, Brooks Brothers, Microsoft — per the founder's intro in the Connectors WhatsApp group, not stated on the site.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "nyc-stoop-assistant",
+    "name": "NYC Stoop",
+    "domain": "apps.apple.com",
+    "website": "https://apps.apple.com/us/app/nyc-stoop/id6790237386",
+    "category": "Local discovery / travel app (iOS)",
+    "desc": "NYC discovery app: a curated guide to New York — 'a few hundred places worth your time, chosen and described like a friend who lives there would, not a database of everything with a star rating.' Features Explore by vibe (eat/drink/art/live music/neighborhood), editorial descriptions and insider tips, Events (pin to trip days), Trips (saves turn into routed days with walking/transit), Plan It! (builds routed outing that fits budget), Your Stoop (share up to 5 photos per post with private friend codes, map of friend's photos, comments). Free, no ads.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "nyedis-com-assistant",
+    "name": "Nyedis",
+    "domain": "nyedis.com",
+    "website": "https://www.nyedis.com",
+    "category": "Enterprise AI security & governance software + services (AI agent IAM, DLP, credential protection, spend controls, signed audit evidence).",
+    "desc": "Argent Strategic Intelligence — a checkpoint between AI agents and everything they touch (MCP, RAG, A2A). On every request it enforces six areas of control: (1) know who acted (named human owner per agent; owner leave/off blocks the agent); (2) protect company data (DLP redaction of SSNs, cards, API keys, code, secrets); (3) limit access (only approved tools/MCP; default deny; agent-to-agent governed); (4) protect credentials (real keys never held by people/agents — Argent injects them from a vault after checks); (5) control the bill (dollar caps per company/org/dept/person/agent, hold-up-front/settle-after, emergency cap, forecasts, model routing); (6) check the evidence (every allow/deny/redact/quarantine is signed, hash-chained, write-once; offline verifier; SOC 2 evidence bundle in under 30 seconds). 'See. Prove. Stop.' 26 checks / 33 steps per request; < 100 ms policy decision; fails closed.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "omi-assistant",
+    "name": "Omi",
+    "domain": "omi.me",
+    "website": "https://omi.me",
+    "category": "AI hardware/memory — wearable AI notetaker pendant plus companion software that turns captured conversation into summaries, tasks and searchable memory.",
+    "desc": "Omi is a wearable AI notetaker pendant (by Based Hardware Inc., San Francisco) plus desktop/mobile/web software. It is always listening, capturing what you say and do, then turning it into summaries, tasks and searchable memory. 'One memory. Two ways to wear it' — pendant on a cord, a clip or a wrist band. Also offers omi Glass, an open-source developer smart-glasses kit. Software (and Glass hardware/firmware/software) is open source and can run locally.",
+    "pairUrl": ""
+  },
+  {
+    "slug": "perena-assistant",
+    "name": "Perena",
+    "domain": "perena.org",
+    "website": "https://perena.org",
+    "category": "Blockchain/DeFi — decentralized stablebanking protocol on Solana (yield-bearing digital dollar).",
+    "desc": "Decentralized financial protocol on Solana offering USD STAR (USD*), a fully collateralized, yield-bearing digital dollar whose value grows automatically as yield accrues into the price. Also offers yield-bearing wrappers SOL* and BTC*, risk tranching USD* Protected (USD*-P) / USD* Junior (USD*-J), and a Perena Smart Borrow product. USD* is backed by a diversified portfolio: delta-neutral hedged positions, secured borrow-lend, stablecoins, and tokenized real-world assets (e.g. OnRe reinsurance fund).",
+    "pairUrl": ""
+  },
+  {
+    "slug": "pitcrew-assistant",
+    "name": "PitCrew",
+    "domain": "gopitcrew.com",
+    "website": "https://www.gopitcrew.com",
+    "category": "Fintech AI/dev tools — governed AI agents for financial services that respect regulatory and compliance needs.",
+    "desc": "PitCrew is a governed AI platform for financial firms: 60+ ready-made agents (Agent Crew) plus Factory to build custom agents; Ground Truth applies the firm's policies on every run (with formal verification via AWS Automated Reasoning); Collections holds the documents/data agents read and produce; Ask Kitt answers questions with citations to run/page/rule; 40+ integrations to custodians/CRMs/portfolio systems; and every run produces evidence/audit trails (exam-ready evidence packs). Runs in Claude, Slack, email and API — no new app to open. Delivers configured, running automation in ~5 working days, live in production on Day 5.",
+    "pairUrl": ""
+  }
+]

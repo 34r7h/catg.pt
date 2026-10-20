@@ -1,0 +1,1761 @@
+[
+  {
+    "slug": "how-to-chatgpt",
+    "name": "How to ChatGPT",
+    "origin": "Udemy · Manas Roy",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "chatgpt",
+      "prompting",
+      "custom-gpts"
+    ],
+    "desc": "Unleashing the Power of ChatGPT: Your Ultimate Guide to Mastering AI for All Your Needs!",
+    "src": [
+      "SKILL.md + 9 references",
+      "Model card",
+      "Eval transcript"
+    ],
+    "links": [
+      {
+        "label": "Course on Udemy",
+        "url": "https://www.udemy.com/course/how-to-chatgpt/"
+      }
+    ],
+    "pairUrl": "",
+    "category": "courses"
+  },
+  {
+    "slug": "make-money-with-ai",
+    "name": "Make Money with AI",
+    "origin": "Udemy · Gagan Deep Ahuja",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "earning",
+      "digital-products",
+      "kdp"
+    ],
+    "desc": "Learn 20+ beginner-friendly AI income methods, step-by-step workflows, real projects & tools to start earning fast",
+    "src": [
+      "SKILL.md + 11 references"
+    ],
+    "links": [
+      {
+        "label": "Course on Udemy",
+        "url": "https://www.udemy.com/course/make-money-with-ai-simple-methods-anyone-can-do/"
+      }
+    ],
+    "pairUrl": "",
+    "category": "courses"
+  },
+  {
+    "slug": "notebooklm-mastery",
+    "name": "NotebookLM Mastery",
+    "origin": "Udemy · Anton Voroniuk",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "research",
+      "notes",
+      "prompt-frameworks"
+    ],
+    "desc": "Master AI-Powered Research and Productivity with NotebookLM for Smarter Workflows and Better Insights",
+    "src": [
+      "SKILL.md + 9 references"
+    ],
+    "links": [
+      {
+        "label": "Course on Udemy",
+        "url": "https://www.udemy.com/course/notebooklm-mastery-organize-analyze-and-optimize-with-ai/"
+      }
+    ],
+    "pairUrl": "",
+    "category": "courses"
+  },
+  {
+    "slug": "benefy-assistant",
+    "name": "benefy-assistant",
+    "origin": "Benefy · nursakhmet",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "hr",
+      "benefits",
+      "ru/kk/en"
+    ],
+    "desc": "Q&A agent for Benefy HR/companies, employees and partners.",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://benefy.kz/"
+      },
+      {
+        "label": "Partner join",
+        "url": "https://join.benefy.kz/"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=960ab740c54ab54e62",
+    "category": "consumer"
+  },
+  {
+    "slug": "aerials-in-sports-medicine-assistant",
+    "name": "aerials-in-sports-medicine-assistant",
+    "origin": "Aerials in sports medicine · kdmovement.space",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "aerials",
+      "applying",
+      "medicine",
+      "movement"
+    ],
+    "desc": "Q&A agent for Aerials in sports medicine based on its website materials",
+    "src": [
+      "SKILL.md + 2 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://kdmovement.space"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=99d6ec507c33782e1f",
+    "category": "health"
+  },
+  {
+    "slug": "aggregation-ai-assistant",
+    "name": "aggregation-ai-assistant",
+    "origin": "Aggregation AI · aggregation.ai",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "aggregation",
+      "search",
+      "unified"
+    ],
+    "desc": "Aggregation AI: Unified AI search/interface aggregating multiple AI models (alternative to Claude, Perplexity, ChatGPT).",
+    "src": [
+      "SKILL.md + 6 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://aggregation.ai"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=f5f579d3eb9e1f4ab3",
+    "category": "b2b"
+  },
+  {
+    "slug": "ai-expert-witness-assistant",
+    "name": "ai-expert-witness-assistant",
+    "origin": "AI Expert Witness · aiexpertwitness.ai",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "attorneys",
+      "expert",
+      "experts",
+      "legal"
+    ],
+    "desc": "Q&A agent for AI Expert Witness based on its website materials",
+    "src": [
+      "SKILL.md + 6 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://aiexpertwitness.ai"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=0dc9e34c0a5b4ee4a1",
+    "category": "b2b"
+  },
+  {
+    "slug": "aithical-assistant",
+    "name": "aithical-assistant",
+    "origin": "Aithical · aithical.pro",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "aithical",
+      "studio"
+    ],
+    "desc": "Q&A agent for Aithical based on its website materials",
+    "src": [
+      "SKILL.md + 6 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://aithical.pro"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=398cd78dc3e3110af1",
+    "category": "b2b"
+  },
+  {
+    "slug": "altira-global-s-a-assistant",
+    "name": "altira-global-s-a-assistant",
+    "origin": "Altira Global S.A. · altira-global.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "altira",
+      "global",
+      "web3"
+    ],
+    "desc": "Q&A agent for Altira Global S.A. based on its website materials",
+    "src": [
+      "SKILL.md + 3 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://altira-global.com"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=fde102e94a76069073",
+    "category": "crypto"
+  },
+  {
+    "slug": "antcluster-assistant",
+    "name": "antcluster-assistant",
+    "origin": "Antcluster · antcluster.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "agent",
+      "analytics",
+      "antcluster",
+      "data"
+    ],
+    "desc": "Antcluster: AI Native Data Agent built on self-constructed Enterprise Knowledge Graph; natural language analytics/reports/ML agents.",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://antcluster.com"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=d3be0bafca119957d3",
+    "category": "b2b"
+  },
+  {
+    "slug": "aperture-labs-assistant",
+    "name": "aperture-labs-assistant",
+    "origin": "Aperture Labs · get.aperturelabs.dev",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "aperture",
+      "consulting",
+      "labs"
+    ],
+    "desc": "Q&A for Aperture Labs based on website materials",
+    "src": [
+      "SKILL.md + 4 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://get.aperturelabs.dev"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=9199042d274fc04a9f",
+    "category": "b2b"
+  },
+  {
+    "slug": "arcanus-assistant",
+    "name": "arcanus-assistant",
+    "origin": "Arcanus · arcanus.ai",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "arcanus",
+      "governance",
+      "risk"
+    ],
+    "desc": "Arcanus: AI governance and risk platform that embeds risk controls and compliance into the AI lifecycle.",
+    "src": [
+      "SKILL.md + 4 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://arcanus.ai"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=68a8649bbebf35d48b",
+    "category": "b2b"
+  },
+  {
+    "slug": "archer-development-foundation-assistant",
+    "name": "archer-development-foundation-assistant",
+    "origin": "Archer Development Foundation (OASIS standard) · archer.foundation",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "agent",
+      "agents",
+      "archer",
+      "development"
+    ],
+    "desc": "Q&A agent for Archer Development Foundation (OASIS standard) based on its website materials",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://archer.foundation"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=ab19b29de7524c4e92",
+    "category": "b2b"
+  },
+  {
+    "slug": "arf-ai-assistant",
+    "name": "arf-ai-assistant",
+    "origin": "ARF AI · arf-ai.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "arf",
+      "b2b",
+      "engine",
+      "free"
+    ],
+    "desc": "Q&A agent for ARF AI based on its website materials",
+    "src": [
+      "SKILL.md + 4 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://arf-ai.com"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=a6d22416e33dded965",
+    "category": "b2b"
+  },
+  {
+    "slug": "audacious-af-assistant",
+    "name": "audacious-af-assistant",
+    "origin": "Audacious AF (also branded Audacious AI Friends) · luma.com (community site: audaciousaf.com)",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "also",
+      "audacious",
+      "branded",
+      "community"
+    ],
+    "desc": "Q&A agent for Audacious AF based on its website materials",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://www.audaciousaf.com/"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=9664962a87cb86f0e7",
+    "category": "consumer"
+  },
+  {
+    "slug": "bicameral-assistant",
+    "name": "bicameral-assistant",
+    "origin": "Bicameral · bicameral-ai.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "alpha",
+      "bicameral",
+      "decision",
+      "dev"
+    ],
+    "desc": "Q&A agent for Bicameral based on its website materials",
+    "src": [
+      "SKILL.md + 4 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://bicameral-ai.com"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=9296ac2b7923a3b127",
+    "category": "b2b"
+  },
+  {
+    "slug": "biobase-assistant",
+    "name": "biobase-assistant",
+    "origin": "Biobase · biobase.ai",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "biobase",
+      "biospecimen",
+      "clinical",
+      "data"
+    ],
+    "desc": "Q&A agent for Biobase based on its website materials",
+    "src": [
+      "SKILL.md + 6 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://biobase.ai"
+      },
+      {
+        "label": "Learn more",
+        "url": "https://biobase.ai/platform"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=5096bab2ec7ded5033",
+    "category": "health"
+  },
+  {
+    "slug": "blockconvey-assistant",
+    "name": "blockconvey-assistant",
+    "origin": "BlockConvey · blockconvey.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "agent",
+      "and",
+      "blockconvey",
+      "dev"
+    ],
+    "desc": "Q&A agent for BlockConvey based on its website materials",
+    "src": [
+      "SKILL.md + 6 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://blockconvey.com"
+      },
+      {
+        "label": "Learn more",
+        "url": "https://blockconvey.com/prism"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=60f28dfb0c18e92089",
+    "category": "b2b"
+  },
+  {
+    "slug": "blockoffice-assistant",
+    "name": "blockoffice-assistant",
+    "origin": "BlockOffice · blockoffice.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "advisory",
+      "back",
+      "blockoffice",
+      "cfo"
+    ],
+    "desc": "Q&A agent for BlockOffice based on its website materials",
+    "src": [
+      "SKILL.md + 6 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://blockoffice.com"
+      },
+      {
+        "label": "Learn more",
+        "url": "https://blockoffice.com/services"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=c0830a08f09147e5d7",
+    "category": "b2b"
+  },
+  {
+    "slug": "boop-me-assistant",
+    "name": "boop-me-assistant",
+    "origin": "Boop.me · boop.me",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "event",
+      "networking",
+      "registration",
+      "ticketing"
+    ],
+    "desc": "Q&A agent for Boop.me based on its website materials",
+    "src": [
+      "SKILL.md + 6 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://boop.me"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=f2613d2728f545f16c",
+    "category": "consumer"
+  },
+  {
+    "slug": "brandknight-assistant",
+    "name": "brandknight-assistant",
+    "origin": "BrandKnight · brandknight.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "brand",
+      "brandknight",
+      "compliance",
+      "map"
+    ],
+    "desc": "Q&A agent for BrandKnight based on its website materials",
+    "src": [
+      "SKILL.md + 3 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://brandknight.com"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=d27e417ee6ecb86d6b",
+    "category": "b2b"
+  },
+  {
+    "slug": "brianmead-agency-assistant",
+    "name": "brianmead-agency-assistant",
+    "origin": "brianmead.agency · brianmead.agency",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "actor",
+      "personal",
+      "portfolio",
+      "producer"
+    ],
+    "desc": "Q&A agent for brianmead.agency based on its website materials",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://brianmead.agency"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=c63f4d64065793e848",
+    "category": "b2b"
+  },
+  {
+    "slug": "chronos-ro-assistant",
+    "name": "chronos-ro-assistant",
+    "origin": "Chronos · chronos.ro",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "automation",
+      "chronos",
+      "gtm",
+      "outbound"
+    ],
+    "desc": "Q&A agent for chronos.ro based on its website materials",
+    "src": [
+      "SKILL.md + 6 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://chronos.ro"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=b50ad6b356f123dee8",
+    "category": "b2b"
+  },
+  {
+    "slug": "copilotresume-assistant",
+    "name": "copilotresume-assistant",
+    "origin": "CopilotResume · copilotresume.io",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "ats",
+      "builder",
+      "checks",
+      "copilotresume"
+    ],
+    "desc": "Q&A agent for CopilotResume based on its website materials",
+    "src": [
+      "SKILL.md + 6 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://copilotresume.io"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=ba62c01d7e9709df9a",
+    "category": "b2b"
+  },
+  {
+    "slug": "crazy-startup-guy-assistant",
+    "name": "crazy-startup-guy-assistant",
+    "origin": "Crazy Startup Guy · crazystartupguy.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "across",
+      "and",
+      "austin",
+      "brand"
+    ],
+    "desc": "Q&A agent for Crazy Startup Guy based on its website materials",
+    "src": [
+      "SKILL.md + 3 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://CrazyStartupGuy.com"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=2664f7a158efc60cec",
+    "category": "consumer"
+  },
+  {
+    "slug": "creative3dtechnologies-com-assistant",
+    "name": "creative3dtechnologies-com-assistant",
+    "origin": "creative3dtechnologies.com · creative3dtechnologies.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "among",
+      "companies",
+      "invested",
+      "listed"
+    ],
+    "desc": "Q&A agent for creative3dtechnologies.com based on its website materials",
+    "src": [
+      "SKILL.md + 2 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://creative3dtechnologies.com"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=d5f7733f46adad6cd0",
+    "category": "b2b"
+  },
+  {
+    "slug": "deepgreenai-com-assistant",
+    "name": "deepgreenai-com-assistant",
+    "origin": "DeepGreenAI · deepgreenai.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "blockchain",
+      "bots",
+      "deepgreenai",
+      "development"
+    ],
+    "desc": "Q&A agent for DeepGreenAI based on its website materials",
+    "src": [
+      "SKILL.md + 4 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://Deepgreenai.com"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=57c5d676d1a95f2804",
+    "category": "crypto"
+  },
+  {
+    "slug": "deepshi-ai-assistant",
+    "name": "deepshi-ai-assistant",
+    "origin": "Deepshi · deepshi.ai",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "assistant",
+      "deepshi",
+      "platform",
+      "private"
+    ],
+    "desc": "Q&A agent for Deepshi based on its website materials",
+    "src": [
+      "SKILL.md + 6 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://deepshi.ai"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=030d4857938c7f84dc",
+    "category": "b2b"
+  },
+  {
+    "slug": "designloop-assistant",
+    "name": "designloop-assistant",
+    "origin": "DesignLoop · designloop.ai",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "annotation",
+      "b2b",
+      "design",
+      "designloop"
+    ],
+    "desc": "Q&A agent for DesignLoop (client website feedback tool) — reviews, annotation, handoff to coding tools, MCP, pricing, approval flow",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://designloop.ai"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=2f05748ca14bac613e",
+    "category": "consumer"
+  },
+  {
+    "slug": "detentlabs-assistant",
+    "name": "detentlabs-assistant",
+    "origin": "DetentLabs (SafeClick) · detentlabs.ai",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "api",
+      "b2b",
+      "crypto",
+      "decision"
+    ],
+    "desc": "Q&A agent for DetentLabs / SafeClick — pre-broadcast transaction security, verdicts, demo scenarios, 90-day Enterprise Evaluation, pricing model, A...",
+    "src": [
+      "SKILL.md + 4 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://detentlabs.ai"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=d27032bad459e5df09",
+    "category": "crypto"
+  },
+  {
+    "slug": "devrandom-assistant",
+    "name": "devrandom-assistant",
+    "origin": "devrandom · devrandom.co",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "accountability",
+      "agent",
+      "devrandom",
+      "infrastructure"
+    ],
+    "desc": "Q&A agent for devrandom — the four-layer accountability stack (cesr/mnesis/bombay/agency), roadmap status, problem/positioning, founder and communi...",
+    "src": [
+      "SKILL.md + 3 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://devrandom.co"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=435e2f31ba7c9cd1aa",
+    "category": "b2b"
+  },
+  {
+    "slug": "diagrm-assistant",
+    "name": "diagrm-assistant",
+    "origin": "Diagrm · diagrm.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "architecture",
+      "b2b",
+      "cloud",
+      "design"
+    ],
+    "desc": "Q&A agent for Diagrm — the AWS design canvas, Infrastructure-as-Diagram category, system-of-record and drift arguments, blog stats, beta status, fo...",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://diagrm.com"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=38eea83b318b785e16",
+    "category": "b2b"
+  },
+  {
+    "slug": "flounleashed-com-assistant",
+    "name": "flounleashed-com-assistant",
+    "origin": "FLO Unleashed · flounleashed.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "agility",
+      "equipment",
+      "flo",
+      "resistance"
+    ],
+    "desc": "Q&A agent for FLO Unleashed based on its website materials",
+    "src": [
+      "SKILL.md + 2 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://flounleashed.com"
+      },
+      {
+        "label": "Learn more",
+        "url": "https://flounleashed.com/product"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=45b9afbc1b7dc27cfe",
+    "category": "b2b"
+  },
+  {
+    "slug": "genoria-studio-assistant",
+    "name": "genoria-studio-assistant",
+    "origin": "Genoria Studio · genoria.studio",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "csv",
+      "genoria",
+      "marketing",
+      "per"
+    ],
+    "desc": "Q&A agent for Genoria Studio based on its website materials",
+    "src": [
+      "SKILL.md + 2 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://Genoria.Studio"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=154022ebfd02792af1",
+    "category": "b2b"
+  },
+  {
+    "slug": "giftpack-assistant",
+    "name": "giftpack-assistant",
+    "origin": "Giftpack · giftpack.ai",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "corporate",
+      "gifting",
+      "giftpack",
+      "incentives"
+    ],
+    "desc": "Q&A agent for Giftpack based on its website materials",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://giftpack.ai"
+      },
+      {
+        "label": "Learn more",
+        "url": "https://giftpack.ai/browse"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=d2e202c81f18f0344d",
+    "category": "b2b"
+  },
+  {
+    "slug": "glossdocs-assistant",
+    "name": "glossdocs-assistant",
+    "origin": "GlossDocs · glossdocs.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "document",
+      "glossdocs",
+      "layer",
+      "review"
+    ],
+    "desc": "Q&A agent for GlossDocs based on its website materials",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://glossdocs.com"
+      },
+      {
+        "label": "Learn more",
+        "url": "https://glossdocs.com/examples/client-launch-plan"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=43c71bf8399315bee7",
+    "category": "b2b"
+  },
+  {
+    "slug": "got2eat-assistant",
+    "name": "got2eat-assistant",
+    "origin": "Got2Eat · got2eat.app",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "app",
+      "budget",
+      "consumer",
+      "deals"
+    ],
+    "desc": "Q&A agent for Got2Eat based on its website materials",
+    "src": [
+      "SKILL.md + 3 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://got2eat.app"
+      },
+      {
+        "label": "Learn more",
+        "url": "https://got2eat.app/city (city list; city pages e.g. /city/new-york)"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=376fa39fbd867de3a9",
+    "category": "consumer"
+  },
+  {
+    "slug": "govbridge-assistant",
+    "name": "govbridge-assistant",
+    "origin": "GovBridge · govbridgecouncil.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "advisory",
+      "companies",
+      "firm",
+      "for"
+    ],
+    "desc": "Q&A agent for GovBridge based on its website materials",
+    "src": [
+      "SKILL.md + 3 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://govbridgecouncil.com"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=216c9a2db279a4c16c",
+    "category": "b2b"
+  },
+  {
+    "slug": "governance-first-agent-system-on-aws-assistant",
+    "name": "governance-first-agent-system-on-aws-assistant",
+    "origin": "Governance-first agent system on AWS · builder.aws.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "agent",
+      "aws",
+      "governance",
+      "hackathon"
+    ],
+    "desc": "Q&A agent for the 'My AI Board Voted Against Me' AWS Builder Center write-up (Boardagents) based on its website materials",
+    "src": [
+      "SKILL.md + 3 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://builder.aws.com/content/3Jb4PZLnx2pbh0IyoJ1SeFWmA7S/my-ai-board-voted-against-me-building-a-governance-first-agent-system-on-aws"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=74854e16f8881cf4e2",
+    "category": "b2b"
+  },
+  {
+    "slug": "grapeleaf-assistant",
+    "name": "grapeleaf-assistant",
+    "origin": "Grapeleaf · grapeleaf.club",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "fundraising",
+      "grapeleaf",
+      "marketplace",
+      "pitch"
+    ],
+    "desc": "Q&A agent for Grapeleaf based on its website materials",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://grapeleaf.club"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=6b983e55a136a79df9",
+    "category": "b2b"
+  },
+  {
+    "slug": "haifi-ai-assistant",
+    "name": "haifi-ai-assistant",
+    "origin": "HaiFi.ai · haifi.ai",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "bookkeeping",
+      "cfo",
+      "service",
+      "tax"
+    ],
+    "desc": "Q&A agent for HaiFi.ai based on its website materials",
+    "src": [
+      "SKILL.md + 6 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://www.haifi.ai"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=1c8d49f1ef46f2d843",
+    "category": "b2b"
+  },
+  {
+    "slug": "here-with-you-local-wellbeing-companion-assistant",
+    "name": "here-with-you-local-wellbeing-companion-assistant",
+    "origin": "Here With You — Local Wellbeing Companion · devpost.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "companion",
+      "hackathon",
+      "here",
+      "listing"
+    ],
+    "desc": "Q&A agent for Here With You — Local Wellbeing Companion based on its website materials",
+    "src": [
+      "SKILL.md + 3 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://devpost.com/software/here-with-you-local-wellbeing-companion"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=f188ff74a8dd127328",
+    "category": "health"
+  },
+  {
+    "slug": "hightails-com-assistant",
+    "name": "hightails-com-assistant",
+    "origin": "Hightails · hightails.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "beverages",
+      "brand",
+      "cannabis",
+      "hemp"
+    ],
+    "desc": "Q&A agent for Hightails based on its website materials",
+    "src": [
+      "SKILL.md + 3 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://hightails.com"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=2b35d5c53bba3750ae",
+    "category": "b2b"
+  },
+  {
+    "slug": "hmg-essentials-assistant",
+    "name": "hmg-essentials-assistant",
+    "origin": "HMG Essentials · hmgessentials.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "body",
+      "care",
+      "cpg",
+      "dtc"
+    ],
+    "desc": "Q&A agent for HMG Essentials based on its website materials",
+    "src": [
+      "SKILL.md + 4 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://hmgessentials.com"
+      },
+      {
+        "label": "Learn more",
+        "url": "https://hmgessentials.com/collections/all"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=3f30fefd7c9f3b49c6",
+    "category": "health"
+  },
+  {
+    "slug": "i18-assistant",
+    "name": "i18-assistant",
+    "origin": "i18 · i18devs.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "b2b",
+      "eor",
+      "global",
+      "i18"
+    ],
+    "desc": "Q&A agent for i18 (global talent / EOR / GCC services) aimed at companies wanting to hire offshore teams or build GCCs in India",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://i18devs.com"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=dafb173df9aa7412a8",
+    "category": "b2b"
+  },
+  {
+    "slug": "icon-assistant",
+    "name": "icon-assistant",
+    "origin": "ICON · luma.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "accenture",
+      "dkny",
+      "event",
+      "events"
+    ],
+    "desc": "Q&A agent for ICON based on its website materials",
+    "src": [
+      "SKILL.md + 3 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://luma.com/icon.ny"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=d9b943354eb394817d",
+    "category": "consumer"
+  },
+  {
+    "slug": "in-kind-global-trade-assistant",
+    "name": "in-kind-global-trade-assistant",
+    "origin": "In-Kind: Global Trade · brianmead.agency",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "global",
+      "media",
+      "trade"
+    ],
+    "desc": "Q&A agent for In-Kind: Global Trade based on its website materials",
+    "src": [
+      "SKILL.md + 2 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://brianmead.agency"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=d2df16d91a66a3b2a8",
+    "category": "b2b"
+  },
+  {
+    "slug": "intimacy-coordination-for-film-television-assistant",
+    "name": "intimacy-coordination-for-film-television-assistant",
+    "origin": "Intimacy Coordination for film & television · kdmovement.space",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "and",
+      "coordination",
+      "film",
+      "for"
+    ],
+    "desc": "Q&A agent for Intimacy Coordination for film & television based on its website materials",
+    "src": [
+      "SKILL.md + 2 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://kdmovement.space"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=893752087b55be0372",
+    "category": "b2b"
+  },
+  {
+    "slug": "kenz-intent-assistant",
+    "name": "kenz-intent-assistant",
+    "origin": "KenZ Intent · kenz-intent.kenzaihub.io",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "enterprise",
+      "intent",
+      "kenz",
+      "search"
+    ],
+    "desc": "Q&A agent for KenZ Intent based on its website materials",
+    "src": [
+      "SKILL.md + 3 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://kenz-intent.kenzaihub.io"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=3e63e19b0f45770580",
+    "category": "b2b"
+  },
+  {
+    "slug": "kira-world-kira-labs-assistant",
+    "name": "kira-world-kira-labs-assistant",
+    "origin": "Kira World / Kira Labs · kiralabs.org",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "aiming",
+      "and",
+      "characters",
+      "companions"
+    ],
+    "desc": "Q&A agent for Kira World / Kira Labs based on its website materials",
+    "src": [
+      "SKILL.md + 4 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://Kiralabs.org"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=11c706326fe494e39b",
+    "category": "b2b"
+  },
+  {
+    "slug": "layers-world-assistant",
+    "name": "layers-world-assistant",
+    "origin": "Layers World · apps.apple.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "app",
+      "augmented",
+      "beta",
+      "consumer"
+    ],
+    "desc": "Q&A agent for Layers World based on its website materials",
+    "src": [
+      "SKILL.md + 2 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://apps.apple.com/us/app/layers-world/id6790016671"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=9a9873bcec895ca34c",
+    "category": "consumer"
+  },
+  {
+    "slug": "linusbio-assistant",
+    "name": "linusbio-assistant",
+    "origin": "LinusBio · clearstrand.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "biotech",
+      "health",
+      "linusbio",
+      "precision"
+    ],
+    "desc": "Q&A agent for LinusBio based on its website materials",
+    "src": [
+      "SKILL.md + 2 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://clearstrand.com"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=024b1c5f44633cfe6c",
+    "category": "health"
+  },
+  {
+    "slug": "lotuspetalai-assistant",
+    "name": "lotuspetalai-assistant",
+    "origin": "LotusPetalAI · lotuspetal.ai",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "and",
+      "b2b2g",
+      "commercial",
+      "for"
+    ],
+    "desc": "Q&A agent for LotusPetalAI based on its website materials",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://lotuspetal.ai"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=5b55010bec75c6f95b",
+    "category": "b2b"
+  },
+  {
+    "slug": "lux-easy-assistant",
+    "name": "lux-easy-assistant",
+    "origin": "LUX&EASY · luxandeasy.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "and",
+      "development",
+      "estate",
+      "golden"
+    ],
+    "desc": "Q&A agent for LUX&EASY based on its website materials",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://luxandeasy.com"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=67f49118bbbe2b7f77",
+    "category": "b2b"
+  },
+  {
+    "slug": "luxus-conservus-assistant",
+    "name": "luxus-conservus-assistant",
+    "origin": "Luxus Conservus · luxusconservus.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "art",
+      "automation",
+      "b2b",
+      "concierge"
+    ],
+    "desc": "Q&A agent for Luxus Conservus based on its website materials",
+    "src": [
+      "SKILL.md + 3 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://luxusconservus.com"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=20d55092a6adf91492",
+    "category": "consumer"
+  },
+  {
+    "slug": "mantaq-assistant",
+    "name": "mantaq-assistant",
+    "origin": "Mantaq · mantaq.co",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "and",
+      "automation",
+      "compliance",
+      "for"
+    ],
+    "desc": "Q&A agent for Mantaq based on its website materials",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://mantaq.co"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=b4e92565fea219f6da",
+    "category": "b2b"
+  },
+  {
+    "slug": "medstartr-ai-assistant",
+    "name": "medstartr-ai-assistant",
+    "origin": "MedStartr.ai · medstartr.ai",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "and",
+      "community",
+      "contests",
+      "events"
+    ],
+    "desc": "Q&A agent for MedStartr.ai based on its website materials",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://MedStartr.ai"
+      },
+      {
+        "label": "Learn more",
+        "url": "https://MedStartr.ai/companies"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=27b7c0bdc34420572e",
+    "category": "consumer"
+  },
+  {
+    "slug": "medstartr-capital-assistant",
+    "name": "medstartr-capital-assistant",
+    "origin": "MedStartr.Capital · medstartr.capital",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "fund",
+      "healthcare",
+      "investing",
+      "medstartr"
+    ],
+    "desc": "Q&A agent for MedStartr.Capital based on its website materials",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://MedStartr.Capital"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=434ce90491aec47cd0",
+    "category": "health"
+  },
+  {
+    "slug": "mongoflow-assistant",
+    "name": "mongoflow-assistant",
+    "origin": "MongoFlow · mongo-flow.vercel.app",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "developer",
+      "interactive",
+      "management",
+      "mongodb"
+    ],
+    "desc": "Q&A agent for MongoFlow based on its website materials",
+    "src": [
+      "SKILL.md + 2 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://mongo-flow.vercel.app"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=72a7378d6f89f9619c",
+    "category": "consumer"
+  },
+  {
+    "slug": "moonlight-club-assistant",
+    "name": "moonlight-club-assistant",
+    "origin": "Moonlight Club · moonlightclub.life",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "club",
+      "community",
+      "curated",
+      "media"
+    ],
+    "desc": "Q&A agent for Moonlight Club based on its website materials",
+    "src": [
+      "SKILL.md + 4 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://moonlightclub.life"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=ab542c06a24b6feb90",
+    "category": "consumer"
+  },
+  {
+    "slug": "moonlight-co-assistant",
+    "name": "moonlight-co-assistant",
+    "origin": "Moonlight & Co. · moonlightand.company",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "boutique",
+      "brand",
+      "consultancy",
+      "consumer"
+    ],
+    "desc": "Q&A agent for Moonlight & Co. (services, the customer, method, Culture Galaxy, founder, engagement next steps)",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://moonlightand.company"
+      },
+      {
+        "label": "Learn more",
+        "url": "https://moonlightand.company/culturegalaxy/"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=541f3dab3f1f8c28be",
+    "category": "consumer"
+  },
+  {
+    "slug": "nbrly-assistant",
+    "name": "nbrly-assistant",
+    "origin": "NBRLY · nbrlyapp.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "app",
+      "community",
+      "irl",
+      "local"
+    ],
+    "desc": "Q&A agent for NBRLY (product, Signals, events, App Store facts, founder, download)",
+    "src": [
+      "SKILL.md + 4 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://nbrlyapp.com"
+      },
+      {
+        "label": "Learn more",
+        "url": "https://nbrly.onelink.me/5HNK/7ihl13q2 (download onelink)"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=224c10ab1c8bca2c5f",
+    "category": "consumer"
+  },
+  {
+    "slug": "nyc-social-club-assistant",
+    "name": "nyc-social-club-assistant",
+    "origin": "NYC Social Club · nycsocialclub.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "agency",
+      "boutique",
+      "club",
+      "influencer"
+    ],
+    "desc": "Q&A agent for NYC Social Club (positioning, brand & creator funnels, contact paths)",
+    "src": [
+      "SKILL.md + 3 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://www.nycsocialclub.com"
+      },
+      {
+        "label": "Learn more",
+        "url": "https://www.nycsocialclub.com/case-studies (page exists but contains no case-study content)"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=0ba9e1240e99ecb95a",
+    "category": "consumer"
+  },
+  {
+    "slug": "nyc-stoop-assistant",
+    "name": "nyc-stoop-assistant",
+    "origin": "NYC Stoop · apps.apple.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "app",
+      "discovery",
+      "ios",
+      "local"
+    ],
+    "desc": "Q&A agent for NYC Stoop (App Store facts: features, privacy, version history, requirements)",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://apps.apple.com/us/app/nyc-stoop/id6790237386"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=79b6f90ec69e6b95e1",
+    "category": "consumer"
+  },
+  {
+    "slug": "nyedis-com-assistant",
+    "name": "nyedis-com-assistant",
+    "origin": "Nyedis · nyedis.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "agent",
+      "audit",
+      "controls",
+      "credential"
+    ],
+    "desc": "Q&A agent for Nyedis (Argent Strategic Intelligence, six controls, deployment, services, AI Sentinel, team/contact)",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://www.nyedis.com"
+      },
+      {
+        "label": "Learn more",
+        "url": "https://www.nyedis.com/services"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=7592f2c0be62580e26",
+    "category": "b2b"
+  },
+  {
+    "slug": "omi-assistant",
+    "name": "omi-assistant",
+    "origin": "Omi · omi.me",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "and",
+      "captured",
+      "companion",
+      "conversation"
+    ],
+    "desc": "Q&A agent for Omi (pendant, software, omi Glass, enterprise/sales, manifesto/roadmap, open source)",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://omi.me"
+      },
+      {
+        "label": "Learn more",
+        "url": "https://omi.me/collections/accessories"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=26da80495803d7df2f",
+    "category": "b2b"
+  },
+  {
+    "slug": "perena-assistant",
+    "name": "perena-assistant",
+    "origin": "Perena · perena.org",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "blockchain",
+      "decentralized",
+      "defi",
+      "digital"
+    ],
+    "desc": "Q&A agent for Perena (USD*, tranching, SOL*/BTC* wrappers, transparency, fees/risks, docs)",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://perena.org"
+      },
+      {
+        "label": "Learn more",
+        "url": "https://perena.gitbook.io/perena"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=8473b483784a537942",
+    "category": "crypto"
+  },
+  {
+    "slug": "pitcrew-assistant",
+    "name": "pitcrew-assistant",
+    "origin": "PitCrew · gopitcrew.com",
+    "status": "available",
+    "price": "free",
+    "tags": [
+      "agents",
+      "and",
+      "compliance",
+      "dev"
+    ],
+    "desc": "Q&A agent for PitCrew (platform, agents/skills, Ground Truth, evidence/audit, security, 5-day deployment, team)",
+    "src": [
+      "SKILL.md + 5 references"
+    ],
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://www.gopitcrew.com"
+      },
+      {
+        "label": "Learn more",
+        "url": "https://www.gopitcrew.com/agents"
+      }
+    ],
+    "pairUrl": "https://handoff.lol/pair.html?code=626064d0bffd699389",
+    "category": "b2b"
+  }
+]
