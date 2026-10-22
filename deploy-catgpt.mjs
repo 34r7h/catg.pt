@@ -98,17 +98,18 @@ async function deploy() {
 
   const payload = {
     name: 'CatGPT',
-    version: '2.0',
+    version: '2.3',
     description: 'CatG.PT reverse-engineered startup, course, and personality agents.',
     entry: 'index.html',
     files,
+    notes: 'Chat returns a grounded answer immediately, then streams additional details with prior conversation context.',
     price: 0,
     license: 'MIT',
     permissions: ['network', 'storage']
   };
 
   const jsonBytes = Buffer.byteLength(JSON.stringify(payload));
-  console.log(`Publishing CatGPT v2.0 (payload: ${jsonBytes} bytes / ${(jsonBytes / 1024).toFixed(1)} KiB)...`);
+  console.log(`Publishing CatGPT v2.3 (payload: ${jsonBytes} bytes / ${(jsonBytes / 1024).toFixed(1)} KiB)...`);
   if (jsonBytes > 262144) {
     throw new Error(`Payload exceeds 256 KiB cap: ${jsonBytes} bytes`);
   }

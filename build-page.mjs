@@ -3480,6 +3480,8 @@ let html = `<!doctype html>
       input.value = "";
 
       const userHandoffId = (window.getAutoHandoffId ? window.getAutoHandoffId() : '').trim();
+      let priorMessages = [];
+      try { priorMessages = JSON.parse(localStorage.getItem("catgpt:chat:" + slug) || "[]").slice(-8); } catch (_) {}
 
       appendMsg("user", q, userHandoffId);
       saveMsg(slug, "user", q, userHandoffId);
@@ -3490,7 +3492,7 @@ let html = `<!doctype html>
       thinkEl.className = "msg-wrap bot";
       thinkEl.innerHTML = \`
         <div class="msg-sender">\${escapeHtml(slug.toUpperCase())}</div>
-        <div class="msg-box" style="color:var(--text-muted)">🐾 Ingesting 24k verified context and synthesizing response...</div>
+        <div class="msg-box" style="color:var(--text-muted)">🐾 Checking verified listing details...</div>
       \`;
       stream.appendChild(thinkEl);
       stream.scrollTop = stream.scrollHeight;
@@ -3498,7 +3500,7 @@ let html = `<!doctype html>
       const tryFetch = (url, timeoutMs = 20000) => {
         return new Promise((resolve, reject) => {
           const timer = setTimeout(() => reject(new Error('Tunnel timeout (>20s)')), timeoutMs);
-          const payload = { message: q, slug: slug };
+          const payload = { message: q, slug: slug, history: priorMessages };
           if (userHandoffId) {
             payload.user = userHandoffId;
             payload.handoff_id = userHandoffId;
@@ -3525,11 +3527,22 @@ let html = `<!doctype html>
       tryFetch(AGENT_TUNNEL_BASE, 20000)
         .then(data => {
           const tNode = document.getElementById(thinkingId);
-          if (tNode) tNode.remove();
           if (data && data.reply) {
+            if (tNode) tNode.remove();
             appendMsg("bot", data.reply);
             saveMsg(slug, "bot", data.reply);
+            if (data.request_id) {
+              const followId = "follow-" + Date.now();
+              const followEl = document.createElement("div");
+              followEl.id = followId;
+              followEl.className = "msg-wrap bot";
+              followEl.innerHTML = \`<div class="msg-sender">\${escapeHtml(slug.toUpperCase())}</div><div class="msg-box" style="color:var(--text-muted)">🐾 Preparing a fuller reply...</div>\`;
+              stream.appendChild(followEl);
+              stream.scrollTop = stream.scrollHeight;
+              pollForFullAnswer(data.request_id, followId);
+            }
           } else {
+            if (tNode) tNode.remove();
             appendMsg("bot", "🐾 Neural link returned empty response. Please retry.");
           }
         })
@@ -3538,6 +3551,47 @@ let html = `<!doctype html>
           if (tNode) tNode.remove();
           appendMsg("bot", "🐾 Interrogation link error (" + (err.message || 'offline') + "). Please retry.");
         });
+
+      async function pollForFullAnswer(requestId, followId) {
+        const pollUrl = AGENT_TUNNEL_BASE + encodeURIComponent(slug) + "/status/" + encodeURIComponent(requestId);
+        const deadline = Date.now() + 900000;
+        const startedAt = Date.now();
+        let slowNoticeShown = false;
+        while (Date.now() < deadline) {
+          try {
+            const response = await fetch(pollUrl, { cache: "no-store", signal: AbortSignal.timeout(20000) });
+            if (response.status === 404) {
+              const placeholder = document.getElementById(followId);
+              if (placeholder) placeholder.querySelector(".msg-box").textContent = "This follow-up expired. Your first answer is still available above.";
+              return;
+            }
+            if (!response.ok) throw new Error("HTTP " + response.status);
+            const result = await response.json();
+            if (result.status === "complete" && result.reply) {
+              const placeholder = document.getElementById(followId);
+              if (placeholder) placeholder.querySelector(".msg-box").innerHTML = renderDistillMarkdown(result.reply);
+              else appendMsg("bot", result.reply);
+              saveMsg(slug, "bot", result.reply);
+              return;
+            }
+            if (result.status === "streaming" && result.reply) {
+              const placeholder = document.getElementById(followId);
+              if (placeholder) placeholder.querySelector(".msg-box").textContent = result.reply;
+              stream.scrollTop = stream.scrollHeight;
+            }
+            if ((result.status === "pending" || result.status === "streaming") && Date.now() - startedAt > 45000 && !slowNoticeShown && !result.reply) {
+              const placeholder = document.getElementById(followId);
+              if (placeholder) placeholder.querySelector(".msg-box").textContent = "Still working on a fuller reply. Your first answer is ready above.";
+              slowNoticeShown = true;
+            }
+          } catch (err) {
+            if (Date.now() + 5000 >= deadline) break;
+          }
+          await new Promise(resolve => setTimeout(resolve, 1800));
+        }
+        const placeholder = document.getElementById(followId);
+        if (placeholder) placeholder.querySelector(".msg-box").textContent = "The fuller reply timed out. Your first answer is still available above.";
+      }
 
       function appendMsg(who, text, hId) {
         const wrap = document.createElement("div");

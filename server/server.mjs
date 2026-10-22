@@ -4,14 +4,20 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
+import { fileURLToPath } from 'node:url';
+import { randomUUID } from 'node:crypto';
 const exec = promisify(execFile);
 const PORT = Number(process.env.PORT || 8765);
-const ROOT = '/Users/34r7h/Developer/handoff/marketing/agent-creation';
-const SITE_ROOT = '/Users/34r7h/Developer/projects/catgpt';
-const AGENTS_PATH = path.join(SITE_ROOT, 'agents-full.json');
+const SERVER_DIR = path.dirname(fileURLToPath(import.meta.url));
+const SITE_ROOT = path.resolve(SERVER_DIR, '..');
+const ROOT = process.env.CATGPT_CONTEXT_ROOT || SITE_ROOT;
+const AGENTS_PATH = process.env.CATGPT_AGENTS_PATH || path.join(SITE_ROOT, 'agents-full.json');
+const COLIBRI_API_URL = process.env.COLIBRI_API_URL || 'http://127.0.0.1:8000/v1';
+const COLIBRI_MODEL = process.env.COLIBRI_MODEL || 'qwen3.6-colibri';
 
 // In-memory cache for loaded contexts
 const CONTEXTS = {};
+const CHAT_JOBS = new Map();
 
 function getAgentsList() {
   try {
@@ -200,12 +206,13 @@ function generateGroundedReply(agent, question, ctx) {
     if (bestScore > 0 && bestP) {
       // Clean up markdown headers if needed
       relevantSnippet = bestP.replace(/^#+\s*/, '').slice(0, 500);
+      if (bestP.length > relevantSnippet.length) relevantSnippet = `${relevantSnippet.replace(/\s+\S*$/, '')}…`;
     }
   }
 
   let body = '';
   if (relevantSnippet) {
-    body = `Based on my verified architecture: ${relevantSnippet}`;
+      body = `Here's what my verified materials say: ${relevantSnippet}`;
   } else if (desc) {
     body = `I operate as ${name}. Specifically, ${desc}.`;
   } else {
@@ -289,6 +296,96 @@ async function queryOllama(system, question) {
   return null;
 }
 
+function buildColibriMessages(system, question, history = []) {
+  const split = system.indexOf('\n\n');
+  const instructions = split === -1 ? system.slice(0, 900) : system.slice(0, split);
+  const materials = split === -1 ? '' : system.slice(split + 2);
+  const q = String(question).slice(0, 1200);
+  const budget = Math.max(0, 6000 - instructions.length - q.length - 300);
+  const terms = [...new Set(q.toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length > 2))];
+  const ranked = materials.split(/\n\s*\n/).map((text, index) => {
+    const lower = text.toLowerCase();
+    return { text: text.trim(), index, score: terms.reduce((n, term) => n + (lower.includes(term) ? 1 : 0), 0) };
+  }).filter(x => x.text).sort((a, b) => b.score - a.score || a.index - b.index);
+
+  const picked = [];
+  let used = 0;
+  for (const item of ranked) {
+    if (picked.length >= 8 || used >= budget) break;
+    const remaining = budget - used;
+    const part = item.text.slice(0, Math.min(1200, remaining));
+    if (!part) continue;
+    picked.push(part);
+    used += part.length + 2;
+  }
+  return [
+    { role: 'system', content: `${instructions}\n\nVerified materials:\n${picked.join('\n\n')}` },
+    ...history.slice(-8).map(m => ({
+      role: m.who === 'bot' ? 'assistant' : 'user',
+      content: String(m.text || '').slice(0, 1600)
+    })),
+    { role: 'user', content: q }
+  ];
+}
+
+async function queryColibri(system, question, history = [], onUpdate = () => {}) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 900000);
+  try {
+    const response = await fetch(`${COLIBRI_API_URL}/chat/completions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: COLIBRI_MODEL,
+        messages: buildColibriMessages(system, question, history),
+        max_tokens: 300,
+        temperature: 0.3,
+        stream: true
+      }),
+      signal: controller.signal
+    });
+    if (!response.ok) {
+      console.warn('colibri API http error:', response.status, (await response.text()).slice(0, 300));
+      return null;
+    }
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+    let reply = '';
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true }).replace(/\r\n/g, '\n');
+      let boundary;
+      while ((boundary = buffer.indexOf('\n\n')) !== -1) {
+        const frame = buffer.slice(0, boundary);
+        buffer = buffer.slice(boundary + 2);
+        for (const line of frame.split('\n')) {
+          if (!line.startsWith('data:')) continue;
+          const payload = line.slice(5).trim();
+          if (!payload || payload === '[DONE]') continue;
+          try {
+            const event = JSON.parse(payload);
+            const delta = event.choices?.[0]?.delta?.content;
+            if (typeof delta === 'string' && delta) {
+              reply += delta;
+              onUpdate(reply);
+            }
+          } catch { /* ignore non-JSON SSE comments */ }
+        }
+      }
+    }
+    const finalReply = reply.trim();
+    if (finalReply) return finalReply;
+    console.warn('colibri API returned no assistant text');
+  } catch (e) {
+    console.warn('colibri failed:', e.message);
+  } finally {
+    clearTimeout(timeout);
+  }
+  return null;
+}
+
 async function queryKaggleBrain(system, question) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 12000);
@@ -316,23 +413,19 @@ async function queryKaggleBrain(system, question) {
   }
 }
 
-async function answer(slug, question, user) {
+async function answer(slug, question, user, history = [], onUpdate = () => {}) {
   const agent = resolveAgent(slug);
   const agentName = agent ? agent.name : slug;
   const distilled = getDistilledMarkdown(slug);
   const fullContext = distilled || loadContextForSlug(slug) || agent?.desc || '';
   const userGreeting = user ? ` The user talking to you is @${user} (verified Handoff user). Address them accordingly if appropriate.` : '';
-  const system = `You are "${agentName}" (${slug}) autonomous Q&A agent in the CatGPT catalog. You speak in first person as that agent only. Never identify yourself as CopyCat or as an operator. Answer strictly grounded in your verified distilled materials below.${userGreeting} If the materials do not cover the question, say so honestly and point to what you can do; never fabricate facts, prices, or guarantees. Be catty and warm (occasional 🐾) but accurate. Never make income or outcome promises. Verified Materials for ${agentName}:\n\n${fullContext.slice(0, 48000)}`;
+  const system = `You are "${agentName}" (${slug}) autonomous Q&A agent in the CatGPT catalog. Speak in first person as that agent only; never identify yourself as CopyCat or an operator. Use only verified materials below. If they do not cover the question, say so; never invent facts, prices, or guarantees. Give a useful, descriptive answer with the relevant details and explain them clearly. Be warm and accurate; never promise income or outcomes. Verified Materials for ${agentName}:\n\n${fullContext.slice(0, 48000)}`;
 
-  // 1. Try Ollama Cloud Brain (gemma4:31b-cloud -> beam:cloud)
-  const ollamaReply = await queryOllama(system, question);
-  if (ollamaReply) return ollamaReply;
+  // 1. Prefer the local Colibri chat service so CatGPT answers run through the user's model.
+  const colibriReply = await queryColibri(system, question, history, onUpdate);
+  if (colibriReply) return colibriReply;
 
-  // 2. Try Remote Kaggle Brain
-  const kaggleReply = await queryKaggleBrain(system, question);
-  if (kaggleReply) return kaggleReply;
-
-  // 3. Fallback Grounded Reply
+  // If local Colibri is unavailable, return a grounded non-generative fallback.
   return generateGroundedReply(agent, question, fullContext);
 }
 
@@ -426,6 +519,20 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  const pollJob = url.pathname.match(/^\/api\/chat\/([a-zA-Z0-9_-]+)\/status\/([a-zA-Z0-9_-]+)$/);
+  if (req.method === 'GET' && pollJob) {
+    const [, slug, id] = pollJob;
+    const job = CHAT_JOBS.get(id);
+    if (!job || job.slug !== slug) {
+      res.writeHead(404, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'response not found' }));
+      return;
+    }
+    res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+    res.end(JSON.stringify({ status: job.status, ...(job.reply ? { reply: job.reply } : {}) }));
+    return;
+  }
+
   const m = url.pathname.match(/^\/api\/chat\/([a-zA-Z0-9_-]+)$/);
   if (req.method === 'POST' && m) {
     const slug = m[1];
@@ -439,10 +546,37 @@ const server = http.createServer(async (req, res) => {
         const question = String(parsed.message || '').trim();
         const user = String(parsed.user || parsed.handoff_id || parsed.sender || '').trim();
         if (!question) throw new Error('empty message');
+        const history = Array.isArray(parsed.history) ? parsed.history
+          .filter(m => m && (m.who === 'user' || m.who === 'bot') && typeof m.text === 'string')
+          .slice(-8) : [];
         console.log('chat', slug, user ? `@${user}` : 'anon', question.slice(0, 80));
-        const reply = await answer(slug, question, user);
+        const agent = resolveAgent(slug);
+        const context = getDistilledMarkdown(slug) || ctx || agent?.desc || '';
+        const reply = generateGroundedReply(agent, question, context);
+        const requestId = randomUUID();
+        for (const [id, job] of CHAT_JOBS) {
+          if (job.status === 'complete' && Date.now() - (job.completedAt || 0) > 10 * 60 * 1000) CHAT_JOBS.delete(id);
+        }
+        CHAT_JOBS.set(requestId, { slug, status: 'pending', createdAt: Date.now() });
+        while (CHAT_JOBS.size > 200) CHAT_JOBS.delete(CHAT_JOBS.keys().next().value);
+        answer(slug, question, user, history, partial => {
+          const job = CHAT_JOBS.get(requestId);
+          if (!job) return;
+          job.status = 'streaming';
+          job.reply = partial;
+        }).then(fullReply => {
+          const job = CHAT_JOBS.get(requestId);
+          if (!job) return;
+          job.status = 'complete';
+          job.reply = fullReply;
+          job.completedAt = Date.now();
+        }).catch(err => {
+          const job = CHAT_JOBS.get(requestId);
+          if (job) { job.status = 'complete'; job.reply = reply; }
+          console.error('chat completion err', err.message);
+        });
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ reply }));
+        res.end(JSON.stringify({ reply, request_id: requestId, pending: true }));
       } catch (err) {
         console.error('chat err', err.message);
         res.writeHead(500, { 'Content-Type': 'application/json' });
@@ -456,7 +590,6 @@ const server = http.createServer(async (req, res) => {
     let body = '';
     req.on('data', c => body += c);
     req.on('end', async () => {
-      const SITE_ROOT = '/Users/34r7h/Developer/projects/catgpt';
       try {
         const parsed = JSON.parse(body || '{}');
         const targetUrl = String(parsed.url || '').trim();
@@ -472,7 +605,7 @@ const server = http.createServer(async (req, res) => {
         const prompt = 'Return ONLY valid JSON with these fields: "slug" (kebab-case, unique, no spaces), "name", "domain" (hostname), "category" ("Auto-Distilled"), "desc" (one sentence, max 240 chars), "website" (the URL), "prompts" (array of 4 short questions). Do not include pairUrl. Materials from ' + targetUrl + ':\n' + text;
         let agent = null;
         try {
-          const { stdout } = await exec('/Users/34r7h/.local/bin/claude', ['-p', prompt], {
+          const { stdout } = await exec(process.env.CLAUDE_BIN || 'claude', ['-p', prompt], {
             timeout: 25000,
             env: process.env,
             maxBuffer: 16 * 1024 * 1024,
@@ -513,7 +646,7 @@ const server = http.createServer(async (req, res) => {
         }
         agent.pairUrl = agent.pairUrl || '';
         agent.origin = agent.origin || agent.domain || targetUrl;
-        const agentsPath = SITE_ROOT + '/agents-full.json';
+        const agentsPath = AGENTS_PATH;
         const agents = JSON.parse(fs.readFileSync(agentsPath, 'utf8'));
         if (agents.some(a => a.slug === agent.slug || a.domain === agent.domain)) {
           res.writeHead(409, { 'Content-Type': 'application/json' });
@@ -545,7 +678,7 @@ const server = http.createServer(async (req, res) => {
   if ((req.method === 'GET' || req.method === 'HEAD') && url.pathname.startsWith('/agent/')) {
     const slug = decodeURIComponent(url.pathname.replace(/^\/agent\//, '').split('/')[0]);
     const a = resolveAgent(slug);
-    const STATIC_DIR = path.resolve(path.join(path.dirname(new URL(import.meta.url).pathname), '..'));
+    const STATIC_DIR = SITE_ROOT;
     const indexPath = path.join(STATIC_DIR, 'index.html');
     if (fs.existsSync(indexPath)) {
       let pageHtml = fs.readFileSync(indexPath, 'utf8');
@@ -587,7 +720,7 @@ const server = http.createServer(async (req, res) => {
 
   // Static file serving (index.html, adopt.html, logos, etc.)
   if (req.method === 'GET' || req.method === 'HEAD') {
-    const STATIC_DIR = path.resolve(path.join(path.dirname(new URL(import.meta.url).pathname), '..'));
+    const STATIC_DIR = SITE_ROOT;
     const MIME_TYPES = {
       '.html': 'text/html; charset=utf-8',
       '.css': 'text/css; charset=utf-8',
