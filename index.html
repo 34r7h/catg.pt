@@ -1748,16 +1748,16 @@
             if (tNode) tNode.remove();
             appendMsg("bot", data.reply);
             saveMsg(slug, "bot", data.reply);
-            if (data.request_id) {
-              const followId = "follow-" + Date.now();
-              const followEl = document.createElement("div");
-              followEl.id = followId;
-              followEl.className = "msg-wrap bot";
-              followEl.innerHTML = `<div class="msg-sender">${escapeHtml(slug.toUpperCase())}</div><div class="msg-box" style="color:var(--text-muted)">🐾 Preparing a fuller reply...</div>`;
-              stream.appendChild(followEl);
-              stream.scrollTop = stream.scrollHeight;
-              pollForFullAnswer(data.request_id, followId);
-            }
+          } else if (data && data.request_id) {
+            if (tNode) tNode.remove();
+            const followId = "follow-" + Date.now();
+            const followEl = document.createElement("div");
+            followEl.id = followId;
+            followEl.className = "msg-wrap bot";
+            followEl.innerHTML = `<div class="msg-sender">${escapeHtml(slug.toUpperCase())}</div><div class="msg-box" style="color:var(--text-muted)">🐾 Preparing a reply...</div>`;
+            stream.appendChild(followEl);
+            stream.scrollTop = stream.scrollHeight;
+            pollForFullAnswer(data.request_id, followId);
           } else {
             if (tNode) tNode.remove();
             appendMsg("bot", "🐾 Neural link returned empty response. Please retry.");
@@ -1770,39 +1770,30 @@
         });
 
       async function pollForFullAnswer(requestId, followId) {
-        const pollUrl = AGENT_TUNNEL_BASE + "/status/" + encodeURIComponent(requestId);
         const deadline = Date.now() + 900000;
         const startedAt = Date.now();
         let slowNoticeShown = false;
         while (Date.now() < deadline) {
           try {
-            const response = await fetch(pollUrl, {
+            const response = await fetch(AGENT_TUNNEL_BASE, {
               method: "POST",
+              headers: { "Content-Type": "application/json" },
               cache: "no-store",
+              body: JSON.stringify({ app: "catgpt", from: "copycat", to: "server", action: "reply", data: { request_id: requestId } }),
               signal: AbortSignal.timeout(20000)
             });
-            if (response.status === 404) {
-              const placeholder = document.getElementById(followId);
-              if (placeholder) placeholder.querySelector(".msg-box").textContent = "This follow-up expired. Your first answer is still available above.";
-              return;
-            }
             if (!response.ok) throw new Error("HTTP " + response.status);
             const result = await response.json();
-            if (result.status === "complete" && result.reply) {
+            if (result.reply) {
               const placeholder = document.getElementById(followId);
               if (placeholder) placeholder.querySelector(".msg-box").innerHTML = renderDistillMarkdown(result.reply);
               else appendMsg("bot", result.reply);
               saveMsg(slug, "bot", result.reply);
               return;
             }
-            if (result.status === "streaming" && result.reply) {
+            if (result.pending && Date.now() - startedAt > 45000 && !slowNoticeShown) {
               const placeholder = document.getElementById(followId);
-              if (placeholder) placeholder.querySelector(".msg-box").textContent = result.reply;
-              stream.scrollTop = stream.scrollHeight;
-            }
-            if ((result.status === "pending" || result.status === "streaming") && Date.now() - startedAt > 45000 && !slowNoticeShown && !result.reply) {
-              const placeholder = document.getElementById(followId);
-              if (placeholder) placeholder.querySelector(".msg-box").textContent = "Still working on a fuller reply. Your first answer is ready above.";
+              if (placeholder) placeholder.querySelector(".msg-box").textContent = "Still working on your reply — this can take a minute.";
               slowNoticeShown = true;
             }
           } catch (err) {
@@ -1811,7 +1802,7 @@
           await new Promise(resolve => setTimeout(resolve, 1800));
         }
         const placeholder = document.getElementById(followId);
-        if (placeholder) placeholder.querySelector(".msg-box").textContent = "The fuller reply timed out. Your first answer is still available above.";
+        if (placeholder) placeholder.querySelector(".msg-box").textContent = "The reply timed out. Please retry.";
       }
 
       function appendMsg(who, text, hId) {
