@@ -3535,7 +3535,7 @@ let html = `<!doctype html>
           const timer = setTimeout(() => reject(new Error('Tunnel timeout (>20s)')), timeoutMs);
           const envelope = {
             app: "catgpt",
-            from: slug,
+            from: "copycat",
             to: "server",
             action: "ask",
             data: {
