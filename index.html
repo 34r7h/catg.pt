@@ -1636,7 +1636,27 @@
       }
     };
 
-    window.submitChat = function(slug) {
+    async function getDistilledDossier(slug) {
+      const enc = encodeURIComponent(slug);
+      const endpoints = [
+        'https://tunnel.handoff.lol/t/copycat/api/dossier/' + enc + '?format=text',
+        'https://tunnel.handoff.lol/t/copycat/dossiers/' + enc + '.md'
+      ];
+      for (const ep of endpoints) {
+        try {
+          const res = await fetch(ep, { signal: AbortSignal.timeout(4500) });
+          if (res.ok) {
+            const text = await res.text();
+            if (text && text.length > 20 && !text.trim().startsWith('<') && !text.includes('<!DOCTYPE') && !text.includes('<html') && !text.includes('<head')) {
+              return text;
+            }
+          }
+        } catch (_) {}
+      }
+      return '';
+    }
+
+    window.submitChat = async function(slug) {
       const input = document.getElementById("chat-input");
       const stream = document.getElementById("chat-stream");
       if (!input || !stream) return;
@@ -1661,6 +1681,26 @@
       `;
       stream.appendChild(thinkEl);
       stream.scrollTop = stream.scrollHeight;
+
+      async function getDistilledDossier(slug) {
+        const enc = encodeURIComponent(slug);
+        const endpoints = [
+          'https://tunnel.handoff.lol/t/copycat/api/dossier/' + enc + '?format=text',
+          'https://tunnel.handoff.lol/t/copycat/dossiers/' + enc + '.md'
+        ];
+        for (const ep of endpoints) {
+          try {
+            const res = await fetch(ep, { signal: AbortSignal.timeout(4500) });
+            if (res.ok) {
+              const text = await res.text();
+              if (text && text.length > 20 && !text.trim().startsWith('<') && !text.includes('<!DOCTYPE') && !text.includes('<html') && !text.includes('<head')) {
+                return text;
+              }
+            }
+          } catch (_) {}
+        }
+        return '';
+      }
 
       const tryFetch = (url, timeoutMs = 20000) => {
         return new Promise((resolve, reject) => {
@@ -1725,7 +1765,7 @@
         });
 
       async function pollForFullAnswer(requestId, followId) {
-        const pollUrl = AGENT_TUNNEL_BASE + encodeURIComponent(slug) + "/status/" + encodeURIComponent(requestId);
+        const pollUrl = AGENT_TUNNEL_BASE + "/status/" + encodeURIComponent(requestId);
         const deadline = Date.now() + 900000;
         const startedAt = Date.now();
         let slowNoticeShown = false;

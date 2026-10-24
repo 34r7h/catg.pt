@@ -3593,7 +3593,7 @@ let html = `<!doctype html>
         });
 
       async function pollForFullAnswer(requestId, followId) {
-        const pollUrl = AGENT_TUNNEL_BASE + encodeURIComponent(slug) + "/status/" + encodeURIComponent(requestId);
+        const pollUrl = AGENT_TUNNEL_BASE + "/status/" + encodeURIComponent(requestId);
         const deadline = Date.now() + 900000;
         const startedAt = Date.now();
         let slowNoticeShown = false;
