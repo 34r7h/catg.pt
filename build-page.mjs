@@ -3533,16 +3533,23 @@ let html = `<!doctype html>
       const tryFetch = (url, timeoutMs = 20000) => {
         return new Promise((resolve, reject) => {
           const timer = setTimeout(() => reject(new Error('Tunnel timeout (>20s)')), timeoutMs);
-          const payload = { message: q, slug: slug, history: priorMessages };
+          const envelope = {
+            app: "catgpt",
+            from: "copycat",
+            to: "server",
+            action: "ask",
+            data: {
+              context: { history: priorMessages, slug: slug },
+              prompt: q
+            }
+          };
           if (userHandoffId) {
-            payload.user = userHandoffId;
-            payload.handoff_id = userHandoffId;
-            payload.sender = userHandoffId;
+            envelope.data.context.userHandoffId = userHandoffId;
           }
           fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(envelope)
           })
           .then(r => {
             clearTimeout(timer);
