@@ -1702,9 +1702,9 @@
         return '';
       }
 
-      const tryFetch = (url, timeoutMs = 20000) => {
+      const tryFetch = (url, timeoutMs = 30000) => {
         return new Promise((resolve, reject) => {
-          const timer = setTimeout(() => reject(new Error('Tunnel timeout (>20s)')), timeoutMs);
+          const timer = setTimeout(() => reject(new Error('Tunnel timeout (>30s)')), timeoutMs);
           getDistilledDossier(slug).then(dossier => {
             const envelope = {
               app: "catgpt",
