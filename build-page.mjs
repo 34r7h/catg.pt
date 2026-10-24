@@ -3530,16 +3530,37 @@ let html = `<!doctype html>
       stream.appendChild(thinkEl);
       stream.scrollTop = stream.scrollHeight;
 
+      async function getDistilledDossier(slug) {
+        const enc = encodeURIComponent(slug);
+        const endpoints = [
+          'https://tunnel.handoff.lol/t/copycat/api/dossier/' + enc + '?format=text',
+          'https://tunnel.handoff.lol/t/copycat/dossiers/' + enc + '.md'
+        ];
+        for (const ep of endpoints) {
+          try {
+            const res = await fetch(ep, { signal: AbortSignal.timeout(4500) });
+            if (res.ok) {
+              const text = await res.text();
+              if (text && text.length > 20 && !text.trim().startsWith('<') && !text.includes('<!DOCTYPE') && !text.includes('<html') && !text.includes('<head')) {
+                return text;
+              }
+            }
+          } catch (_) {}
+        }
+        return '';
+      }
+
       const tryFetch = (url, timeoutMs = 20000) => {
         return new Promise((resolve, reject) => {
           const timer = setTimeout(() => reject(new Error('Tunnel timeout (>20s)')), timeoutMs);
+          const dossier = await getDistilledDossier(slug);
           const envelope = {
             app: "catgpt",
             from: "copycat",
             to: "server",
             action: "ask",
             data: {
-              context: { history: priorMessages, slug: slug },
+              context: { history: priorMessages, slug: slug, dossier: dossier },
               prompt: q
             }
           };
