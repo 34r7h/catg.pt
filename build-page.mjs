@@ -3255,6 +3255,39 @@ let html = `<!doctype html>
           continue;
         }
 
+        if (line.startsWith('|')) {
+          if (inList) { out.push('</ul>'); inList = false; }
+          const tableRows = [line];
+          while (i + 1 < lines.length && lines[i + 1].trim().startsWith('|')) {
+            tableRows.push(lines[i + 1].trim());
+            i++;
+          }
+          const splitCells = (row) => row.replace(/^\\|/, '').replace(/\\|$/, '').split('|').map(c => c.trim());
+          const isSeparatorRow = (row) => /^[-:| ]+$/.test(row) && row.includes('-');
+          const sepRows = tableRows.filter(isSeparatorRow);
+          const bodyRows = tableRows.filter(row => !isSeparatorRow(row));
+          const hasHeader = sepRows.length > 0 && bodyRows.length > 0;
+          out.push('<div style="overflow-x:auto;margin:10px 0 12px 0"><table style="border-collapse:collapse;width:100%;font-size:12.5px;line-height:1.5">');
+          if (hasHeader) {
+            out.push('<thead><tr>');
+            splitCells(bodyRows[0]).forEach(cell => {
+              out.push('<th style="padding:8px 10px;border:1px solid #cbd5e1;background:#e2e8f0;font-family:monospace;font-weight:800;color:var(--text-main);text-align:left">' + inlineFmt(cell) + '</th>');
+            });
+            out.push('</tr></thead>');
+            bodyRows.shift();
+          }
+          out.push('<tbody>');
+          bodyRows.forEach(row => {
+            out.push('<tr>');
+            splitCells(row).forEach(cell => {
+              out.push('<td style="padding:8px 10px;border:1px solid #dbe4f0;color:var(--text-main);vertical-align:top">' + inlineFmt(cell) + '</td>');
+            });
+            out.push('</tr>');
+          });
+          out.push('</tbody></table></div>');
+          continue;
+        }
+
         if (line.startsWith('### ')) {
           if (inList) { out.push('</ul>'); inList = false; }
           out.push('<h5 style="margin:14px 0 6px 0;font-size:13px;font-weight:800;color:var(--text-main);font-family:monospace">' + inlineFmt(line.slice(4)) + '</h5>');
