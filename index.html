@@ -1705,32 +1705,36 @@
       const tryFetch = (url, timeoutMs = 20000) => {
         return new Promise((resolve, reject) => {
           const timer = setTimeout(() => reject(new Error('Tunnel timeout (>20s)')), timeoutMs);
-          const dossier = await getDistilledDossier(slug);
-          const envelope = {
-            app: "catgpt",
-            from: "copycat",
-            to: "server",
-            action: "ask",
-            data: {
-              context: { history: priorMessages, slug: slug, dossier: dossier },
-              prompt: q
+          getDistilledDossier(slug).then(dossier => {
+            const envelope = {
+              app: "catgpt",
+              from: "copycat",
+              to: "server",
+              action: "ask",
+              data: {
+                context: { history: priorMessages, slug: slug, dossier: dossier },
+                prompt: q
+              }
+            };
+            if (userHandoffId) {
+              envelope.data.context.userHandoffId = userHandoffId;
             }
-          };
-          if (userHandoffId) {
-            envelope.data.context.userHandoffId = userHandoffId;
-          }
-          fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(envelope)
-          })
-          .then(r => {
-            clearTimeout(timer);
-            if (!r.ok) throw new Error('HTTP ' + r.status);
-            return r.json();
-          })
-          .then(resolve)
-          .catch(err => {
+            fetch(url, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(envelope)
+            })
+            .then(r => {
+              clearTimeout(timer);
+              if (!r.ok) throw new Error('HTTP ' + r.status);
+              return r.json();
+            })
+            .then(resolve)
+            .catch(err => {
+              clearTimeout(timer);
+              reject(err);
+            });
+          }).catch(err => {
             clearTimeout(timer);
             reject(err);
           });
