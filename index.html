@@ -1776,7 +1776,11 @@
         let slowNoticeShown = false;
         while (Date.now() < deadline) {
           try {
-            const response = await fetch(pollUrl, { cache: "no-store", signal: AbortSignal.timeout(20000) });
+            const response = await fetch(pollUrl, {
+              method: "POST",
+              cache: "no-store",
+              signal: AbortSignal.timeout(20000)
+            });
             if (response.status === 404) {
               const placeholder = document.getElementById(followId);
               if (placeholder) placeholder.querySelector(".msg-box").textContent = "This follow-up expired. Your first answer is still available above.";
