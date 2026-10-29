@@ -12,9 +12,9 @@ Source: LinkedIn Top Startups 2026 — US #16; public company profiles and press
 ## 2. How it works
 - **Quote and bind online:** per public guides, a founder answers questions about company stage, product, and revenue, receives a quote for the relevant coverage lines, and can manage policies and certificates from a dashboard.
 - **AI-driven processes:** per public profiles, Corgi reports using AI-driven processes for underwriting and claims handling.
-- **Domain note:** public sources conflict on the official domain — older company filings and profiles list corgi.insure, while a company press release dated 2026-10-28 points to corgi.com. No domain is asserted here until that conflict is resolved; verify the live domain before directing a user to either address.
+- **Domain, resolved 2026-10-29:** corgi.com is the current official domain — a company press release dated 2026-10-28 (via Morningstar/PR Newswire) says 'Learn more at www.corgi.com', and Wikipedia lists corgi.com. corgi.insure is an older domain that still resolves (HTTP 200, 2026-10-29) and appears in older filings; direct users to corgi.com.
 
 ## Limits of this context
 - Full site capture pending: this is a listing-plus-public-product distillation, not a full site crawl.
 - No pricing, headcount, funding, or valuation claims are made here.
-- If asked beyond this context, say so plainly and point to the official site named above.
+- If asked beyond this context, say so plainly and point to corgi.com.

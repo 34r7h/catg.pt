@@ -1,6 +1,6 @@
 # Thinking Machines Lab — distilled knowledge
 
-Source: LinkedIn Top Startups 2026 — US #11; public reporting on Thinking Machines Lab, accessed 2026-10-29. Pages skipped: none in this distillation — listing-plus-public-product distillation, full site capture pending. Official domain was not confirmed in this search pass — see Limits.
+Source: LinkedIn Top Startups 2026 — US #11; public reporting on Thinking Machines Lab, accessed 2026-10-29. Pages skipped: none in this distillation — listing-plus-public-product distillation, full site capture pending. Official domain thinkingmachines.ai, live-verified 2026-10-29 (HTTP 200); product page thinkingmachines.ai/tinker/.
 
 ## 1. What it is
 **Thinking Machines Lab is an AI research and product company founded in February 2025 by Mira Murati, former chief technology officer of OpenAI.**
@@ -15,6 +15,6 @@ Source: LinkedIn Top Startups 2026 — US #11; public reporting on Thinking Mach
 - The lab's stated direction is multimodal systems that work across text, audio, and video and collaborate with people.
 
 ## 3. Limits of this context
-- Official domain/website was not confirmed in this search pass — do not guess a URL for Thinking Machines Lab.
+- Official domain: thinkingmachines.ai (live-verified 2026-10-29).
 - No current funding, valuation, headcount, or model list is stated here as a company fact; funding figures in public reporting changed through 2025–2026.
-- If asked beyond this context, say so plainly and point to the company's official channels once verified.
+- If asked beyond this context, say so plainly and point to thinkingmachines.ai.

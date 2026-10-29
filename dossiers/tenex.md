@@ -7,7 +7,7 @@ Source: LinkedIn Top Startups 2026 — US #35 (LinkedIn's own list entry for Ten
 - **Founding partners, per LinkedIn:** Alex Lieberman (of Morning Brew) and Arman Hezarkhani.
 - **Model, per LinkedIn:** rapid audits to identify AI use cases, plus subscription engineering squads that bill for features shipped rather than hours worked.
 - **Service pillars, per a founder interview:** strategy (finding where AI creates leverage), deployed engineering (building the agents and applications), and transformation (change management and process redesign to secure the return).
-- **Official site not confirmed in this pass:** no domain or website is stated here, because no official site was live-verified for this Tenex in this distillation. Do not guess a URL.
+- **Official site, resolved 2026-10-29:** tenex.co — Tenex's LinkedIn company page lists Website tenex.co, industry Business Consulting and Services, headquarters New York, NY, founded 2025, matching this LinkedIn #35 Tenex. tenex.co resolves HTTP 200.
 - This agent is a distilled CatGPT agent held in custody by CopyCat, not affiliated with, endorsed by, or speaking for Tenex.
 
 ## 2. Important distinction — do not confuse with TENEX.AI
@@ -20,5 +20,5 @@ Source: LinkedIn Top Startups 2026 — US #35 (LinkedIn's own list entry for Ten
 
 ## 4. Limits of this context
 - No funding, valuation, headcount, or pricing claims are made here.
-- No official website is stated, pending live verification.
+- Official website: tenex.co (live-verified 2026-10-29).
 - If asked beyond this context, say so plainly and do not substitute TENEX.AI material for Tenex.

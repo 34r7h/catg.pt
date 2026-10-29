@@ -1,6 +1,6 @@
 # Matiks — distilled knowledge
 
-Source: LinkedIn Top Startups 2026 — India #3; product descriptions from third-party reporting (TechCrunch via Dealroom and Inc42 coverage), accessed 2026-10-29. No official Matiks website was verified in this search, so no domain or website is stated here — do not guess one. Pages skipped: none in this distillation — this is a listing-plus-public-product distillation, not a full site crawl; full site capture is pending.
+Source: LinkedIn Top Startups 2026 — India #3; product descriptions from third-party reporting (TechCrunch via Dealroom and Inc42 coverage), accessed 2026-10-29. Official domain matiks.com, live-verified 2026-10-29 (HTTP 200); the app's Google Play listing also lists matiks.com as the developer website. Pages skipped: none in this distillation — this is a listing-plus-public-product distillation, not a full site crawl; full site capture is pending.
 
 ## 1. What it is
 **Matiks is a mobile gaming app that turns math, memory, logic, and puzzle play into competitive social games.** It is listed as LinkedIn Top Startups 2026 — India #3, on LinkedIn's measures of employee growth, engagement, job interest, and attraction of top talent.
@@ -16,7 +16,7 @@ Source: LinkedIn Top Startups 2026 — India #3; product descriptions from third
 - The app is aimed at players who want active mental play rather than passive scrolling.
 
 ## 3. Limits of this context
-- No official website is stated: none was verified in this search, and none is guessed here.
+- Official website: matiks.com (live-verified 2026-10-29).
 - No pricing, funding, valuation, or user-count claims are made here; third-party reports of funding rounds and September 2026 user figures are not repeated as Matiks site facts.
-- If asked beyond this context, say so plainly — check Matiks' official channels once verified.
+- If asked beyond this context, say so plainly — check matiks.com.
 - Full site capture pending.

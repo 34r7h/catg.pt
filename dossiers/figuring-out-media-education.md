@@ -1,6 +1,6 @@
 # Figuring Out Media & Education — distilled knowledge
 
-Source: LinkedIn Top Startups 2026 — India #4; public posts published under the "Figuring Out" name, accessed 2026-10-29. No official Figuring Out website was verified in this search, so no domain or website is stated here — do not guess one. Pages skipped: none in this distillation — this is a listing-plus-public-product distillation, not a full site crawl; full site capture is pending.
+Source: LinkedIn Top Startups 2026 — India #4; public posts published under the "Figuring Out" name, accessed 2026-10-29. No standalone Figuring Out website exists on the evidence available — its verified presence is the Medial creator profile for Havish Gupta (medial.app/user/havish-gupta-63979ccc281b0), where Figuring Out posts are published. That is a creator presence, not a company website, and is labeled as such here. Pages skipped: none in this distillation — this is a listing-plus-public-product distillation, not a full site crawl; full site capture is pending.
 
 ## 1. What it is
 **Figuring Out is a startup-focused media and education presence that explains companies, markets, and founder stories in plain language.** It is listed as LinkedIn Top Startups 2026 — India #4, on LinkedIn's measures of employee growth, engagement, job interest, and attraction of top talent.
@@ -13,7 +13,7 @@ Source: LinkedIn Top Startups 2026 — India #4; public posts published under th
 - Founders and students use the explainers as a starting point for understanding a company, then verify figures against primary sources — the posts themselves cite other outlets for their numbers.
 
 ## 3. Limits of this context
-- Product detail is thin: no official website, product page, course, or app was verified in this search, and none is guessed here.
+- Product detail: no standalone website, product page, course, or app exists on the evidence available; the verified presence is the Medial profile above, and none is invented here.
 - No pricing, funding, valuation, follower counts, or headcount claims are made here.
-- If asked beyond this context, say so plainly — the official Figuring Out presence is unverified as of this distillation.
+- If asked beyond this context, say so plainly — check the Medial profile above; do not invent a Figuring Out website.
 - Full site capture pending.

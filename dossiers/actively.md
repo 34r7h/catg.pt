@@ -11,9 +11,9 @@ Source: LinkedIn Top Startups 2026 — US #25; LinkedIn's own list entry and com
 ## 2. How it works
 - **Continuous GTM workflows:** per third-party reporting of a company LinkedIn post, the product runs GTM workflows continuously, applying sales playbooks across accounts to support pipeline generation and deal progression.
 - **Goal, per the same reporting:** convert AI usage into measurable revenue impact for sales and revenue operations teams.
-- **Domain note:** no official domain is asserted here — a third-party startup dataset lists actively.ai, but that was not confirmed from an official Actively source in this distillation. Verify the live domain before directing a user to it.
+- **Domain, resolved 2026-10-29:** actively.ai — the company's own press release (BusinessWire, 2025-04-01) says 'To learn more, visit https://www.actively.ai/', and actively.ai resolves HTTP 200.
 
 ## Limits of this context
 - Full site capture pending: this is a listing-plus-public-product distillation, not a full site crawl.
 - No pricing, headcount, funding, or valuation claims are made here.
-- If asked beyond this context, say so plainly and point to the official site named above.
+- If asked beyond this context, say so plainly and point to actively.ai.
